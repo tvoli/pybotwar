@@ -1,0 +1,52 @@
+pybotwar is a fun and educational game where players
+create computer programs to control simulated robots
+to compete in a battle arena.
+
+pybotwar:
+http://pybotwar.googlecode.com
+
+
+pybotwar was inspired by the game RobotWar that existed
+for the Apple ][ in the early 1980s. However, the method
+of coding is more akin to the style of programs used
+for the FIRST robotics competition, where a particular
+user-defined method is called repeatedly (60 times
+per second in this case) and must finish in a set
+amount of time to avoid putting the robot in to an
+error state and disabling it.
+
+RobotWar:
+http://en.wikipedia.org/wiki/RobotWar
+
+FIRST Robotics Competition:
+http://en.wikipedia.org/wiki/FIRST_Robotics
+
+
+Robot programs run in a separate process from the
+main simulation, and communicate over standard input
+and standard output channels. Theoretically, this
+means that the robots could be limited in the amount
+of system access they have, and how much of the
+system's resources they can consume.
+
+CAUTION!
+Right now, that is not the case. Robot programs run
+as regular Python programs, using the regular Python
+interpreter, and can do anything any other program
+can do.
+
+In the future, I intend to implement some kind of
+sandboxing for robot programs, but that is not done.
+
+
+pybotwar uses pybox2d for the physical simulation,
+and uses pygame and pygsear for the visualization.
+
+pybox2d:
+http://pybox2d.googlecode.com/
+
+pygame:
+http://pygame.org/
+
+pygsear:
+http://www.nongnu.org/pygsear/
