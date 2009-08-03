@@ -356,10 +356,16 @@ class World(object):
                 self.bullets.remove(model)
             #print 's0', self.v.sprites
             model.v.kill()
+
+            if model.body.userData['kind'] == 'robot':
+                model.t.kill()
+                self.w.DestroyBody(model.turret)
+                del self.robots[model.name]
             #print 's1', self.v.sprites
             #print 'destroying', id(body)
             self.w.DestroyBody(body)
             #print 'destroyed', id(body)
+
 
 
 
@@ -437,6 +443,8 @@ class CL(box2d.b2ContactListener):
                 actor2.health -=1
                 if actor2.health <= 0:
                     actor2.alive = False
+                    if actor2 not in self.w.to_destroy:
+                        self.w.to_destroy.append(actor2)
                 else:
                     print 'Robot', actor2.name, 'down to', actor2.health
 
@@ -449,6 +457,8 @@ class CL(box2d.b2ContactListener):
                 actor1.health -=1
                 if actor1.health <= 0:
                     actor1.alive = False
+                    if actor1 not in self.w.to_destroy:
+                        self.w.to_destroy.append(actor1)
                 else:
                     print 'Robot', actor1.name, 'down to', actor1.health
 
