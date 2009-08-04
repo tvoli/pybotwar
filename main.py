@@ -33,10 +33,6 @@ except ImportError:
 
 
 def run(testmode=False):
-
-    maxforce = 5
-    maxtorque = 15
-
     models = {}
     procs = {}
     results = {}
@@ -140,12 +136,12 @@ def run(testmode=False):
 
             for kind, val in commands.items():
                 if kind == 'FORCE':
-                    force = maxforce * val/100.0
+                    force = conf.maxforce * val/100.0
                     localforce = box2d.b2Vec2(val, 0)
                     worldforce = body.GetWorldVector(localforce)
                     body.ApplyForce(worldforce, pos)
                 elif kind == 'TORQUE':
-                    torque = maxtorque * val/100.0
+                    torque = conf.maxtorque * val/100.0
                     body.ApplyTorque(torque)
                 elif kind == 'FIRE':
                     if val:
