@@ -33,7 +33,7 @@ class Robot(object):
         self.n = Robot.nrobots
 
         self.alive = True
-        self.health = 10
+        self.health = conf.maxhealth
         self.name = name
 
         self._pingtype = 'w'
@@ -46,17 +46,17 @@ class Robot(object):
         bodyDef.position = pos
         bodyDef.angle = ang
 
-        bodyDef.linearDamping = 1.5
-        bodyDef.angularDamping = 3.0
+        bodyDef.linearDamping = conf.robot_linearDamping
+        bodyDef.angularDamping = conf.robot_angularDamping
         bodyDef.userData = {}
 
         body = w.CreateBody(bodyDef)
 
         shapeDef = box2d.b2PolygonDef()
         shapeDef.SetAsBox(1, 1)
-        shapeDef.density = 1
-        shapeDef.friction = 0.3
-        shapeDef.restitution = 0.4
+        shapeDef.density = conf.robot_density
+        shapeDef.friction = conf.robot_friction
+        shapeDef.restitution = conf.robot_restitution
         shapeDef.filter.groupIndex = -self.n
         body.CreateShape(shapeDef)
         body.SetMassFromShapes()
@@ -86,7 +86,7 @@ class Robot(object):
 
         jointDef = box2d.b2RevoluteJointDef()
         jointDef.Initialize(body, turret, pos)
-        jointDef.maxMotorTorque = 10.0
+        jointDef.maxMotorTorque = conf.turret_maxMotorTorque
         jointDef.motorSpeed = 0.0
         jointDef.enableMotor = True
         self.turretjoint = w.CreateJoint(jointDef).getAsType()
@@ -144,7 +144,7 @@ class Bullet(object):
 
         shapeDef = box2d.b2PolygonDef()
         shapeDef.SetAsBox(.1, .1)
-        shapeDef.density = .2
+        shapeDef.density = conf.bullet_density
         shapeDef.restitution = 0
         shapeDef.friction = 0
         shapeDef.filter.groupIndex = -robot.n
