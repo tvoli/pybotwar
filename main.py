@@ -23,10 +23,10 @@ import time
 import world
 from world import box2d
 
+import conf
+
 
 def run(testmode=False):
-    python = '/usr/bin/python'
-    ctrlpy = 'control.py'
     r1 = 'robot01'
     r2 = 'robot02'
     r3 = 'robot03'
@@ -67,7 +67,10 @@ def run(testmode=False):
         while robotname in w.robots:
             robotname += '_'
         print 'STARTING', robotname,
-        proc = subprocess.Popen([python, ctrlpy, robot, robotname], stdin=PIPE, stdout=PIPE)
+        proc = subprocess.Popen([conf.subproc_python,
+                                    conf.subproc_main,
+                                    robot, robotname],
+                                    stdin=PIPE, stdout=PIPE)
         result = proc.stdout.readline().strip()
 
         if result in ['ERROR', 'END']:
