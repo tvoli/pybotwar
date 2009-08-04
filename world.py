@@ -21,9 +21,12 @@ import random
 import Box2D as box2d
 pi = box2d.b2_pi
 
-import view
-
 import conf
+
+if conf.graphical_display:
+    import view
+else:
+    import noview as view
 
 
 class Robot(object):

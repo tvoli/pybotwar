@@ -1,7 +1,6 @@
 display of robot status
 distance/time to shell explosion
 damage from running in to walls or other robots
-no display mode
 limit startup time for each robot (1 second max?)
 additional components:
     selectable components
