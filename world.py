@@ -265,7 +265,7 @@ class World(object):
 
     def makebullet(self, rname):
         robot = self.robots[rname]
-        if robot._cannonheat > 100:
+        if robot._cannonheat > conf.cannon_maxheat:
             return None
 
         bullet = Bullet(self.w, robot)
@@ -273,7 +273,7 @@ class World(object):
 
         self.bullets.append(bullet)
 
-        robot._cannonheat += 20
+        robot._cannonheat += conf.cannon_heating_per_shot
 
         return bullet
 
@@ -335,7 +335,7 @@ class World(object):
             robot.t.setpos(pos2)
             robot.t.set_rotation(-ang-tang)
 
-            robot._cannonheat -= .1
+            robot._cannonheat -= conf.cannon_cooling_per_tick
 
         for bullet in self.bullets:
             b = bullet.body

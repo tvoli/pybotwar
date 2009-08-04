@@ -29,6 +29,12 @@ robot_angularDamping = 3.0
 robot_friction = 0.3
 robot_restitution = 0.4
 
+## cannon
+cannon_maxheat = 100
+cannon_heating_per_shot = 20
+cannon_cooling_per_tick = 0.1
+
+## turret
 turret_maxMotorTorque = 10.0
 
 
