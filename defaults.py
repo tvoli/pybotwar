@@ -14,6 +14,7 @@ robots = [r1, r2, r3, r4, r5]
 
 # Game
 maxhealth = 10
+remove_dead_robots = True
 
 
 # Physics
