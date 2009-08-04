@@ -27,31 +27,10 @@ import conf
 
 
 def run(testmode=False):
-    r1 = 'robot01'
-    r2 = 'robot02'
-    r3 = 'robot03'
-    r4 = 'robot04'
-    r5 = 'robot05'
 
     maxforce = 5
     maxtorque = 15
 
-    robots = [r1, r2, r3, r4, r5]
-    #robots = [r1]
-    #robots = [r1, r1, r1, r1]
-    #robots = [r1, r1, r1, r1, r1, r1, r1, r1, r1]
-    #robots = [r1, r3, r1, r3, r2, r1, r2, r4, r4]
-    #robots = [r1, r3, r1, r3, r1, r4, r4]
-    #robots = [r3, r3, r3, r3]
-    #robots = [r2]
-    #robots = [r2, r2, r2, r2]
-    #robots = [r3]
-    #robots = [r4]
-    #robots = [r4, r4, r4, r4, r4]
-    #robots = [r4, r4]
-    #robots = [r5]
-    #robots = [r5, r5, r5, r5, r5]
-    #robots = [r1, r3]
     models = {}
     procs = {}
     results = {}
@@ -62,6 +41,7 @@ def run(testmode=False):
     w.w.SetContactListener(cl)
     cl.w = w
 
+    robots = conf.robots
     for robot in robots:
         robotname = robot
         while robotname in w.robots:
