@@ -23,7 +23,13 @@ import time
 import world
 from world import box2d
 
-import conf
+try:
+    import conf
+except ImportError:
+    import util
+    util.makeconf()
+
+    raise SystemExit
 
 
 def run(testmode=False):
