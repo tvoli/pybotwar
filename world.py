@@ -335,7 +335,8 @@ class World(object):
             robot.t.setpos(pos2)
             robot.t.set_rotation(-ang-tang)
 
-            robot._cannonheat -= conf.cannon_cooling_per_tick
+            if robot._cannonheat > 0:
+                robot._cannonheat -= conf.cannon_cooling_per_tick
 
         for bullet in self.bullets:
             b = bullet.body
