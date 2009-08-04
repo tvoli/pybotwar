@@ -15,3 +15,5 @@ robots = [r1, r2, r3, r4, r5]
 # Physics
 maxforce = 5
 maxtorque = 15
+
+bulletspeed = 40

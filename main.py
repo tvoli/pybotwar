@@ -20,9 +20,6 @@ import subprocess
 from subprocess import PIPE
 import time
 
-import world
-from world import box2d
-
 try:
     import conf
 except ImportError:
@@ -30,6 +27,9 @@ except ImportError:
     util.makeconf()
 
     raise SystemExit
+
+import world
+from world import box2d
 
 
 def run(testmode=False):

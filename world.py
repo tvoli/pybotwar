@@ -23,6 +23,7 @@ pi = box2d.b2_pi
 
 import view
 
+import conf
 
 
 class Robot(object):
@@ -121,7 +122,7 @@ class Bullet(object):
         vel = r.linearVelocity
         ang = r.angle
 
-        blocalvel = box2d.b2Vec2(30, 0)
+        blocalvel = box2d.b2Vec2(conf.bulletspeed, 0)
         bwvel = r.GetWorldVector(blocalvel)
         bvel = bwvel + vel
         #print bvel, bvel.Length()
