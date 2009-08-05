@@ -8,15 +8,22 @@ class Fake(object):
     def kill(self):
         pass
 
+    def step(self):
+        pass
+
 
 class Robot(Fake):
-    def __init__(self, pos,ang):
+    def __init__(self, pos, ang):
         pass
 
 
 class Turret(Fake):
     def __init__(self, pos, ang):
         pass
+
+class RobotInfo(Fake):
+    def __init__(self, n, name):
+        self.health = Fake()
 
 
 class Bullet(Fake):

@@ -17,18 +17,21 @@
 
 
 from pygsear.Game import Game
-from pygsear.Drawable import RotatedImage, Square, Rectangle, Stationary
+from pygsear.Drawable import RotatedImage, Square, Rectangle, Stationary, Multi, Image, String
+from pygsear.Widget import ProgressBar
 
-from pygsear import conf
-conf.MAX_FPS = 60
+import pygsear.conf
+pygsear.conf.MAX_FPS = 60
 
 size = 30
+
+import conf
 
 
 def trans(pos):
     px, py =  pos
     sz = size / 2
-    x, y = (px*sz)+400, (py*sz)+300
+    x, y = (px*sz)+300, (py*sz)+300
     return x, y
 
 def scale(s):
@@ -64,6 +67,24 @@ class Turret(RotatedImage):
         x, y = trans(pos)
         self.set_position(x, y)
 
+class RobotInfo(object):
+    def __init__(self, n, name):
+        self.n = n
+
+        filename = 'r{0:02d}.png'.format(n)
+        iconsprite = Image(filename=filename)
+        self.icon = Stationary(sprite=iconsprite)
+        self.icon.set_position((630, (60*n+0)))
+        self.icon.draw()
+
+        namesprite = String(message=name, fontSize=25)
+        self.name = Stationary(sprite=namesprite)
+        self.name.set_position((680, (60*self.n+10)))
+        self.name.draw()
+
+        health = ProgressBar(width=150, steps=conf.maxhealth,
+                                position=(640, (60*n+34)), color=(100,100,100))
+        self.health = health
 
 class Bullet(Square):
     def __init__(self, pos):
@@ -88,4 +109,9 @@ class Wall(Stationary):
         self.draw()
 
 class Arena(Game):
-    pass
+    def __init__(self):
+        Game.__init__(self)
+        titleicon = String(message="pybotwar", fontSize=32)
+        title = Stationary(sprite=titleicon)
+        title.set_position((660, 10))
+        title.draw()

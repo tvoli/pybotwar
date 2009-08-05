@@ -101,6 +101,9 @@ class Robot(object):
         t = view.Turret(pos, ang)
         self.t = t
 
+        i = view.RobotInfo(self.n, name)
+        self.i = i
+
     def set_turretangle(self, angle):
         'Angle comes in degrees. Convert to radians and set.'
         radians = (pi / 180.) * angle
@@ -193,7 +196,7 @@ class World(object):
         self.to_destroy = []
 
         halfx = 30
-        self.ahalfx = 26
+        self.ahalfx = 20
         halfy = 25
         self.ahalfy = 20
 
@@ -262,6 +265,7 @@ class World(object):
 
         self.v.sprites.add(robot.v)
         self.v.sprites.add(robot.t, level=1)
+        self.v.sprites.add(robot.i.health)
         self.robots[name] = robot
 
         return robot
@@ -446,6 +450,7 @@ class CL(box2d.b2ContactListener):
                 pass
             else:
                 actor2.health -=1
+                actor2.i.health.step()
                 if actor2.health <= 0:
                     actor2.alive = False
                     if conf.remove_dead_robots:
@@ -461,6 +466,7 @@ class CL(box2d.b2ContactListener):
                 pass
             else:
                 actor1.health -=1
+                actor1.i.health.step()
                 if actor1.health <= 0:
                     actor1.alive = False
                     if conf.remove_dead_robots:
