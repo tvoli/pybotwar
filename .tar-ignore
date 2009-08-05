@@ -1,3 +1,4 @@
 .hg*
 .tar-ignore
 *.pyc
+conf.py
