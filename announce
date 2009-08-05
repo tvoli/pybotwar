@@ -17,5 +17,5 @@ Changes in pybotwar-0.4:
         - remove / don't remove dead robots
         - robot max health
         - physics values (force, torque, mass, bullet speed)
-    - add non graphics mode (for much faster resolution of battles)
-    - fix cannon heating going below zero
+    - added non graphics mode (for much faster resolution of battles)
+    - fixed cannon heating going below zero
