@@ -9,7 +9,7 @@ class TheRobot(Robot):
             self.spin()
         else:
             self.ping()
-            self.ping_react(self.sensors['PING'])
+            self.ping_react()
 
     def spin(self, n=None):
         if n is not None:
@@ -23,8 +23,8 @@ class TheRobot(Robot):
             if self._spin_n <= 0:
                 self._spin = False
 
-    def ping_react(self, ping):
-        kind, angle, dist = ping
+    def ping_react(self):
+        kind, angle, dist = self.sensors['PING']
 
         if kind == 'w':
             if dist < 8:
