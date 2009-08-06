@@ -2,6 +2,9 @@
 subproc_python = '/usr/bin/python'
 subproc_main = 'control.py'
 
+init_timeout = 1.0
+tick_timeout = 0.015
+
 
 # Robot selection
 r1 = 'robot01'

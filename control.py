@@ -20,6 +20,9 @@ import os
 from threading import Thread
 from time import sleep
 
+import conf
+
+
 _overtime_count = 0
 
 def loop(r, i):
@@ -48,7 +51,7 @@ def loop(r, i):
 
         sensors[k] = vconv
 
-    timeout = 0.015
+    timeout = conf.tick_timeout
 
     user_thread = Thread(target=get_response, args=(r, sensors))
     response = None
@@ -92,6 +95,16 @@ def communicate(r):
             break
 
 
+def build_robot(modname, robotname, rbox):
+    try:
+        mod = __import__(modname)
+        r = mod.TheRobot(robotname)
+    except:
+        rbox.append(None)
+    else:
+        rbox.append(r)
+
+
 if __name__ == '__main__':
     import sys
     sys.path.append('robots')
@@ -103,16 +116,26 @@ if __name__ == '__main__':
         modname = sys.argv[1]
         robotname = sys.argv[2]
 
-    try:
-        mod = __import__(modname)
-    except:
-        # robot failed to load properly
-        oline = 'ERROR\n'
-        sys.stdout.write(oline)
-        sys.stdout.flush()
-    else:
-        r = mod.TheRobot(robotname)
-        oline = 'START\n'
-        sys.stdout.write(oline)
-        sys.stdout.flush()
-        communicate(r)
+        timeout = conf.init_timeout
+
+        rbox = [] # Store the robot here to pass it back from the thread
+        user_thread = Thread(target=build_robot, args=(modname, robotname, rbox))
+        user_thread.start()
+
+        user_thread.join(timeout)
+        if user_thread.isAlive():
+            rbox = [None]
+
+        robot = rbox[0]
+
+        if robot is None:
+            # robot failed to load properly
+            oline = 'ERROR\n'
+            sys.stdout.write(oline)
+            sys.stdout.flush()
+
+        else:
+            oline = 'START\n'
+            sys.stdout.write(oline)
+            sys.stdout.flush()
+            communicate(robot)
