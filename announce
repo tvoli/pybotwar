@@ -11,11 +11,8 @@ and uses pygame and pygsear for the visualization.
 pybotwar is released under GPLv3.
 
 
-Changes in pybotwar-0.4:
-    - added display of robot status
-    - added configuration file for easier testing of various options
-        - remove / don't remove dead robots
-        - robot max health
-        - physics values (force, torque, mass, bullet speed)
-    - added non graphics mode (for much faster resolution of battles)
-    - fixed cannon heating going below zero
+Changes in pybotwar-0.5:
+    - added damage sensor
+    - added robot statistics database
+    - added limit for robot startup/ initialization
+    - fixed force/ torque possibly going over 100%
