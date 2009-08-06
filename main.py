@@ -136,11 +136,17 @@ def run(testmode=False):
 
             for kind, val in commands.items():
                 if kind == 'FORCE':
+                    # Make sure force is not more than 100% or less than -100%
+                    val = min(val, 100)
+                    val = max(-100, val)
                     force = conf.maxforce * val/100.0
                     localforce = box2d.b2Vec2(val, 0)
                     worldforce = body.GetWorldVector(localforce)
                     body.ApplyForce(worldforce, pos)
                 elif kind == 'TORQUE':
+                    # Make sure torque is not more than 100% or less than -100%
+                    val = min(val, 100)
+                    val = max(-100, val)
                     torque = conf.maxtorque * val/100.0
                     body.ApplyTorque(torque)
                 elif kind == 'FIRE':
