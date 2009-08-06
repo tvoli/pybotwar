@@ -74,13 +74,14 @@ def run(testmode=False):
             if robotname not in procs:
                 continue
 
+            health = model.health
             body = model.body
             pos = body.position
             tur = model.get_turretangle()
             ping = '%s;%s;%s' % (model._pingtype,
                                     model._pingangle,
                                     model._pingdist)
-            line = 'TICK:%s|POS:%s|TUR:%s|PING:%s\n' % (rnd, pos, tur, ping)
+            line = 'TICK:%s|HEALTH:%s|POS:%s|TUR:%s|PING:%s\n' % (rnd, health, pos, tur, ping)
             #print robotname, line
 
             proc = procs[robotname]
