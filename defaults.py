@@ -7,6 +7,7 @@ tick_timeout = 0.015
 
 
 # Robot selection
+robot_dirs = ['robots', 'robots/examples'] # In this order, in case of dup name
 r1 = 'robot01'
 r2 = 'robot02'
 r3 = 'robot03'
@@ -49,3 +50,7 @@ turret_maxMotorTorque = 10.0
 bulletspeed = 40
 
 bullet_density = .2
+
+
+# Statistics
+dbfile = 'stats.db'

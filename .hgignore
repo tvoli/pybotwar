@@ -1,3 +1,4 @@
 syntax:glob
 *.pyc
 conf.py
+stats.db

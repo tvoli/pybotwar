@@ -26,10 +26,16 @@ except ImportError:
     import util
     util.makeconf()
 
+    import stats
+    stats.dbcheck()
+
     raise SystemExit
 
 import world
 from world import box2d
+
+import stats
+stats.dbcheck()
 
 
 def run(testmode=False):
@@ -64,7 +70,7 @@ def run(testmode=False):
             procs[robotname] = proc
             timeouts[robotname] = 0
 
-
+    nrobots = len(models)
     t0 = int(time.time())
 
     result = ''
@@ -89,6 +95,7 @@ def run(testmode=False):
             result = proc.stdout.readline().strip()
 
             if not model.alive:
+                model._kills = nrobots - len(procs)
                 del procs[robotname]
                 print 'DEAD robot', robotname, 'health is 0'
                 proc.kill()
@@ -172,18 +179,31 @@ def run(testmode=False):
 
     print 'FINISHING'
 
-    for robotname, model in models.items():
-        if robotname not in procs:
-            continue
-
-        line = 'FINISH\n'
-        proc = procs[robotname]
-        proc.stdin.write(line)
-
     alive = [model for model in models.values() if model.alive]
-
     if not testmode and len(alive)==1:
-        print 'WINNER:', alive[0].name
+        model = alive[0]
+        print 'WINNER:', model.name
+        winner = model
+        model._kills = nrobots-1
+    else:
+        winner = None
+
+    for robotname, model in models.items():
+        if robotname in procs:
+            line = 'FINISH\n'
+            proc = procs[robotname]
+            proc.stdin.write(line)
+
+        if winner is None and model.alive:
+            model._kills = nrobots - len(alive)
+
+        if model == winner:
+            win = 1
+        else:
+            win = 0
+
+        if not testmode:
+            stats.update(model.name, win, nrobots-1, model._kills)
 
 
 
@@ -195,7 +215,9 @@ if __name__ == '__main__':
             testmode = True
             open('log', 'w')
 
+    stats.dbopen()
     run(testmode)
+    stats.dbclose()
 
     if testmode:
         import os

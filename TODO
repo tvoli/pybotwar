@@ -5,5 +5,4 @@ additional components:
     component costs
     gyro
     multiple rangefinders
-keep statistics of robot wins / losses
 debug mode (show sensors and actions)

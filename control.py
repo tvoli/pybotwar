@@ -107,8 +107,8 @@ def build_robot(modname, robotname, rbox):
 
 if __name__ == '__main__':
     import sys
-    sys.path.append('robots')
-    sys.path.append('robots/examples')
+    for d in conf.robot_dirs:
+        sys.path.append(d)
 
     if len(sys.argv) != 3:
         raise SystemExit

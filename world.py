@@ -45,6 +45,8 @@ class Robot(object):
 
         self._cannonheat = 0
 
+        self._kills = 0
+
         bodyDef = box2d.b2BodyDef()
         bodyDef.position = pos
         bodyDef.angle = ang
