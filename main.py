@@ -220,7 +220,12 @@ if __name__ == '__main__':
             else:
                 testmode = True
 
-
     stats.dbopen()
     run(testmode)
     stats.dbclose()
+
+    # Clean up log directory if not in test mode
+    if not testmode and os.path.exists(conf.logdir):
+        for f in os.listdir(conf.logdir):
+            fpath = os.path.join(conf.logdir, f)
+            os.remove(fpath)
