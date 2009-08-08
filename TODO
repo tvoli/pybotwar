@@ -4,5 +4,8 @@ additional components:
     component costs
     gyro
     multiple rangefinders
+    distance traveled sensor
+    proximity sensor
+    touch sensor
 debug mode (show sensors and actions)
 tournament mode (run multiple battles with same robots)
