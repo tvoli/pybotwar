@@ -87,7 +87,8 @@ def run(testmode=False):
             ping = '%s;%s;%s' % (model._pingtype,
                                     model._pingangle,
                                     model._pingdist)
-            line = 'TICK:%s|HEALTH:%s|POS:%s|TUR:%s|PING:%s\n' % (rnd, health, pos, tur, ping)
+            gyro = model.gyro()
+            line = 'TICK:%s|HEALTH:%s|POS:%s|TUR:%s|PING:%s|GYRO:%s\n' % (rnd, health, pos, tur, ping, gyro)
             #print robotname, line
 
             proc = procs[robotname]

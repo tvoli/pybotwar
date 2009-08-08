@@ -106,6 +106,12 @@ class Robot(object):
         i = view.RobotInfo(self.n, name)
         self.i = i
 
+    def gyro(self):
+        'return robot angle wrt world in degrees.'
+        radians = self.body.angle
+        degrees = int(round((180 / pi) * radians))
+        return degrees
+
     def set_turretangle(self, angle):
         'Angle comes in degrees. Convert to radians and set.'
         radians = (pi / 180.) * angle
