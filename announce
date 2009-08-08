@@ -12,6 +12,7 @@ pybotwar is released under GPLv3.
 
 
 Changes in pybotwar-0.5:
+    - added tournament mode
     - robots are now damaged by colliding with walls or other robots
     - added damage sensor
     - added gyro sensor

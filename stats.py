@@ -34,6 +34,16 @@ CREATE TABLE stats (
     kills integer
 );
 
+CREATE TABLE tournament_stats (
+    tournament datetime,
+    program_name text,
+    fingerprint text,
+    matches integer,
+    wins integer,
+    opponents integer,
+    kills integer
+);
+
     '''
 
     dbopen()
@@ -93,6 +103,58 @@ def update(name, win, opponents, kills):
                 kills)
             VALUES
                 (:name,
+                    :fp,
+                    1,
+                    :win,
+                    :opponents,
+                    :kills)
+        '''
+    c.execute(q, locals())
+    conn.commit()
+
+
+
+def tournament_exists(tournament, name, fp):
+    q = '''\
+    SELECT *
+    FROM tournament_stats
+    WHERE tournament = :tournament AND
+            program_name = :name AND
+            fingerprint = :fp
+    '''
+    c.execute(q, locals())
+    r = c.fetchall()
+    return bool(r)
+
+def tournament_update(tournament, name, win, opponents, kills):
+    fp = fingerprint(name)
+    win = int(win) # turn True/False in to 1/0
+    if tournament_exists(tournament, name, fp):
+        q = '''\
+        UPDATE tournament_stats
+        SET matches = matches + 1,
+            wins = wins + :win,
+            opponents = opponents + :opponents,
+            kills = kills + :kills
+        WHERE
+            tournament = :tournament AND
+            program_name = :name AND
+            fingerprint = :fp
+        '''
+
+    else:
+        q = '''\
+        INSERT INTO tournament_stats
+            (tournament,
+                program_name,
+                fingerprint,
+                matches,
+                wins,
+                opponents,
+                kills)
+            VALUES
+                (:tournament,
+                    :name,
                     :fp,
                     1,
                     :win,

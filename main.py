@@ -37,8 +37,10 @@ from world import box2d
 import stats
 stats.dbcheck()
 
+import view
 
-def run(testmode=False):
+
+def run(testmode=False, tournament=None):
     models = {}
     procs = {}
     results = {}
@@ -206,6 +208,10 @@ def run(testmode=False):
         if not testmode:
             stats.update(model.name, win, nrobots-1, model._kills)
 
+        if tournament is not None:
+            stats.tournament_update(tournament, model.name, win,
+                                            nrobots-1, model._kills)
+
 
 
 if __name__ == '__main__':
@@ -223,12 +229,16 @@ if __name__ == '__main__':
     parser.add_option("-n", "--battles", dest="nbattles",
                     action="store", type='int', default=5,
                     help="number of battles in tournament")
+    parser.add_option("-g", "--no-graphics", dest="nographics",
+                    action="store_true", default=False,
+                    help="non graphics mode")
 
     (options, args) = parser.parse_args()
 
     testmode = options.testmode
     tournament = options.tournament
     nbattles = options.nbattles
+    nographics = options.nographics
 
     if testmode:
         if not os.path.exists(conf.logdir):
@@ -236,8 +246,22 @@ if __name__ == '__main__':
             print 'test mode disabled'
             testmode = False
 
+    if nographics:
+        import noview
+        world.view = noview
+
     stats.dbopen()
-    run(testmode)
+    if tournament:
+        import datetime
+        dt = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        print 'Beginning tournament with %s battles.' % nbattles
+        for battle in range(nbattles):
+            print 'Battle', battle+1
+            run(testmode, dt)
+            world.Robot.nrobots = 0
+            view.Robot.nrobots = 0
+    else:
+        run(testmode)
     stats.dbclose()
 
     # Clean up log directory if not in test mode
