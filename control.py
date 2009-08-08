@@ -95,10 +95,10 @@ def communicate(r):
             break
 
 
-def build_robot(modname, robotname, rbox):
+def build_robot(modname, robotname, testmode, rbox):
     try:
         mod = __import__(modname)
-        r = mod.TheRobot(robotname)
+        r = mod.TheRobot(robotname, testmode)
     except:
         rbox.append(None)
     else:
@@ -110,16 +110,17 @@ if __name__ == '__main__':
     for d in conf.robot_dirs:
         sys.path.append(d)
 
-    if len(sys.argv) != 3:
+    if len(sys.argv) != 4:
         raise SystemExit
     else:
         modname = sys.argv[1]
         robotname = sys.argv[2]
+        testmode = bool(int(sys.argv[3]))
 
         timeout = conf.init_timeout
 
         rbox = [] # Store the robot here to pass it back from the thread
-        user_thread = Thread(target=build_robot, args=(modname, robotname, rbox))
+        user_thread = Thread(target=build_robot, args=(modname, robotname, testmode, rbox))
         user_thread.start()
 
         user_thread.join(timeout)

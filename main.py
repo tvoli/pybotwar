@@ -57,7 +57,7 @@ def run(testmode=False):
         print 'STARTING', robotname,
         proc = subprocess.Popen([conf.subproc_python,
                                     conf.subproc_main,
-                                    robot, robotname],
+                                    robot, robotname, str(int(testmode))],
                                     stdin=PIPE, stdout=PIPE)
         result = proc.stdout.readline().strip()
 
@@ -209,16 +209,17 @@ def run(testmode=False):
 
 if __name__ == '__main__':
     import sys
+    import os
     testmode = False
     if len(sys.argv) > 1:
         if sys.argv[1] == 'testmode':
-            testmode = True
-            open('log', 'w')
+            if not os.path.exists(conf.logdir):
+                print 'Log directory does not exist:', conf.logdir
+                print 'test mode disabled'
+            else:
+                testmode = True
+
 
     stats.dbopen()
     run(testmode)
     stats.dbclose()
-
-    if testmode:
-        import os
-        os.unlink('log')

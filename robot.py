@@ -20,9 +20,11 @@ import os
 import random
 from time import sleep
 
+import conf
+
 
 class Robot(object):
-    def __init__(self, name):
+    def __init__(self, name, testmode):
         self.name = name
 
         self._overtime_count = 0
@@ -37,8 +39,10 @@ class Robot(object):
         self._ping = 0
         self._turretangle = 0
 
-        if os.path.exists('log'):
-            self.logfile = open('log', 'a')
+        if testmode:
+            logfilename = '%s.log' % name
+            logfilepath = os.path.join(conf.logdir, logfilename)
+            self.logfile = open(logfilepath, 'a')
         else:
             self.logfile = None
 
