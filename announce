@@ -16,4 +16,4 @@ Changes in pybotwar-0.5:
     - added robot statistics database
     - added limit for robot startup/ initialization
     - fixed force/ torque possibly going over 100%
-    - change health bar color below 30%
+    - health bar changes color below 30% health
