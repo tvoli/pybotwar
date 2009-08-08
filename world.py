@@ -434,48 +434,75 @@ class World(object):
 
 
 class CL(box2d.b2ContactListener):
-    def Add(self, point):
-        s1 = point.shape1
+    def Result(self, result):
+        s1 = result.shape1
         b1 = s1.GetBody()
         actor1 = b1.userData['actor']
         kind1 = b1.userData.get('kind', None)
 
-        s2 = point.shape2
+        s2 = result.shape2
         b2 = s2.GetBody()
         actor2 = b2.userData['actor']
         kind2 = b2.userData.get('kind', None)
 
-        if kind1=='bullet' and kind2=='robot':
-            shooter = b1.userData['shooter']
-            if shooter == actor2:
-                #can't shoot yourself
-                pass
+        dmg = 0
+        hitdmg = conf.direct_hit_damage
+        cds = conf.collision_damage_start
+        cdf = conf.collision_damage_factor
+        impulse = result.normalImpulse
+        coldmg = int((cdf * (impulse - cds))**2) + 1
+
+        if kind2=='robot':
+            if kind1=='bullet':
+                shooter = b1.userData['shooter']
+                if shooter == actor2:
+                    #can't shoot yourself
+                    pass
+                else:
+                    dmg = hitdmg
+                    print 'Robot', actor2.name, 'shot for', dmg,
             else:
-                actor2.health -=1
-                actor2.i.health.step()
+                if impulse > cds:
+                    dmg = coldmg
+                    print 'Robot', actor2.name, 'coll for', dmg,
+
+            if dmg:
+                actor2.health -= dmg
+                actor2.i.health.step(dmg)
                 if actor2.health <= 0:
                     actor2.alive = False
                     if conf.remove_dead_robots:
                         if actor2 not in self.w.to_destroy:
                             self.w.to_destroy.append(actor2)
+                    print
                 else:
-                    print 'Robot', actor2.name, 'down to', actor2.health
+                    print 'down to', actor2.health
 
-        if kind2=='bullet' and kind1=='robot':
-            shooter = b2.userData['shooter']
-            if shooter == actor1:
-                #can't shoot yourself
-                pass
+        if kind1=='robot':
+            if kind2=='bullet':
+                shooter = b2.userData['shooter']
+                if shooter == actor1:
+                    #can't shoot yourself
+                    pass
+                else:
+                    dmg = hitdmg
+                    print 'Robot', actor1.name, 'shot for', dmg,
             else:
-                actor1.health -=1
-                actor1.i.health.step()
+                if impulse > cds:
+                    dmg = coldmg
+                    print 'Robot', actor1.name, 'coll for', dmg,
+
+            if dmg:
+                actor1.health -= dmg
+                actor1.i.health.step(dmg)
                 if actor1.health <= 0:
                     actor1.alive = False
                     if conf.remove_dead_robots:
                         if actor1 not in self.w.to_destroy:
                             self.w.to_destroy.append(actor1)
+                    print
                 else:
-                    print 'Robot', actor1.name, 'down to', actor1.health
+                    print 'down to', actor1.health
 
         if actor1 in self.w.bullets:
             if actor1 not in self.w.to_destroy:

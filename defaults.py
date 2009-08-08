@@ -18,7 +18,11 @@ robots = [r1, r2, r3, r4, r5, r6]
 
 
 # Game
-maxhealth = 10
+maxhealth = 100
+direct_hit_damage = 10
+collision_damage_start = 25 # Minimum impulse value for damage to occur
+collision_damage_factor = 0.15 # Collision damage = (cdf * (impulse - cds))**2 + 1
+
 remove_dead_robots = True
 
 graphical_display = True
