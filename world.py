@@ -44,6 +44,7 @@ class Robot(object):
         self._pingdist = 0
 
         self._cannonheat = 0
+        self._cannonreload = 0
 
         self._kills = 0
 
@@ -282,6 +283,8 @@ class World(object):
         robot = self.robots[rname]
         if robot._cannonheat > conf.cannon_maxheat:
             return None
+        elif robot._cannonreload > 0:
+            return None
 
         bullet = Bullet(self.w, robot)
         self.v.sprites.add(bullet.v)
@@ -289,6 +292,7 @@ class World(object):
         self.bullets.append(bullet)
 
         robot._cannonheat += conf.cannon_heating_per_shot
+        robot._cannonreload = conf.cannon_reload_ticks
 
         return bullet
 
@@ -352,6 +356,8 @@ class World(object):
 
             if robot._cannonheat > 0:
                 robot._cannonheat -= conf.cannon_cooling_per_tick
+            if robot._cannonreload > 0:
+                robot._cannonreload -= 1
 
         for bullet in self.bullets:
             b = bullet.body

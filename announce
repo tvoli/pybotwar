@@ -15,6 +15,7 @@ Changes in pybotwar-0.5:
     - robots are now damaged by colliding with walls or other robots
     - added damage sensor
     - added gyro sensor
+    - added configurable cannon reload time
     - added robot statistics database
     - added limit for robot startup/ initialization
     - health bar changes color below 30% health
