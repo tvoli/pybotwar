@@ -9,6 +9,7 @@ class TheRobot(Robot):
 
     def respond(self):
         self.turnto()
+        self.scan_and_fire()
 
         health = self.sensors['HEALTH']
         if health != self.health:
@@ -31,3 +32,12 @@ class TheRobot(Robot):
         torque = -gain * error
 
         self.torque(torque)
+
+    def scan_and_fire(self):
+        tur = self.sensors['TUR']
+        self.turret(tur+20)
+        self.ping()
+
+        kind, angle, dist = self.sensors['PING']
+        if kind in 'rb':
+            self.fire()
