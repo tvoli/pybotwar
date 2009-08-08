@@ -8,7 +8,7 @@ class Fake(object):
     def kill(self):
         pass
 
-    def step(self):
+    def step(self, n=None):
         pass
 
 
