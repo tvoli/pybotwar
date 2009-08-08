@@ -20,3 +20,5 @@ Changes in pybotwar-0.5:
     - health bar changes color below 30% health
     - fixed force/ torque possibly going over 100%
     - fixed problem with non-integer force/ torque values
+    - each robot gets its own log file in test mode
+    - send robot errors to log file
