@@ -73,9 +73,11 @@ def get_response(r, sensors):
     try:
         r.sensors = sensors
         r.respond()
-    except:
+    except Exception, e:
         r.err()
-        raise
+        import traceback
+        tb = traceback.format_exc()
+        r.log(tb)
 
 def communicate(r):
     while True:
