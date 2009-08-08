@@ -250,7 +250,9 @@ if __name__ == '__main__':
         import noview
         world.view = noview
 
+
     stats.dbopen()
+
     if tournament:
         import datetime
         dt = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
@@ -260,8 +262,16 @@ if __name__ == '__main__':
             run(testmode, dt)
             world.Robot.nrobots = 0
             view.Robot.nrobots = 0
+
+        results = stats.tournament_results(dt)
+        print;print;print;
+        print 'Tournament Results:'
+        for line in results:
+            print line[1], ':', line[4], 'wins', line[6], 'robots defeated'
+
     else:
         run(testmode)
+
     stats.dbclose()
 
     # Clean up log directory if not in test mode

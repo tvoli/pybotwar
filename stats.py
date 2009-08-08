@@ -163,3 +163,18 @@ def tournament_update(tournament, name, win, opponents, kills):
         '''
     c.execute(q, locals())
     conn.commit()
+
+def tournament_results(tournament):
+    q = '''
+    SELECT *
+    FROM tournament_stats
+    WHERE tournament = :tournament
+    ORDER BY
+        wins DESC,
+        kills DESC
+
+    '''
+
+    c.execute(q, locals())
+    r = c.fetchall()
+    return r
