@@ -19,6 +19,7 @@
 from pygsear.Game import Game
 from pygsear.Drawable import RotatedImage, Square, Rectangle, Stationary, Multi, Image, String
 from pygsear.Widget import ProgressBar
+from pygsear.locals import RED
 
 import pygsear.conf
 pygsear.conf.MAX_FPS = 60
@@ -67,6 +68,18 @@ class Turret(RotatedImage):
         x, y = trans(pos)
         self.set_position(x, y)
 
+class HealthBar(ProgressBar):
+    def __init__(self, n):
+        ProgressBar.__init__(self, width=150, steps=conf.maxhealth,
+                                position=(640, (60*n+34)), color=(100,100,100))
+
+    def step(self, steps):
+        self.stepsLeft -= steps-1
+        ProgressBar.step(self)
+        if self.stepsLeft <= 0.30 * self.steps:
+            self.set_color(RED)
+            self.show()
+
 class RobotInfo(object):
     def __init__(self, n, name):
         self.n = n
@@ -82,8 +95,7 @@ class RobotInfo(object):
         self.name.set_position((680, (60*self.n+10)))
         self.name.draw()
 
-        health = ProgressBar(width=150, steps=conf.maxhealth,
-                                position=(640, (60*n+34)), color=(100,100,100))
+        health = HealthBar(n)
         self.health = health
 
 class Bullet(Square):
