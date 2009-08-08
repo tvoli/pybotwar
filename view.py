@@ -121,6 +121,7 @@ class Wall(Stationary):
         self.draw()
 
 class Arena(Game):
+    splash_filename = 'splash.png'
     def __init__(self):
         Game.__init__(self)
         titleicon = String(message="pybotwar", fontSize=32)
