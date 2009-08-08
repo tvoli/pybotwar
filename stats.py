@@ -68,8 +68,6 @@ def exists(name, fp):
     return bool(r)
 
 def update(name, win, opponents, kills):
-    print 'UPDATE', name, win, opponents, kills
-
     fp = fingerprint(name)
     win = int(win) # turn True/False in to 1/0
     if exists(name, fp):
