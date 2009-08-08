@@ -92,11 +92,11 @@ class Robot(object):
 
     def force(self, n):
         'Between -100 and 100, percent of max fwd/bk force'
-        self._force = n
+        self._force = int(n)
 
     def torque(self, n):
         'between -100 and 100, percent of max rt/lt torque'
-        self._torque = n
+        self._torque = int(n)
 
     def fire(self):
         self._fire = 1
