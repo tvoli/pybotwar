@@ -23,3 +23,4 @@ Changes in pybotwar-0.5:
     - fixed problem with non-integer force/ torque values
     - each robot gets its own log file in test mode
     - send robot errors to log file
+    - use optparse for cmd line options

@@ -211,14 +211,30 @@ def run(testmode=False):
 if __name__ == '__main__':
     import sys
     import os
-    testmode = False
-    if len(sys.argv) > 1:
-        if sys.argv[1] == 'testmode':
-            if not os.path.exists(conf.logdir):
-                print 'Log directory does not exist:', conf.logdir
-                print 'test mode disabled'
-            else:
-                testmode = True
+
+    from optparse import OptionParser
+    parser = OptionParser()
+    parser.add_option("-T", "--testmode", dest="testmode",
+                    action="store_true", default=False,
+                    help="run in test mode")
+    parser.add_option("-t", "--tournament", dest="tournament",
+                    action="store_true", default=False,
+                    help="run a tournament")
+    parser.add_option("-n", "--battles", dest="nbattles",
+                    action="store", type='int', default=5,
+                    help="number of battles in tournament")
+
+    (options, args) = parser.parse_args()
+
+    testmode = options.testmode
+    tournament = options.tournament
+    nbattles = options.nbattles
+
+    if testmode:
+        if not os.path.exists(conf.logdir):
+            print 'Log directory does not exist:', conf.logdir
+            print 'test mode disabled'
+            testmode = False
 
     stats.dbopen()
     run(testmode)
