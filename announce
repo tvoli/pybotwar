@@ -19,7 +19,7 @@ Changes in pybotwar-0.5:
     - added gyro sensor
     - added configurable cannon reload time
     - added robot statistics database
-    - added limit for robot startup/ initialization
+    - added time limit for robot startup/ initialization
     - health bar changes color below 30% health
     - fixed force/ torque possibly going over 100%
     - fixed problem with non-integer force/ torque values
