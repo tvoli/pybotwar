@@ -3,3 +3,4 @@
 *.pyc
 conf.py
 stats.db
+doc/screenshots
