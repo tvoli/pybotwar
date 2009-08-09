@@ -1,4 +1,5 @@
 take tangent impulse in to account on collision damage
+configurable maximum battle time
 additional components:
     selectable components
     component costs
