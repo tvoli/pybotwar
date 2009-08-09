@@ -161,8 +161,16 @@ def run(testmode=False, tournament=None):
                     torque = conf.maxtorque * val/100.0
                     body.ApplyTorque(torque)
                 elif kind == 'FIRE':
-                    if val:
+                    if val == '_':
+                        # no fire
+                        pass
+                    elif val == 'X':
+                        # non-exploding shell
                         w.makebullet(robotname)
+                    else:
+                        # exploding shell
+                        ticks = int(60 * val / conf.bulletspeed)
+                        w.makebullet(robotname, ticks)
                 elif kind == 'PING':
                     if val:
                         kind, angle, dist = w.makeping(robotname)

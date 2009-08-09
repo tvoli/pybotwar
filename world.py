@@ -132,6 +132,12 @@ class Robot(object):
 
 class Bullet(object):
     def __init__(self, w, robot):
+        self.w = w
+        self.robot = robot # Fired by this robot
+
+        self._fuse = None
+        self._exploding = False
+
         r = robot.turret
         pos = r.position
         vel = r.linearVelocity
@@ -163,7 +169,8 @@ class Bullet(object):
         shapeDef.restitution = 0
         shapeDef.friction = 0
         shapeDef.filter.groupIndex = -robot.n
-        body.CreateShape(shapeDef)
+        b = body.CreateShape(shapeDef)
+        b.userData = {}
         body.SetMassFromShapes()
 
         body.userData['actor'] = self
@@ -174,6 +181,23 @@ class Bullet(object):
 
         v = view.Bullet(pos)
         self.v = v
+
+    def explode(self):
+        self._exploding = True
+
+        robot = self.body.userData['shooter'].name
+        #print robot,'bullet explode at', self.body.position
+
+        for ring, radius in enumerate((1, 2, 3)):
+            cdef = box2d.b2CircleDef()
+            cdef.radius = radius
+
+            s = self.body.CreateShape(cdef)
+            s.userData = {}
+            s.userData['ring'] = ring
+            s.userData['bullet'] = self
+            s.userData['hits'] = {0:[], 1:[], 2:[]}
+
 
 
 class Wall(object):
@@ -279,7 +303,7 @@ class World(object):
 
         return robot
 
-    def makebullet(self, rname):
+    def makebullet(self, rname, fuse=None):
         robot = self.robots[rname]
         if robot._cannonheat > conf.cannon_maxheat:
             return None
@@ -287,6 +311,7 @@ class World(object):
             return None
 
         bullet = Bullet(self.w, robot)
+        bullet._fuse = fuse
         self.v.sprites.add(bullet.v)
 
         self.bullets.append(bullet)
@@ -364,6 +389,15 @@ class World(object):
             pos2 = b.position
             bullet.v.setpos(pos2)
             #print bullet.linearVelocity
+
+            if bullet._fuse is not None:
+                bullet._fuse -= 1
+                if bullet._fuse <= 0:
+                    bullet.explode()
+
+            if bullet._exploding and bullet not in self.to_destroy:
+                self.to_destroy.append(bullet)
+                print 'shell explodes'
 
         #print
         self.v.step()
@@ -466,13 +500,23 @@ class CL(box2d.b2ContactListener):
 
         if kind2=='robot':
             if kind1=='bullet':
+                ring = s1.userData.get('ring', None)
                 shooter = b1.userData['shooter']
-                if shooter == actor2:
+                if ring is None and shooter == actor2:
                     #can't shoot yourself
                     pass
-                else:
+                elif ring is None:
                     dmg = hitdmg
                     print 'Robot', actor2.name, 'shot for', dmg,
+                else:
+                    hits = s1.userData['hits']
+                    if actor2 not in hits[ring]:
+                        dmg = [5, 4, 3][ring]
+                        print 'Robot', actor2.name, 'in blast area for', dmg
+                        hits[ring].append(actor2)
+                    else:
+                        pass
+                        #print actor2.name, 'already hit by ring', ring
             else:
                 if impulse > cds:
                     dmg = coldmg
@@ -492,13 +536,23 @@ class CL(box2d.b2ContactListener):
 
         if kind1=='robot':
             if kind2=='bullet':
+                ring = s2.userData.get('ring', None)
                 shooter = b2.userData['shooter']
-                if shooter == actor1:
+                if ring is None and shooter == actor1:
                     #can't shoot yourself
                     pass
-                else:
+                elif ring is None:
                     dmg = hitdmg
                     print 'Robot', actor1.name, 'shot for', dmg,
+                else:
+                    hits = s2.userData['hits']
+                    if actor1 not in hits[ring]:
+                        dmg = [5, 4, 3][ring]
+                        print 'Robot', actor1.name, 'in blast area for', dmg
+                        hits[ring].append(actor1)
+                    else:
+                        pass
+                        #print actor1.name, 'already hit by ring', ring
             else:
                 if impulse > cds:
                     dmg = coldmg

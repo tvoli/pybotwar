@@ -35,7 +35,7 @@ class Robot(object):
         self._finished = False
         self.force(0)
         self.torque(0)
-        self._fire = 0
+        self._fire = '_'
         self._ping = 0
         self._turretangle = 0
 
@@ -98,8 +98,11 @@ class Robot(object):
         'between -100 and 100, percent of max rt/lt torque'
         self._torque = int(n)
 
-    def fire(self):
-        self._fire = 1
+    def fire(self, dist=None):
+        if dist is None:
+            self._fire = 'X'
+        else:
+            self._fire = int(dist)
 
     def ping(self):
         'Send out a sonar/radar pulse'
@@ -128,7 +131,7 @@ class Robot(object):
                                                     self._torque,
                                                     self._fire, self._ping,
                                                     self._turretangle)
-            self._fire = 0
+            self._fire = '_'
             self._ping = 0
 
             return r

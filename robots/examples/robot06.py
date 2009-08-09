@@ -40,4 +40,4 @@ class TheRobot(Robot):
 
         kind, angle, dist = self.sensors['PING']
         if kind in 'rb':
-            self.fire()
+            self.fire(dist)
