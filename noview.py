@@ -1,4 +1,7 @@
 class Fake(object):
+    def __init__(self, a=None, b=None):
+        pass
+
     def setpos(self, pos):
         pass
 
@@ -13,13 +16,11 @@ class Fake(object):
 
 
 class Robot(Fake):
-    def __init__(self, pos, ang):
-        pass
+    pass
 
 
 class Turret(Fake):
-    def __init__(self, pos, ang):
-        pass
+    pass
 
 class RobotInfo(Fake):
     def __init__(self, n, name):
@@ -27,13 +28,13 @@ class RobotInfo(Fake):
 
 
 class Bullet(Fake):
-    def __init__(self, pos):
-        pass
+    pass
 
+class Explosion(Fake):
+    pass
 
 class Wall(Fake):
-    def __init__(self, pos, size):
-        pass
+    pass
 
 
 class Sprites(Fake):

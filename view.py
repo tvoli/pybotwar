@@ -16,15 +16,18 @@
 # along with Pybotwar.  If not, see <http://www.gnu.org/licenses/>.
 
 
+import pygame
+
 from pygsear.Game import Game
-from pygsear.Drawable import RotatedImage, Square, Rectangle, Stationary, Multi, Image, String
+from pygsear.Drawable import RotatedImage, Square, Rectangle, Stationary, Multi, Image, String, Circle
 from pygsear.Widget import ProgressBar
-from pygsear.locals import RED
+from pygsear.locals import RED, ORANGE, YELLOW
 
 import pygsear.conf
 pygsear.conf.MAX_FPS = 60
 
-size = 30
+m = 15 # 1 meter
+size = 2 * m
 
 import conf
 
@@ -106,6 +109,25 @@ class Bullet(Square):
     def setpos(self, pos):
         x, y = trans(pos)
         self.set_position(x, y)
+
+class Explosion(Circle):
+    def __init__(self, pos):
+        r = conf.explosion_radii[-1] # largest explosion radius
+        rt = r * m
+        Circle.__init__(self, radius=rt)
+        self.setpos(pos)
+
+    def setpos(self, pos):
+        x, y = trans(pos)
+        self.set_position(x-45, y-45)
+
+    def paint(self):
+        image = self.image
+        x, y = self.radius, self.radius
+        r3 = zip(conf.explosion_radii, (RED, ORANGE, YELLOW))
+        for r, color in r3:
+            rt = m * r
+            pygame.draw.circle(image, color, (x, y), rt, 2)
 
 
 class Wall(Stationary):

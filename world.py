@@ -131,8 +131,9 @@ class Robot(object):
 
 
 class Bullet(object):
-    def __init__(self, w, robot):
-        self.w = w
+    def __init__(self, wld, robot):
+        self.wld = wld
+        w = wld.w
         self.robot = robot # Fired by this robot
 
         self._fuse = None
@@ -183,12 +184,12 @@ class Bullet(object):
         self.v = v
 
     def explode(self):
-        self._exploding = True
+        self._exploding = 1
 
         robot = self.body.userData['shooter'].name
         #print robot,'bullet explode at', self.body.position
 
-        for ring, radius in enumerate((1, 2, 3)):
+        for ring, radius in enumerate(conf.explosion_radii):
             cdef = box2d.b2CircleDef()
             cdef.radius = radius
 
@@ -198,7 +199,9 @@ class Bullet(object):
             s.userData['bullet'] = self
             s.userData['hits'] = {0:[], 1:[], 2:[]}
 
-
+        e = view.Explosion(self.body.position)
+        self.wld.v.sprites.add(e)
+        self.e = e
 
 class Wall(object):
     def __init__(self, w, pos, size):
@@ -310,7 +313,7 @@ class World(object):
         elif robot._cannonreload > 0:
             return None
 
-        bullet = Bullet(self.w, robot)
+        bullet = Bullet(self, robot)
         bullet._fuse = fuse
         self.v.sprites.add(bullet.v)
 
@@ -392,12 +395,16 @@ class World(object):
 
             if bullet._fuse is not None:
                 bullet._fuse -= 1
-                if bullet._fuse <= 0:
+                if bullet._fuse == 0:
+                    print 'shell explodes'
                     bullet.explode()
 
-            if bullet._exploding and bullet not in self.to_destroy:
-                self.to_destroy.append(bullet)
-                print 'shell explodes'
+            if bullet._exploding:
+                if bullet._exploding > 2:
+                    if bullet not in self.to_destroy:
+                        self.to_destroy.append(bullet)
+                else:
+                    bullet._exploding += 1
 
         #print
         self.v.step()
@@ -411,6 +418,8 @@ class World(object):
             #print 'destroy', id(body)
             if model in self.bullets:
                 self.bullets.remove(model)
+                if model._exploding:
+                    model.e.kill()
             #print 's0', self.v.sprites
             model.v.kill()
 
@@ -511,7 +520,7 @@ class CL(box2d.b2ContactListener):
                 else:
                     hits = s1.userData['hits']
                     if actor2 not in hits[ring]:
-                        dmg = [5, 4, 3][ring]
+                        dmg = conf.explosion_damage[ring]
                         print 'Robot', actor2.name, 'in blast area for', dmg
                         hits[ring].append(actor2)
                     else:
@@ -547,7 +556,7 @@ class CL(box2d.b2ContactListener):
                 else:
                     hits = s2.userData['hits']
                     if actor1 not in hits[ring]:
-                        dmg = [5, 4, 3][ring]
+                        dmg = conf.explosion_damage[ring]
                         print 'Robot', actor1.name, 'in blast area for', dmg
                         hits[ring].append(actor1)
                     else:
@@ -570,11 +579,11 @@ class CL(box2d.b2ContactListener):
                 else:
                     print 'down to', actor1.health
 
-        if actor1 in self.w.bullets:
+        if actor1 in self.w.bullets and not actor1._exploding:
             if actor1 not in self.w.to_destroy:
                 self.w.to_destroy.append(actor1)
 
-        if actor2 in self.w.bullets:
+        if actor2 in self.w.bullets and not actor2._exploding:
             if actor2 not in self.w.to_destroy:
                 self.w.to_destroy.append(actor2)
 

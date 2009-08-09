@@ -22,6 +22,10 @@ logdir = 'robots/logs'
 # Game
 maxhealth = 100
 direct_hit_damage = 10
+
+explosion_radii = [1, 2, 3] # meters
+explosion_damage = [3, 4, 5] # Cumulative. If hit by ring 0, will also get 1 and 2
+
 collision_damage_start = 25 # Minimum impulse value for damage to occur
 collision_damage_factor = 0.15 # Collision damage = (cdf * (impulse - cds))**2 + 1
 
