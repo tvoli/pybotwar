@@ -273,7 +273,9 @@ if __name__ == '__main__':
 
         results = stats.tournament_results(dt)
         print;print;print;
-        print 'Tournament Results:'
+        print 'Tournament Results'
+        print nbattles, 'battles between', len(results), 'robots'
+        print
         for line in results:
             print line[1], ':', line[4], 'wins', line[6], 'robots defeated'
 
