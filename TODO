@@ -9,3 +9,5 @@ additional components:
     proximity sensor
     touch sensor
 debug mode (show sensors and actions)
+other game types (race, find/collect objects, maze)
+document how to write robot programs
