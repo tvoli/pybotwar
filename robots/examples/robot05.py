@@ -12,6 +12,7 @@ class TheRobot(Robot):
             self.ping_react()
 
     def spin(self, n=None):
+        # Spin for n ticks, then stop
         if n is not None:
             self._spin = True
             self._spin_n = n
@@ -27,6 +28,7 @@ class TheRobot(Robot):
         kind, angle, dist = self.sensors['PING']
 
         if kind == 'w':
+            # Pinged a wall
             if dist < 8:
                 self.spin(30)
 
@@ -39,6 +41,7 @@ class TheRobot(Robot):
                 self.torque(0)
 
         elif kind == 'r':
+            # Pinged a robot
             self.fire()
 
             if dist < 5:

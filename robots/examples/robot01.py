@@ -16,6 +16,7 @@ class TheRobot(Robot):
         t = self.sensors['TICK']
 
         if t > self.rounds:
+            # Test the tick sensor by quitting after a while
             self.finished()
 
         self.controller()
@@ -51,10 +52,13 @@ class TheRobot(Robot):
                 self.fwdfor(1)
 
     def shoot(self):
+        # Fire the cannon occasionally
         if not random.randrange(30):
             self.fire()
 
     def fwdfor(self, s=None):
+        'Move forward for s seconds, or if s is None, keep moving forward.'
+
         if s is None:
             t = self._fwdfor_ticks
             t -= 1
@@ -71,6 +75,8 @@ class TheRobot(Robot):
         return t
 
     def rightfor(self, s=None):
+        'Turn right for s seconds, or if s is None, keep turning right.'
+
         if s is None:
             t = self._rightfor_ticks
             t -= 1
@@ -87,6 +93,8 @@ class TheRobot(Robot):
         return t
 
     def unstickfor(self, s=None):
+        'Back up and turn left for s seconds, or if s is None, keep on...'
+
         if s is None:
             t = self._unstickfor_ticks
             t -= 1

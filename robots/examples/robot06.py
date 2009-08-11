@@ -11,6 +11,7 @@ class TheRobot(Robot):
         self.turnto()
         self.scan_and_fire()
 
+        # Move away if damaged
         health = self.sensors['HEALTH']
         if health != self.health:
             self.health = health
@@ -25,6 +26,8 @@ class TheRobot(Robot):
             self.force(0)
 
     def turnto(self):
+        # Turn to angle set in self._turnto
+
         gyro = self.sensors['GYRO']
 
         gain = 0.5
@@ -34,6 +37,8 @@ class TheRobot(Robot):
         self.torque(torque)
 
     def scan_and_fire(self):
+        # Move the turret around, look for stuff and shoot it
+
         tur = self.sensors['TUR']
         self.turret(tur+20)
         self.ping()

@@ -9,6 +9,8 @@ class TheRobot(Robot):
         kind, angle, dist = self.sensors['PING']
 
         if kind == 'w':
+            # Pinged a wall
+
             if dist < 2:
                 self.force(-30)
                 self.torque(50)
@@ -17,6 +19,8 @@ class TheRobot(Robot):
                 self.torque(0)
 
         elif kind in 'rb':
+            # Pinged a robot or a bullet
+
             self.fire()
 
             if dist < 5:

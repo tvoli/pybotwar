@@ -2,11 +2,16 @@ from robot import Robot
 
 class TheRobot(Robot):
     def initialize(self):
+        # Try to get in to a corner
         self.forseconds(5, self.force, 50)
         self.forseconds(0.9, self.force, -10)
         self.forseconds(0.7, self.torque, 100)
         self.forseconds(6, self.force, 50)
+
+        # Then look around and shoot stuff
         self.forever(self.scanfire)
+
+
         self._turretdirection = 1
         self.turret(180)
         self._pingfoundrobot = None
