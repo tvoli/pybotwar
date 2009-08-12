@@ -49,9 +49,29 @@ class Robot(object):
         self.initialize()
 
     def initialize(self):
+        '''Set up the robot before it starts running.
+            Must complete in < 1 second (by default).
+
+        '''
+
         pass
 
     def respond(self):
+        '''User code goes here. Called 60 times per second (default).
+
+        Must complete in < 0.015 seconds (default).
+
+        Most robots will override the respond() method with their
+            own code.
+
+            This default method looks for a series of steps in
+            self._steps (could be set up in the initialize() method)
+
+            self._steps is a list of 3-tuples:
+                (# of repetitions, function, parameters)
+
+        '''
+
         self.force(0)
         self.torque(0)
 
@@ -75,19 +95,38 @@ class Robot(object):
             f(*p)
 
     def forsteps(self, steps, f, *p):
+        '''for use with the default respond() method.
+
+        This will add an entry to self._steps using the passed
+            # of ticks, function, and function parameters.
+
+        '''
+
         self._steps.append([steps, f, p])
 
     def forseconds(self, seconds, f, *p):
+        'Converts seconds to steps, then calls forsteps()'
+
         steps = int(seconds*60.0)
         self.forsteps(steps, f, *p)
 
     def forever(self, f, *p):
+        '''for use with the default respond() method
+
+        Sets a function and parameters to be called non-stop.
+
+        '''
+
         self.forsteps(0, f, *p)
 
     def err(self):
+        'Put the robot in to an error state.'
+
         self._err = True
 
     def finished(self):
+        'Signal that the robot code is finished and exit.'
+
         self._finished = True
 
     def force(self, n):
@@ -99,6 +138,16 @@ class Robot(object):
         self._torque = int(n)
 
     def fire(self, dist=None):
+        '''Launch a shell from the cannon.
+
+        If dist is None, the shell will continue until it hits a wall,
+            a robot, or another bullet.
+
+        If dist is given, the shell will travel that distance and then
+            explode.
+
+        '''
+
         if dist is None:
             self._fire = 'X'
         else:
@@ -109,9 +158,18 @@ class Robot(object):
         self._ping = 1
 
     def turret(self, angle):
+        '''Turn the turret to the given angle.
+
+        It takes time for the turret to turn. Check the actual turret
+            angle with the TUR sensor:  self.sensors['TUR']
+
+        '''
+
         self._turretangle = angle
 
     def log(self, *msgs):
+        'Write a message to the log file.'
+
         if self.logfile is not None:
             msgstrs = map(str, msgs)
             m = ', '.join(msgstrs)
