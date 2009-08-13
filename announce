@@ -11,18 +11,5 @@ and uses pygame and pygsear for the visualization.
 pybotwar is released under GPLv3.
 
 
-Changes in pybotwar-0.5:
-    - added tournament mode
-    - added explosive shells
-    - robots are now damaged by colliding with walls or other robots
-    - added damage sensor
-    - added gyro sensor
-    - added configurable cannon reload time
-    - added robot statistics database
-    - added time limit for robot startup/ initialization
-    - health bar changes color below 30% health
-    - fixed force/ torque possibly going over 100%
-    - fixed problem with non-integer force/ torque values
-    - each robot gets its own log file in test mode
-    - send robot errors to log file
-    - use optparse for cmd line options
+Changes in pybotwar-0.6:
+    - fix possibility of 2 robots spawning at same position

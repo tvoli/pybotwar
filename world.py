@@ -282,8 +282,8 @@ class World(object):
             rx, ry = b.position
             if (rx-2 < px < rx+2) and (ry-2 < py < ry+2):
                 return True
-            else:
-                return False
+
+        return False
 
     def makerobot(self, name, pos=None, ang=None):
         rhx = self.ahalfx-2
