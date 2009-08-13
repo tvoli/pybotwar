@@ -8,6 +8,9 @@ additional components:
     distance traveled sensor
     proximity sensor
     touch sensor
+    position sensor
+    gun heat sensor
+penalty for trying to fire gun when it is overheated
 debug mode (show sensors and actions)
 other game types (race, find/collect objects, maze)
 document how to write robot programs
