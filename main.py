@@ -188,9 +188,9 @@ def run(testmode=False, tournament=None):
 
         w.step()
 
-        rnd += 1
         if not rnd%60:
             print '%s seconds (%s real)' % (rnd/60, int(time.time())-t0)
+        rnd += 1
 
     print 'FINISHING'
 
