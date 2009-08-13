@@ -4,8 +4,6 @@ from robot import Robot
 
 class TheRobot(Robot):
     def initialize(self):
-        self.rounds = random.randrange(10000, 20000)
-
         self._state = 'FORWARD'
         self._fwdfor_ticks = None
         self._rightfor_ticks = None
@@ -13,12 +11,6 @@ class TheRobot(Robot):
         self._unstickfor_ticks = None
 
     def respond(self):
-        t = self.sensors['TICK']
-
-        if t > self.rounds:
-            # Test the tick sensor by quitting after a while
-            self.finished()
-
         self.controller()
 
     def controller(self):
@@ -53,7 +45,7 @@ class TheRobot(Robot):
 
     def shoot(self):
         # Fire the cannon occasionally
-        if not random.randrange(30):
+        if not random.randrange(3):
             self.fire()
 
     def fwdfor(self, s=None):
