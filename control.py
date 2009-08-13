@@ -98,11 +98,31 @@ def communicate(r):
 
 
 def build_robot(modname, robotname, testmode, rbox):
+
+    if testmode:
+        logfilename = '%s.log' % robotname
+        logfilepath = os.path.join(conf.logdir, logfilename)
+        logfile = open(logfilepath, 'a')
+    else:
+        logfile = None
+
     try:
         mod = __import__(modname)
-        r = mod.TheRobot(robotname, testmode)
+        r = mod.TheRobot(robotname)
+
+        r.logfile = logfile
+
+        r.initialize()
+
     except:
         rbox.append(None)
+
+        import traceback
+        tb = traceback.format_exc()
+        logfile.write(tb)
+        logfile.write('\n')
+        logfile.flush()
+
     else:
         rbox.append(r)
 

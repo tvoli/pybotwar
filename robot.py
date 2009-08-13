@@ -24,7 +24,7 @@ import conf
 
 
 class Robot(object):
-    def __init__(self, name, testmode):
+    def __init__(self, name):
         self.name = name
 
         self._overtime_count = 0
@@ -38,15 +38,6 @@ class Robot(object):
         self._fire = '_'
         self._ping = 0
         self._turretangle = 0
-
-        if testmode:
-            logfilename = '%s.log' % name
-            logfilepath = os.path.join(conf.logdir, logfilename)
-            self.logfile = open(logfilepath, 'a')
-        else:
-            self.logfile = None
-
-        self.initialize()
 
     def initialize(self):
         '''Set up the robot before it starts running.
