@@ -85,12 +85,13 @@ def run(testmode=False, tournament=None):
             health = model.health
             body = model.body
             pos = body.position
+            possens = '%s;%s' % (int(pos.x*10), int(pos.y*10))
             tur = model.get_turretangle()
             ping = '%s;%s;%s' % (model._pingtype,
                                     model._pingangle,
                                     model._pingdist)
             gyro = model.gyro()
-            line = 'TICK:%s|HEALTH:%s|POS:%s|TUR:%s|PING:%s|GYRO:%s\n' % (rnd, health, pos, tur, ping, gyro)
+            line = 'TICK:%s|HEALTH:%s|POS:%s|TUR:%s|PING:%s|GYRO:%s\n' % (rnd, health, possens, tur, ping, gyro)
             #print robotname, line
 
             proc = procs[robotname]
