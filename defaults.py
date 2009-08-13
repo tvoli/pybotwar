@@ -21,6 +21,8 @@ logdir = 'robots/logs'
 
 
 # Game
+maxtime = 600 # Seconds before calling the match a draw
+
 maxhealth = 100
 direct_hit_damage = 10
 

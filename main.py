@@ -78,6 +78,9 @@ def run(testmode=False, tournament=None):
     result = ''
     rnd = 0
     while ((testmode and not tournament) or len(procs) > 1) and not w.v.quit:
+        if rnd > 60 * conf.maxtime:
+            break
+
         for robotname, model in models.items():
             if robotname not in procs:
                 continue
