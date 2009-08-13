@@ -14,7 +14,8 @@ r3 = 'robot03'
 r4 = 'robot04'
 r5 = 'robot05'
 r6 = 'robot06'
-robots = [r1, r2, r3, r4, r5, r6]
+r7 = 'robot07'
+robots = [r1, r2, r3, r4, r5, r6, r7]
 
 logdir = 'robots/logs'
 
