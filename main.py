@@ -105,6 +105,9 @@ def run(testmode=False, tournament=None):
                 model._kills = nrobots - len(procs)
                 del procs[robotname]
                 print 'DEAD robot', robotname, 'health is 0'
+                proc.stdin.flush()
+                proc.stdin.close()
+                proc.stdout.close()
                 proc.kill()
                 continue
 
@@ -113,16 +116,25 @@ def run(testmode=False, tournament=None):
                 if timeouts[robotname] > 5:
                     del procs[robotname]
                     print 'REMOVED robot', robotname, 'due to excessive timeouts'
+                    proc.stdin.flush()
+                    proc.stdin.close()
+                    proc.stdout.close()
                     proc.kill()
 
             elif result == 'END':
                 del procs[robotname]
                 print 'FINISHED: robot', robotname
+                proc.stdin.flush()
+                proc.stdin.close()
+                proc.stdout.close()
                 proc.kill()
 
             elif result == 'ERROR':
                 del procs[robotname]
                 print 'ERROR: robot', robotname
+                proc.stdin.flush()
+                proc.stdin.close()
+                proc.stdout.close()
                 proc.kill()
 
             else:
@@ -208,6 +220,9 @@ def run(testmode=False, tournament=None):
             line = 'FINISH\n'
             proc = procs[robotname]
             proc.stdin.write(line)
+            proc.stdin.flush()
+            proc.stdin.close()
+            proc.stdout.close()
 
         if winner is None and model.alive:
             model._kills = nrobots - len(alive)
