@@ -12,5 +12,8 @@ pybotwar is released under GPLv3.
 
 
 Changes in pybotwar-0.6:
+    - add position sensor and example robot to test it out
     - fix possibility of 2 robots spawning at same position
     - add a maximum time for match
+    - fix crash from too many files open during long tournament
+    - catch and log robot errors during module compilation
