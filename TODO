@@ -1,5 +1,4 @@
 take tangent impulse in to account on collision damage
-configurable maximum battle time
 keep stats on how many shots actually connect
 additional components:
     selectable components
