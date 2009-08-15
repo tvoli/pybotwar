@@ -9,6 +9,7 @@ additional components:
     proximity sensor
     touch sensor
     gun heat sensor
+    gun loaded sensor
 penalty for trying to fire gun when it is overheated
 debug mode (show sensors and actions)
 other game types (race, find/collect objects, maze)
