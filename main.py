@@ -94,7 +94,9 @@ def run(testmode=False, tournament=None):
                                     model._pingangle,
                                     model._pingdist)
             gyro = model.gyro()
-            line = 'TICK:%s|HEALTH:%s|POS:%s|TUR:%s|PING:%s|GYRO:%s\n' % (rnd, health, possens, tur, ping, gyro)
+            heat = int(model._cannonheat)
+            loading = int(model._cannonreload)
+            line = 'TICK:%s|HEALTH:%s|POS:%s|TUR:%s|PING:%s|GYRO:%s|HEAT:%s|LOADING:%s\n' % (rnd, health, possens, tur, ping, gyro, heat, loading)
             #print robotname, line
 
             proc = procs[robotname]

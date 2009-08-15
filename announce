@@ -17,3 +17,7 @@ Changes in pybotwar-0.6:
     - add a maximum time for match
     - fix crash from too many files open during long tournament
     - catch and log robot errors during module compilation
+    - add cannon overheat sensor
+    - add cannon loaded sensor
+    - reload penalty for firing while cannon overheated (defaults to 0)
+    - reload penalty for firing before cannon is loaded (defaults to 0)

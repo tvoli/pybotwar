@@ -309,8 +309,12 @@ class World(object):
     def makebullet(self, rname, fuse=None):
         robot = self.robots[rname]
         if robot._cannonheat > conf.cannon_maxheat:
+            # tried to fire when the cannon was overheated
+            robot._cannonreload += conf.overheat_fire_reload_penalty
             return None
         elif robot._cannonreload > 0:
+            # tried to fire when the cannon was not loaded
+            robot._cannonreload += conf.unloaded_fire_reload_penalty
             return None
 
         bullet = Bullet(self, robot)
