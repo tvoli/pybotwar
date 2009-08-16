@@ -120,6 +120,11 @@ Or, if you only want to test your own robot:
 
     robots = [mine]
 
+You can also run with multiple copies of the same robot:
+
+    # Three of example robot 1 and three of my new robot
+    robots = [r1, r1, r1, mine, mine, mine]
+
 If you want to run with only your new robot, be sure to
 run in test mode, or the battle will be over before it
 begins:
