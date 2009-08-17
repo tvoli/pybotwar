@@ -58,7 +58,7 @@ class TheRobot(Robot):
         self.ping()
 
         kind, angle, dist = self.sensors['PING']
-        if kind in 'rb':
+        if kind in 'r':
             if dist > 4:
                 # Try not to blast yourself
                 self.fire(dist)
