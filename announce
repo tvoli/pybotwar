@@ -23,3 +23,4 @@ Changes in pybotwar-0.6:
     - add cannon loaded sensor
     - reload penalty for firing while cannon overheated (defaults to 0)
     - reload penalty for firing before cannon is loaded (defaults to 0)
+    - use both tangent and normal impulse to determine collision damage

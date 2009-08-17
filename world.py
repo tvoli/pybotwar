@@ -508,7 +508,9 @@ class CL(box2d.b2ContactListener):
         hitdmg = conf.direct_hit_damage
         cds = conf.collision_damage_start
         cdf = conf.collision_damage_factor
-        impulse = result.normalImpulse
+        nimpulse = result.normalImpulse
+        timpulse = result.tangentImpulse
+        impulse = box2d.b2Vec2(nimpulse, timpulse).Length()
         coldmg = int((cdf * (impulse - cds))**2) + 1
 
         if kind2=='robot':
