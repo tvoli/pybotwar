@@ -150,3 +150,4 @@ class Arena(Game):
         title = Stationary(sprite=titleicon)
         title.set_position((660, 10))
         title.draw()
+        self.set_background(color=(40, 40, 80))
