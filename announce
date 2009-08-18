@@ -15,6 +15,7 @@ Changes in pybotwar-0.6:
     - much expanded README file
     - add robot program template
     - add position sensor and example robot to test it out
+    - new robot and turret images
     - fix possibility of 2 robots spawning at same position
     - add a maximum time for match
     - fix crash from too many files open during long tournament

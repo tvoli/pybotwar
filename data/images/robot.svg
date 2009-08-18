@@ -10,20 +10,20 @@
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="744.09448819"
    height="1052.3622047"
-   id="svg2"
+   id="svg3172"
    sodipodi:version="0.32"
    inkscape:version="0.46"
    sodipodi:docname="robot.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape">
   <defs
-     id="defs4">
+     id="defs3174">
     <inkscape:perspective
        sodipodi:type="inkscape:persp3d"
        inkscape:vp_x="0 : 526.18109 : 1"
        inkscape:vp_y="0 : 1000 : 0"
        inkscape:vp_z="744.09448 : 526.18109 : 1"
        inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
-       id="perspective10" />
+       id="perspective3180" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -35,18 +35,20 @@
      objecttolerance="10"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.1830191"
-     inkscape:cx="616.64056"
-     inkscape:cy="624.39873"
+     inkscape:zoom="0.59194388"
+     inkscape:cx="418.45172"
+     inkscape:cy="499.37376"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
+     showguides="true"
+     inkscape:guide-bbox="true"
      inkscape:window-width="1680"
-     inkscape:window-height="985"
+     inkscape:window-height="988"
      inkscape:window-x="-4"
      inkscape:window-y="-3" />
   <metadata
-     id="metadata7">
+     id="metadata3177">
     <rdf:RDF>
       <cc:Work
          rdf:about="">
@@ -60,37 +62,370 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1">
+    <rect
+       style="opacity:1;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3.84041309;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect3182"
+       width="107.4915"
+       height="20.996881"
+       x="143.90808"
+       y="47.199314"
+       ry="3.6946595"
+       rx="4.1487942"
+       inkscape:export-filename="/home/lee/r01b.png"
+       inkscape:export-xdpi="4.6326056"
+       inkscape:export-ydpi="4.6326056" />
+    <rect
+       rx="4.1487942"
+       ry="3.2328269"
+       y="136.5144"
+       x="143.90808"
+       height="18.803167"
+       width="107.4915"
+       id="rect3695"
+       style="opacity:1;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3.84041309;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       inkscape:export-filename="/home/lee/r01b.png"
+       inkscape:export-xdpi="4.6326056"
+       inkscape:export-ydpi="4.6326056" />
+    <path
+       style="fill:#800000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3.84041309;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       d="M 173.42046,68.822969 L 220.81555,68.822969 C 237.33903,68.822969 250.64133,84.239219 250.64133,94.824529 C 250.64133,94.824529 250.64133,103.30496 250.64133,109.57269 C 250.64133,120.158 237.33903,135.57425 220.81555,135.57425 L 173.42046,135.57425 C 156.89698,135.57425 143.59469,136.76748 143.59469,126.18216 L 143.59469,77.901669 C 143.59469,67.316359 156.89698,68.822969 173.42046,68.822969 z"
+       id="rect3697"
+       sodipodi:nodetypes="ccccccccc"
+       inkscape:export-filename="/home/lee/r01b.png"
+       inkscape:export-xdpi="4.6326056"
+       inkscape:export-ydpi="4.6326056" />
+    <rect
+       inkscape:export-ydpi="24.972649"
+       inkscape:export-xdpi="24.972649"
+       inkscape:export-filename="/home/lee/python/pybotwar/data/images/r02.png"
+       rx="4.1487942"
+       ry="3.6946595"
+       y="200.9301"
+       x="143.90808"
+       height="20.996881"
+       width="107.4915"
+       id="rect3700"
+       style="opacity:1;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3.84041309;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+    <rect
+       inkscape:export-ydpi="24.972649"
+       inkscape:export-xdpi="24.972649"
+       inkscape:export-filename="/home/lee/python/pybotwar/data/images/r02.png"
+       style="opacity:1;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3.84041309;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect3702"
+       width="107.4915"
+       height="18.803167"
+       x="143.90808"
+       y="290.24521"
+       ry="3.2328269"
+       rx="4.1487942" />
+    <path
+       inkscape:export-ydpi="24.972649"
+       inkscape:export-xdpi="24.972649"
+       inkscape:export-filename="/home/lee/python/pybotwar/data/images/r02.png"
+       sodipodi:nodetypes="ccccccccc"
+       id="path3704"
+       d="M 173.42046,222.55376 L 220.81555,222.55376 C 237.33903,222.55376 250.64133,237.97001 250.64133,248.55532 C 250.64133,248.55532 250.64133,257.03575 250.64133,263.30348 C 250.64133,273.88879 237.33903,289.30504 220.81555,289.30504 L 173.42046,289.30504 C 156.89698,289.30504 143.59469,290.49827 143.59469,279.91295 L 143.59469,231.63246 C 143.59469,221.04715 156.89698,222.55376 173.42046,222.55376 z"
+       style="fill:#ff6600;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3.84041309000000020;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+    <rect
+       style="opacity:1;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3.84041309;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect3706"
+       width="107.4915"
+       height="20.996881"
+       x="143.90808"
+       y="349.59283"
+       ry="3.6946595"
+       rx="4.1487942"
+       inkscape:export-filename="/home/lee/python/pybotwar/data/images/r03.png"
+       inkscape:export-xdpi="24.972649"
+       inkscape:export-ydpi="24.972649" />
+    <rect
+       rx="4.1487942"
+       ry="3.2328269"
+       y="438.90796"
+       x="143.90808"
+       height="18.803167"
+       width="107.4915"
+       id="rect3708"
+       style="opacity:1;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3.84041309;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       inkscape:export-filename="/home/lee/python/pybotwar/data/images/r03.png"
+       inkscape:export-xdpi="24.972649"
+       inkscape:export-ydpi="24.972649" />
+    <path
+       style="fill:#ffff00;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3.84041309000000020;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       d="M 173.42046,371.2165 L 220.81555,371.2165 C 237.33903,371.2165 250.64133,386.63275 250.64133,397.21806 C 250.64133,397.21806 250.64133,405.69849 250.64133,411.96622 C 250.64133,422.55153 237.33903,437.96778 220.81555,437.96778 L 173.42046,437.96778 C 156.89698,437.96778 143.59469,439.16101 143.59469,428.57569 L 143.59469,380.2952 C 143.59469,369.70989 156.89698,371.2165 173.42046,371.2165 z"
+       id="path3710"
+       sodipodi:nodetypes="ccccccccc"
+       inkscape:export-filename="/home/lee/python/pybotwar/data/images/r03.png"
+       inkscape:export-xdpi="24.972649"
+       inkscape:export-ydpi="24.972649" />
+    <rect
+       inkscape:export-ydpi="24.972664"
+       inkscape:export-xdpi="24.972664"
+       inkscape:export-filename="/home/lee/python/pybotwar/data/images/r04.png"
+       rx="4.1487942"
+       ry="3.6946595"
+       y="510.08102"
+       x="143.90808"
+       height="20.996881"
+       width="107.4915"
+       id="rect3712"
+       style="opacity:1;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3.84041309;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+    <rect
+       inkscape:export-ydpi="24.972664"
+       inkscape:export-xdpi="24.972664"
+       inkscape:export-filename="/home/lee/python/pybotwar/data/images/r04.png"
+       style="opacity:1;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3.84041309;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect3714"
+       width="107.4915"
+       height="18.803167"
+       x="143.90808"
+       y="599.39612"
+       ry="3.2328269"
+       rx="4.1487942" />
+    <path
+       inkscape:export-ydpi="24.972664"
+       inkscape:export-xdpi="24.972664"
+       inkscape:export-filename="/home/lee/python/pybotwar/data/images/r04.png"
+       sodipodi:nodetypes="ccccccccc"
+       id="path3716"
+       d="M 173.42046,531.70469 L 220.81555,531.70469 C 237.33903,531.70469 250.64133,547.12094 250.64133,557.70625 C 250.64133,557.70625 250.64133,566.18668 250.64133,572.45441 C 250.64133,583.03972 237.33903,598.45597 220.81555,598.45597 L 173.42046,598.45597 C 156.89698,598.45597 143.59469,599.6492 143.59469,589.06388 L 143.59469,540.78339 C 143.59469,530.19808 156.89698,531.70469 173.42046,531.70469 z"
+       style="fill:#008000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3.84041309000000020;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+    <rect
+       style="opacity:1;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3.84041309;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect3718"
+       width="107.4915"
+       height="20.996881"
+       x="143.90808"
+       y="668.87988"
+       ry="3.6946595"
+       rx="4.1487942"
+       inkscape:export-filename="/home/lee/python/pybotwar/data/images/r05.png"
+       inkscape:export-xdpi="24.972664"
+       inkscape:export-ydpi="24.972664" />
+    <rect
+       rx="4.1487942"
+       ry="3.2328269"
+       y="758.19495"
+       x="143.90808"
+       height="18.803167"
+       width="107.4915"
+       id="rect3720"
+       style="opacity:1;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3.84041309;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       inkscape:export-filename="/home/lee/python/pybotwar/data/images/r05.png"
+       inkscape:export-xdpi="24.972664"
+       inkscape:export-ydpi="24.972664" />
+    <path
+       style="fill:#00ffff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3.84041309000000020;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       d="M 173.42046,690.50353 L 220.81555,690.50353 C 237.33903,690.50353 250.64133,705.91978 250.64133,716.50509 C 250.64133,716.50509 250.64133,724.98552 250.64133,731.25325 C 250.64133,741.83856 237.33903,757.25481 220.81555,757.25481 L 173.42046,757.25481 C 156.89698,757.25481 143.59469,758.44804 143.59469,747.86272 L 143.59469,699.58223 C 143.59469,688.99692 156.89698,690.50353 173.42046,690.50353 z"
+       id="path3722"
+       sodipodi:nodetypes="ccccccccc"
+       inkscape:export-filename="/home/lee/python/pybotwar/data/images/r05.png"
+       inkscape:export-xdpi="24.972664"
+       inkscape:export-ydpi="24.972664" />
+    <rect
+       inkscape:export-ydpi="24.972664"
+       inkscape:export-xdpi="24.972664"
+       inkscape:export-filename="/home/lee/python/pybotwar/data/images/r06.png"
+       rx="4.1487942"
+       ry="3.6946595"
+       y="47.199314"
+       x="483.46729"
+       height="20.996881"
+       width="107.4915"
+       id="rect3724"
+       style="opacity:1;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3.84041309;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+    <rect
+       inkscape:export-ydpi="24.972664"
+       inkscape:export-xdpi="24.972664"
+       inkscape:export-filename="/home/lee/python/pybotwar/data/images/r06.png"
+       style="opacity:1;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3.84041309;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect3726"
+       width="107.4915"
+       height="18.803167"
+       x="483.46729"
+       y="136.5144"
+       ry="3.2328269"
+       rx="4.1487942" />
+    <path
+       inkscape:export-ydpi="24.972664"
+       inkscape:export-xdpi="24.972664"
+       inkscape:export-filename="/home/lee/python/pybotwar/data/images/r06.png"
+       sodipodi:nodetypes="ccccccccc"
+       id="path3728"
+       d="M 512.97968,68.822969 L 560.37477,68.822969 C 576.89825,68.822969 590.20055,84.239219 590.20055,94.824529 C 590.20055,94.824529 590.20055,103.30496 590.20055,109.57269 C 590.20055,120.158 576.89825,135.57425 560.37477,135.57425 L 512.97968,135.57425 C 496.4562,135.57425 483.1539,136.76748 483.1539,126.18216 L 483.1539,77.901669 C 483.1539,67.316359 496.4562,68.822969 512.97968,68.822969 z"
+       style="fill:#800080;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3.84041309000000020;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+    <rect
+       style="opacity:1;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3.84041309;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect3730"
+       width="107.4915"
+       height="20.996881"
+       x="483.46729"
+       y="200.9301"
+       ry="3.6946595"
+       rx="4.1487942"
+       inkscape:export-filename="/home/lee/python/pybotwar/data/images/r07.png"
+       inkscape:export-xdpi="24.972649"
+       inkscape:export-ydpi="24.972649" />
+    <rect
+       rx="4.1487942"
+       ry="3.2328269"
+       y="290.24521"
+       x="483.46729"
+       height="18.803167"
+       width="107.4915"
+       id="rect3732"
+       style="opacity:1;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3.84041309;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       inkscape:export-filename="/home/lee/python/pybotwar/data/images/r07.png"
+       inkscape:export-xdpi="24.972649"
+       inkscape:export-ydpi="24.972649" />
+    <path
+       style="fill:#ff00ff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3.84041309000000020;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       d="M 512.97968,222.55376 L 560.37477,222.55376 C 576.89825,222.55376 590.20055,237.97001 590.20055,248.55532 C 590.20055,248.55532 590.20055,257.03575 590.20055,263.30348 C 590.20055,273.88879 576.89825,289.30504 560.37477,289.30504 L 512.97968,289.30504 C 496.4562,289.30504 483.1539,290.49827 483.1539,279.91295 L 483.1539,231.63246 C 483.1539,221.04715 496.4562,222.55376 512.97968,222.55376 z"
+       id="path3734"
+       sodipodi:nodetypes="ccccccccc"
+       inkscape:export-filename="/home/lee/python/pybotwar/data/images/r07.png"
+       inkscape:export-xdpi="24.972649"
+       inkscape:export-ydpi="24.972649" />
+    <rect
+       inkscape:export-ydpi="24.972649"
+       inkscape:export-xdpi="24.972649"
+       inkscape:export-filename="/home/lee/python/pybotwar/data/images/r08.png"
+       rx="4.1487942"
+       ry="3.6946595"
+       y="349.59283"
+       x="483.46729"
+       height="20.996881"
+       width="107.4915"
+       id="rect3736"
+       style="opacity:1;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3.84041309;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+    <rect
+       inkscape:export-ydpi="24.972649"
+       inkscape:export-xdpi="24.972649"
+       inkscape:export-filename="/home/lee/python/pybotwar/data/images/r08.png"
+       style="opacity:1;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3.84041309;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect3738"
+       width="107.4915"
+       height="18.803167"
+       x="483.46729"
+       y="438.90796"
+       ry="3.2328269"
+       rx="4.1487942" />
+    <path
+       inkscape:export-ydpi="24.972649"
+       inkscape:export-xdpi="24.972649"
+       inkscape:export-filename="/home/lee/python/pybotwar/data/images/r08.png"
+       sodipodi:nodetypes="ccccccccc"
+       id="path3740"
+       d="M 512.97968,371.2165 L 560.37477,371.2165 C 576.89825,371.2165 590.20055,386.63275 590.20055,397.21806 C 590.20055,397.21806 590.20055,405.69849 590.20055,411.96622 C 590.20055,422.55153 576.89825,437.96778 560.37477,437.96778 L 512.97968,437.96778 C 496.4562,437.96778 483.1539,439.16101 483.1539,428.57569 L 483.1539,380.2952 C 483.1539,369.70989 496.4562,371.2165 512.97968,371.2165 z"
+       style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3.84041309000000020;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+    <rect
+       style="opacity:1;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3.84041309;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect3742"
+       width="107.4915"
+       height="20.996881"
+       x="483.46729"
+       y="510.08102"
+       ry="3.6946595"
+       rx="4.1487942"
+       inkscape:export-filename="/home/lee/python/pybotwar/data/images/r09.png"
+       inkscape:export-xdpi="24.972649"
+       inkscape:export-ydpi="24.972649" />
+    <rect
+       rx="4.1487942"
+       ry="3.2328269"
+       y="599.39612"
+       x="483.46729"
+       height="18.803167"
+       width="107.4915"
+       id="rect3744"
+       style="opacity:1;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3.84041309;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       inkscape:export-filename="/home/lee/python/pybotwar/data/images/r09.png"
+       inkscape:export-xdpi="24.972649"
+       inkscape:export-ydpi="24.972649" />
+    <path
+       style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3.84041309000000020;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       d="M 512.97968,531.70469 L 560.37477,531.70469 C 576.89825,531.70469 590.20055,547.12094 590.20055,557.70625 C 590.20055,557.70625 590.20055,566.18668 590.20055,572.45441 C 590.20055,583.03972 576.89825,598.45597 560.37477,598.45597 L 512.97968,598.45597 C 496.4562,598.45597 483.1539,599.6492 483.1539,589.06388 L 483.1539,540.78339 C 483.1539,530.19808 496.4562,531.70469 512.97968,531.70469 z"
+       id="path3746"
+       sodipodi:nodetypes="ccccccccc"
+       inkscape:export-filename="/home/lee/python/pybotwar/data/images/r09.png"
+       inkscape:export-xdpi="24.972649"
+       inkscape:export-ydpi="24.972649" />
+    <rect
+       inkscape:export-ydpi="4.6326056"
+       inkscape:export-xdpi="4.6326056"
+       inkscape:export-filename="/home/lee/r01b.png"
+       rx="4.1487942"
+       ry="3.6946595"
+       y="668.87988"
+       x="483.46729"
+       height="20.996881"
+       width="107.4915"
+       id="rect3748"
+       style="opacity:1;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3.84041309;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+    <rect
+       inkscape:export-ydpi="4.6326056"
+       inkscape:export-xdpi="4.6326056"
+       inkscape:export-filename="/home/lee/r01b.png"
+       style="opacity:1;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3.84041309;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect3750"
+       width="107.4915"
+       height="18.803167"
+       x="483.46729"
+       y="758.19495"
+       ry="3.2328269"
+       rx="4.1487942" />
+    <path
+       inkscape:export-ydpi="4.6326056"
+       inkscape:export-xdpi="4.6326056"
+       inkscape:export-filename="/home/lee/r01b.png"
+       sodipodi:nodetypes="ccccccccc"
+       id="path3752"
+       d="M 512.97968,690.50353 L 560.37477,690.50353 C 576.89825,690.50353 590.20055,705.91978 590.20055,716.50509 C 590.20055,716.50509 590.20055,724.98552 590.20055,731.25325 C 590.20055,741.83856 576.89825,757.25481 560.37477,757.25481 L 512.97968,757.25481 C 496.4562,757.25481 483.1539,758.44804 483.1539,747.86272 L 483.1539,699.58223 C 483.1539,688.99692 496.4562,690.50353 512.97968,690.50353 z"
+       style="fill:#808000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3.84041309000000020;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
     <g
-       id="g2387"
-       transform="matrix(0,1,-1,0,701.36649,128.50188)"
-       inkscape:export-filename="/home/lee/robot.png"
-       inkscape:export-xdpi="11.181219"
-       inkscape:export-ydpi="11.181219">
+       id="g3770"
+       transform="translate(-18.582843,-10.136096)"
+       inkscape:export-filename="/home/lee/python/pybotwar/data/images/turret.png"
+       inkscape:export-xdpi="8.2596817"
+       inkscape:export-ydpi="8.2596817">
       <rect
          ry="0"
          rx="0"
-         y="284.89777"
-         x="153.01471"
-         height="241.47635"
-         width="241.47635"
-         id="rect2383"
-         style="opacity:1;fill:#dbe2e3;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3.84041309;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
-      <path
-         transform="matrix(-0.4907975,-0.8543004,0.7390095,-0.5673654,256.12599,1018.5637)"
-         d="M 584.94406,410.78339 L 315.74421,395.45642 L 463.61767,169.98599 L 584.94406,410.78339 z"
-         inkscape:randomized="0"
-         inkscape:rounded="0"
-         inkscape:flatsided="true"
-         sodipodi:arg2="1.6276702"
-         sodipodi:arg1="0.58047263"
-         sodipodi:r2="145.13284"
-         sodipodi:r1="155.67432"
-         sodipodi:cy="325.4086"
-         sodipodi:cx="454.76865"
-         sodipodi:sides="3"
-         id="path2385"
-         style="opacity:1;fill:#aa8800;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3.84041309;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-         sodipodi:type="star" />
+         y="837.32404"
+         x="284.77173"
+         height="217.92607"
+         width="217.92607"
+         id="rect3766"
+         style="opacity:1;fill:#000000;fill-opacity:0;fill-rule:evenodd;stroke:none;stroke-width:3.84041309;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+      <g
+         inkscape:transform-center-x="-27.029589"
+         transform="matrix(0.8002293,0,0,0.8002293,87.420554,192.70331)"
+         id="g3761">
+        <path
+           sodipodi:type="arc"
+           style="opacity:1;fill:#808000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3.84041309;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+           id="path3754"
+           sodipodi:cx="382.63763"
+           sodipodi:cy="941.70978"
+           sodipodi:rx="70.107994"
+           sodipodi:ry="70.107994"
+           d="M 452.74563,941.70978 A 70.107994,70.107994 0 1 1 312.52964,941.70978 A 70.107994,70.107994 0 1 1 452.74563,941.70978 z" />
+        <rect
+           style="opacity:1;fill:#808000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3.84041309;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+           id="rect3756"
+           width="132.00198"
+           height="67.573975"
+           x="383.4823"
+           y="910.45685"
+           rx="20.769756"
+           ry="15.320415" />
+        <path
+           transform="matrix(0.8965517,0,0,0.8965517,266.45117,99.602763)"
+           style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3.84041309;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+           d="M 75.890758,938.33112 C 75.890758,962.95165 80.654204,981.66941 134.30327,1011.8178 C 93.738613,1011.8178 60.816574,978.89577 60.816574,938.33112 C 60.816574,897.76646 93.738613,864.84442 134.30327,864.84442 C 82.538478,883.68717 75.890758,917.46609 75.890758,938.33112 z"
+           id="path3758"
+           sodipodi:nodetypes="ccscz" />
+      </g>
     </g>
   </g>
 </svg>
