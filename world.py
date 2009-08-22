@@ -248,11 +248,12 @@ class World(object):
         self.w = box2d.b2World(aabb, gravity, doSleep)
         self.w.GetGroundBody().SetUserData({'actor': None})
 
-        self.v = view.Arena()
         self.makearena()
 
 
     def makearena(self):
+        self.v = view.Arena()
+
         ahx = self.ahalfx
         ahy = self.ahalfy
 
