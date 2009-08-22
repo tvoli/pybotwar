@@ -40,49 +40,67 @@ stats.dbcheck()
 import view
 
 
-def run(testmode=False, tournament=None):
-    models = {}
-    procs = {}
-    results = {}
-    timeouts = {}
+class Game(object):
+    def __init__(self, testmode=False, tournament=None):
+        self.testmode = testmode
+        self.tournament = tournament
 
-    w = world.World()
-    cl = world.CL()
-    w.w.SetContactListener(cl)
-    cl.w = w
+        self.models = {}
+        self.procs = {}
+        self.results = {}
+        self.timeouts = {}
 
-    robots = conf.robots
-    for robot in robots:
-        robotname = robot
-        while robotname in w.robots:
-            robotname += '_'
-        print 'STARTING', robotname,
-        proc = subprocess.Popen([conf.subproc_python,
-                                    conf.subproc_main,
-                                    robot, robotname, str(int(testmode))],
-                                    stdin=PIPE, stdout=PIPE)
-        result = proc.stdout.readline().strip()
+        self.w = world.World()
+        self.cl = world.CL()
+        self.w.w.SetContactListener(self.cl)
+        self.cl.w = self.w
 
-        if result in ['ERROR', 'END']:
-            print 'ERROR!'
-        else:
-            print 'STARTED'
-            model = w.makerobot(robotname)
-            models[robotname] = model
-            procs[robotname] = proc
-            timeouts[robotname] = 0
+    def run(self):
+        self.load_robots()
+        self.t0 = int(time.time())
+        self.rnd = 0
+        while ((self.testmode and not self.tournament)
+                    or len(self.procs) > 1) and not self.w.v.quit:
+            if self.rnd > 60 * conf.maxtime:
+                break
+            self.tick()
+        self.finish()
 
-    nrobots = len(models)
-    t0 = int(time.time())
+    def load_robots(self):
+        robots = conf.robots
+        for robot in robots:
+            robotname = robot
+            while robotname in self.w.robots:
+                robotname += '_'
+            print 'STARTING', robotname,
+            proc = subprocess.Popen([conf.subproc_python,
+                                        conf.subproc_main,
+                                        robot, robotname,
+                                        str(int(self.testmode))],
+                                        stdin=PIPE, stdout=PIPE)
+            result = proc.stdout.readline().strip()
 
-    result = ''
-    rnd = 0
-    while ((testmode and not tournament) or len(procs) > 1) and not w.v.quit:
-        if rnd > 60 * conf.maxtime:
-            break
+            if result in ['ERROR', 'END']:
+                print 'ERROR!'
+            else:
+                print 'STARTED'
+                model = self.w.makerobot(robotname)
+                self.models[robotname] = model
+                self.procs[robotname] = proc
+                self.timeouts[robotname] = 0
 
-        for robotname, model in models.items():
-            if robotname not in procs:
+        self.nrobots = len(self.models)
+
+    def tick(self):
+        procs = self.procs
+        nrobots = self.nrobots
+        timeouts = self.timeouts
+        w = self.w
+        rnd = self.rnd
+        result = ''
+
+        for robotname, model in self.models.items():
+            if robotname not in self.procs:
                 continue
 
             health = model.health
@@ -203,43 +221,51 @@ def run(testmode=False, tournament=None):
         w.step()
 
         if not rnd%60:
-            print '%s seconds (%s real)' % (rnd/60, int(time.time())-t0)
-        rnd += 1
+            print '%s seconds (%s real)' % (rnd/60, int(time.time())-self.t0)
+        self.rnd += 1
 
-    print 'FINISHING'
 
-    alive = [model for model in models.values() if model.alive]
-    if not testmode and len(alive)==1:
-        model = alive[0]
-        print 'WINNER:', model.name
-        winner = model
-        model._kills = nrobots-1
-    else:
-        winner = None
+    def finish(self):
+        print 'FINISHING'
 
-    for robotname, model in models.items():
-        if robotname in procs:
-            line = 'FINISH\n'
-            proc = procs[robotname]
-            proc.stdin.write(line)
-            proc.stdin.flush()
-            proc.stdin.close()
-            proc.stdout.close()
+        models = self.models
+        testmode = self.testmode
+        nrobots = self.nrobots
+        procs = self.procs
+        tournament = self.tournament
 
-        if winner is None and model.alive:
-            model._kills = nrobots - len(alive)
-
-        if model == winner:
-            win = 1
+        alive = [model for model in models.values() if model.alive]
+        if not testmode and len(alive)==1:
+            model = alive[0]
+            print 'WINNER:', model.name
+            winner = model
+            model._kills = nrobots-1
         else:
-            win = 0
+            winner = None
 
-        if not testmode:
-            stats.update(model.name, win, nrobots-1, model._kills)
+        for robotname, model in models.items():
+            if robotname in procs:
+                line = 'FINISH\n'
+                proc = procs[robotname]
+                proc.stdin.write(line)
+                proc.stdin.flush()
+                proc.stdin.close()
+                proc.stdout.close()
 
-        if tournament is not None:
-            stats.tournament_update(tournament, model.name, win,
-                                            nrobots-1, model._kills)
+            if winner is None and model.alive:
+                model._kills = nrobots - len(alive)
+
+            if model == winner:
+                win = 1
+            else:
+                win = 0
+
+            if not testmode:
+                stats.update(model.name, win, nrobots-1, model._kills)
+
+            if tournament is not None:
+                stats.tournament_update(tournament, model.name, win,
+                                                nrobots-1, model._kills)
 
 
 
@@ -288,7 +314,8 @@ if __name__ == '__main__':
         print 'Beginning tournament with %s battles.' % nbattles
         for battle in range(nbattles):
             print 'Battle', battle+1
-            run(testmode, dt)
+            game = Game(testmode, dt)
+            game.run()
             world.Robot.nrobots = 0
             view.Robot.nrobots = 0
 
@@ -301,7 +328,8 @@ if __name__ == '__main__':
             print line[1], ':', line[4], 'wins', line[6], 'robots defeated'
 
     else:
-        run(testmode)
+        game = Game(testmode)
+        game.run()
 
     stats.dbclose()
 
