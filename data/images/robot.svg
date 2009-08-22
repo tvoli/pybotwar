@@ -64,7 +64,8 @@
      id="layer1">
     <g
        id="r01"
-       inkscape:label="Robot 01">
+       inkscape:label="Robot 01"
+       transform="matrix(0.9276017,0,0,0.9249132,10.396013,11.662305)">
       <rect
          inkscape:export-ydpi="4.6326056"
          inkscape:export-xdpi="4.6326056"
@@ -100,7 +101,8 @@
     </g>
     <g
        id="r02"
-       inkscape:label="Robot 02">
+       inkscape:label="Robot 02"
+       transform="matrix(0.9276017,0,0,0.924913,10.396013,23.205514)">
       <rect
          style="opacity:1;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3.84041309;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
          id="rect3700"
@@ -126,7 +128,7 @@
          inkscape:export-xdpi="24.972649"
          inkscape:export-ydpi="24.972649" />
       <path
-         style="fill:#ff6600;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3.84041309000000020;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+         style="fill:#ff6600;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3.84041309;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
          d="M 173.42046,222.55376 L 220.81555,222.55376 C 237.33903,222.55376 250.64133,237.97001 250.64133,248.55532 C 250.64133,248.55532 250.64133,257.03575 250.64133,263.30348 C 250.64133,273.88879 237.33903,289.30504 220.81555,289.30504 L 173.42046,289.30504 C 156.89698,289.30504 143.59469,290.49827 143.59469,279.91295 L 143.59469,231.63246 C 143.59469,221.04715 156.89698,222.55376 173.42046,222.55376 z"
          id="path3704"
          sodipodi:nodetypes="ccccccccc"
@@ -136,7 +138,8 @@
     </g>
     <g
        id="r03"
-       inkscape:label="Robot 03">
+       inkscape:label="Robot 03"
+       transform="matrix(0.9276017,0,0,0.9249129,10.396013,34.368213)">
       <rect
          inkscape:export-ydpi="24.972649"
          inkscape:export-xdpi="24.972649"
@@ -168,11 +171,12 @@
          sodipodi:nodetypes="ccccccccc"
          id="path3710"
          d="M 173.42046,371.2165 L 220.81555,371.2165 C 237.33903,371.2165 250.64133,386.63275 250.64133,397.21806 C 250.64133,397.21806 250.64133,405.69849 250.64133,411.96622 C 250.64133,422.55153 237.33903,437.96778 220.81555,437.96778 L 173.42046,437.96778 C 156.89698,437.96778 143.59469,439.16101 143.59469,428.57569 L 143.59469,380.2952 C 143.59469,369.70989 156.89698,371.2165 173.42046,371.2165 z"
-         style="fill:#ffff00;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3.84041309000000020;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+         style="fill:#ffff00;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3.84041309;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
     </g>
     <g
        id="r04"
-       inkscape:label="Robot 04">
+       inkscape:label="Robot 04"
+       transform="matrix(0.9276017,0,0,0.9249131,10.396013,46.418647)">
       <rect
          style="opacity:1;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3.84041309;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
          id="rect3712"
@@ -198,7 +202,7 @@
          inkscape:export-xdpi="24.972664"
          inkscape:export-ydpi="24.972664" />
       <path
-         style="fill:#008000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3.84041309000000020;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+         style="fill:#008000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3.84041309;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
          d="M 173.42046,531.70469 L 220.81555,531.70469 C 237.33903,531.70469 250.64133,547.12094 250.64133,557.70625 C 250.64133,557.70625 250.64133,566.18668 250.64133,572.45441 C 250.64133,583.03972 237.33903,598.45597 220.81555,598.45597 L 173.42046,598.45597 C 156.89698,598.45597 143.59469,599.6492 143.59469,589.06388 L 143.59469,540.78339 C 143.59469,530.19808 156.89698,531.70469 173.42046,531.70469 z"
          id="path3716"
          sodipodi:nodetypes="ccccccccc"
@@ -208,7 +212,8 @@
     </g>
     <g
        id="r05"
-       inkscape:label="Robot 05">
+       inkscape:label="Robot 05"
+       transform="matrix(0.9276017,0,0,0.9249134,10.396013,58.34215)">
       <rect
          inkscape:export-ydpi="24.972664"
          inkscape:export-xdpi="24.972664"
@@ -240,11 +245,12 @@
          sodipodi:nodetypes="ccccccccc"
          id="path3722"
          d="M 173.42046,690.50353 L 220.81555,690.50353 C 237.33903,690.50353 250.64133,705.91978 250.64133,716.50509 C 250.64133,716.50509 250.64133,724.98552 250.64133,731.25325 C 250.64133,741.83856 237.33903,757.25481 220.81555,757.25481 L 173.42046,757.25481 C 156.89698,757.25481 143.59469,758.44804 143.59469,747.86272 L 143.59469,699.58223 C 143.59469,688.99692 156.89698,690.50353 173.42046,690.50353 z"
-         style="fill:#00ffff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3.84041309000000020;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+         style="fill:#00ffff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3.84041309;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
     </g>
     <g
        id="r06"
-       inkscape:label="Robot 06">
+       inkscape:label="Robot 06"
+       transform="matrix(0.9276017,0,0,0.9249132,34.979501,11.662305)">
       <rect
          style="opacity:1;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3.84041309;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
          id="rect3724"
@@ -270,7 +276,7 @@
          inkscape:export-xdpi="24.972664"
          inkscape:export-ydpi="24.972664" />
       <path
-         style="fill:#800080;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3.84041309000000020;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+         style="fill:#800080;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3.84041309;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
          d="M 512.97968,68.822969 L 560.37477,68.822969 C 576.89825,68.822969 590.20055,84.239219 590.20055,94.824529 C 590.20055,94.824529 590.20055,103.30496 590.20055,109.57269 C 590.20055,120.158 576.89825,135.57425 560.37477,135.57425 L 512.97968,135.57425 C 496.4562,135.57425 483.1539,136.76748 483.1539,126.18216 L 483.1539,77.901669 C 483.1539,67.316359 496.4562,68.822969 512.97968,68.822969 z"
          id="path3728"
          sodipodi:nodetypes="ccccccccc"
@@ -280,7 +286,8 @@
     </g>
     <g
        id="r07"
-       inkscape:label="Robot 07">
+       inkscape:label="Robot 07"
+       transform="matrix(0.9276017,0,0,0.924913,34.979501,23.205514)">
       <rect
          inkscape:export-ydpi="24.972649"
          inkscape:export-xdpi="24.972649"
@@ -312,11 +319,12 @@
          sodipodi:nodetypes="ccccccccc"
          id="path3734"
          d="M 512.97968,222.55376 L 560.37477,222.55376 C 576.89825,222.55376 590.20055,237.97001 590.20055,248.55532 C 590.20055,248.55532 590.20055,257.03575 590.20055,263.30348 C 590.20055,273.88879 576.89825,289.30504 560.37477,289.30504 L 512.97968,289.30504 C 496.4562,289.30504 483.1539,290.49827 483.1539,279.91295 L 483.1539,231.63246 C 483.1539,221.04715 496.4562,222.55376 512.97968,222.55376 z"
-         style="fill:#ff00ff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3.84041309000000020;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+         style="fill:#ff00ff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3.84041309;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
     </g>
     <g
        id="r08"
-       inkscape:label="Robot 08">
+       inkscape:label="Robot 08"
+       transform="matrix(0.9276017,0,0,0.9249129,34.979501,34.368213)">
       <rect
          style="opacity:1;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3.84041309;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
          id="rect3736"
@@ -342,7 +350,7 @@
          inkscape:export-xdpi="24.972649"
          inkscape:export-ydpi="24.972649" />
       <path
-         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3.84041309000000020;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3.84041309;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
          d="M 512.97968,371.2165 L 560.37477,371.2165 C 576.89825,371.2165 590.20055,386.63275 590.20055,397.21806 C 590.20055,397.21806 590.20055,405.69849 590.20055,411.96622 C 590.20055,422.55153 576.89825,437.96778 560.37477,437.96778 L 512.97968,437.96778 C 496.4562,437.96778 483.1539,439.16101 483.1539,428.57569 L 483.1539,380.2952 C 483.1539,369.70989 496.4562,371.2165 512.97968,371.2165 z"
          id="path3740"
          sodipodi:nodetypes="ccccccccc"
@@ -352,7 +360,8 @@
     </g>
     <g
        id="r09"
-       inkscape:label="Robot 09">
+       inkscape:label="Robot 09"
+       transform="matrix(0.9276017,0,0,0.9249131,34.979501,46.418647)">
       <rect
          inkscape:export-ydpi="24.972649"
          inkscape:export-xdpi="24.972649"
@@ -384,11 +393,12 @@
          sodipodi:nodetypes="ccccccccc"
          id="path3746"
          d="M 512.97968,531.70469 L 560.37477,531.70469 C 576.89825,531.70469 590.20055,547.12094 590.20055,557.70625 C 590.20055,557.70625 590.20055,566.18668 590.20055,572.45441 C 590.20055,583.03972 576.89825,598.45597 560.37477,598.45597 L 512.97968,598.45597 C 496.4562,598.45597 483.1539,599.6492 483.1539,589.06388 L 483.1539,540.78339 C 483.1539,530.19808 496.4562,531.70469 512.97968,531.70469 z"
-         style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3.84041309000000020;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+         style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3.84041309;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
     </g>
     <g
        id="r10"
-       inkscape:label="Robot 10">
+       inkscape:label="Robot 10"
+       transform="matrix(0.9276017,0,0,0.9249134,34.979501,58.34215)">
       <rect
          style="opacity:1;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3.84041309;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
          id="rect3748"
@@ -414,7 +424,7 @@
          inkscape:export-xdpi="4.6326056"
          inkscape:export-ydpi="4.6326056" />
       <path
-         style="fill:#808000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3.84041309000000020;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+         style="fill:#808000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3.84041309;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
          d="M 512.97968,690.50353 L 560.37477,690.50353 C 576.89825,690.50353 590.20055,705.91978 590.20055,716.50509 C 590.20055,716.50509 590.20055,724.98552 590.20055,731.25325 C 590.20055,741.83856 576.89825,757.25481 560.37477,757.25481 L 512.97968,757.25481 C 496.4562,757.25481 483.1539,758.44804 483.1539,747.86272 L 483.1539,699.58223 C 483.1539,688.99692 496.4562,690.50353 512.97968,690.50353 z"
          id="path3752"
          sodipodi:nodetypes="ccccccccc"
@@ -424,7 +434,7 @@
     </g>
     <g
        id="turret"
-       transform="translate(-18.582843,-10.136096)"
+       transform="matrix(0.4588712,0,0,0.4588712,162.54493,495.0055)"
        inkscape:export-filename="/home/lee/python/pybotwar/data/images/turret.png"
        inkscape:export-xdpi="8.2596817"
        inkscape:export-ydpi="8.2596817"
