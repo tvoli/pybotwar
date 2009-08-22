@@ -3,6 +3,14 @@ import sys
 from PyQt4 import QtCore, QtGui, QtSvg
 
 
+def setrend(app):
+    filename = 'robot.svg'
+    filepath = os.path.join('data/images', filename)
+    fp = QtCore.QString(filepath)
+    global rend
+    rend = QtSvg.QSvgRenderer(fp, app)
+
+
 class MainWindow(QtGui.QMainWindow):
     def __init__(self):
         QtGui.QMainWindow.__init__(self)
@@ -20,9 +28,27 @@ class MainWindow(QtGui.QMainWindow):
         self.scene = Scene()
         self.setCentralWidget(self.scene.view)
 
+        self.startTimer(17)
+
+        self.rot = 0
+        self.pos = (0, 0)
+        self.turr_rot = 0
+
+    def timerEvent(self, ev):
+        self.tick()
+
+    def tick(self):
+        self.scene.r.set_rotation(self.rot)
+        self.scene.r.set_position(self.pos)
+        self.scene.r.set_turr_rot(self.turr_rot)
+
+        self.rot += 1
+        x, y = self.pos
+        self.pos = x-2, y+1
+
+        self.turr_rot -= 2
 
     def resizeEvent(self, ev):
-        self.scene.r.body.rotate(5)
         os = ev.oldSize()
         ox, oy = os.width(), os.height()
         if ox < 0:
@@ -60,13 +86,7 @@ class Scene(QtGui.QGraphicsScene):
         w.setBrush(wbrush)
         w.setPen(wpen)
 
-        filename = 'robot.svg'
-        filepath = os.path.join('data/images', filename)
-        fp = QtCore.QString(filepath)
-        renderer = QtSvg.QSvgRenderer(fp, app)
-
-        r = Robot((100, 100), 30, renderer)
-        r.setPos(-100, -100)
+        r = Robot((100, 100), 30)
         self.addItem(r)
         self.r = r
 
@@ -76,35 +96,85 @@ class Scene(QtGui.QGraphicsScene):
         view.scale(.9, .9)
         self.view = view
 
-        fitr = QtCore.QRectF(-400, -300, 800, 600)
-        self.view.fitInView(fitr)
-
-
-class Robot(QtGui.QGraphicsItem):
-    nrobots = 0
-    def __init__(self, pos, ang, rend):
+class GraphicsItem(QtGui.QGraphicsItem):
+    def __init__(self):
         QtGui.QGraphicsItem.__init__(self)
-        Robot.nrobots += 1
-        imageid = 'r{0:02d}'.format(Robot.nrobots)
-        self.body = QtSvg.QGraphicsSvgItem(self)
-        self.body.setSharedRenderer(rend)
-        self.body.setElementId(imageid)
-        self.body.scale(.25, .25)
-        self.body.rotate(125)
 
-        self.turr = QtSvg.QGraphicsSvgItem(self.body)
-        self.turr.setSharedRenderer(rend)
-        self.turr.setElementId('turret')
-        self.turr.setPos(-10, 10)
-        self.turr.scale(.4, .4)
-        #self.turr.rotate(5)
+    def set_transform(self):
+        cx, cy = self.cx, self.cy
+        x, y = self.pos
+        x -= cx
+        y -= cy
+        ang = self.ang
+        scale = self.scale
+
+        trans = QtGui.QTransform()
+        trans.scale(scale, scale)
+        trans.translate(x, y)
+        trans.translate(cx, cy).rotate(ang).translate(-cx, -cy)
+        self.item.setTransform(trans)
+
+    def set_position(self, pos):
+        self.pos = pos
+        self.set_transform()
+
+    def set_rotation(self, ang):
+        self.ang = ang
+        self.set_transform()
+
+    def rotate(self, deg):
+        self.ang += deg
+        self.set_transform()
 
     def paint(self, painter, option, widget):
-        print 'paint'
+        pass
+
+class Robot(GraphicsItem):
+    nrobots = 0
+    def __init__(self, pos, ang):
+        Robot.nrobots += 1
+
+        self.pos = pos
+        self.ang = ang
+        self.scale = .30
+        self.cx, self.cy = 50, 50
+
+        GraphicsItem.__init__(self)
+
+        imageid = 'r{0:02d}'.format(Robot.nrobots)
+        self.item = QtSvg.QGraphicsSvgItem(self)
+        self.item.setSharedRenderer(rend)
+        self.item.setElementId(imageid)
+
+        self.turr = Turret(self)
+
+        self.set_transform()
+
+    def boundingRect(self):
+        return self.item.boundingRect()
+
+    def set_turr_rot(self, ang):
+        self.turr.set_rotation(ang)
+
+
+class Turret(GraphicsItem):
+    def __init__(self, robot):
+        self.pos = 50, 50
+        self.ang = 0
+        self.scale = 1
+        self.cx, self.cy = 50, 50
+
+        GraphicsItem.__init__(self)
+
+        self.item = QtSvg.QGraphicsSvgItem(robot.item)
+        self.item.setSharedRenderer(rend)
+        self.item.setElementId('turret')
+        self.set_transform()
 
 
 if __name__ == "__main__":
     app = QtGui.QApplication(sys.argv)
+    setrend(app)
     win = MainWindow()
     win.show()
     sys.exit(app.exec_())
