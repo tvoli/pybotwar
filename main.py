@@ -287,6 +287,9 @@ if __name__ == '__main__':
     parser.add_option("-g", "--no-graphics", dest="nographics",
                     action="store_true", default=False,
                     help="non graphics mode")
+    parser.add_option("-Q", "--pyqt-graphics", dest="pyqtgraphics",
+                    action="store_true", default=False,
+                    help="enable PyQt interface")
 
     (options, args) = parser.parse_args()
 
@@ -294,6 +297,7 @@ if __name__ == '__main__':
     tournament = options.tournament
     nbattles = options.nbattles
     nographics = options.nographics
+    pyqtgraphics = options.pyqtgraphics
 
     if testmode:
         if not os.path.exists(conf.logdir):
@@ -305,6 +309,9 @@ if __name__ == '__main__':
         import noview
         world.view = noview
 
+    if pyqtgraphics:
+        import qt4view
+        world.view = qt4view
 
     stats.dbopen()
 
