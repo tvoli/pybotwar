@@ -52,24 +52,28 @@ class Robot(RotatedImage):
         RotatedImage.__init__(self, filename=filename, steps=steps)
         if size != 30:
             self.stretch(size=(size, size))
+
+        self.turr = Turret(pos, 0)
+
         self.setpos(pos)
         self.set_rotation(ang)
 
     def setpos(self, pos):
         x, y = trans(pos)
         self.set_position(x, y)
+        self.turr.set_position(x, y)
+
+    def set_turr_rot(self, ang):
+        self.turr.set_rotation(self.rotation+ang)
 
 class Turret(RotatedImage):
     def __init__(self, pos, ang):
         filename = 'turret.png'
         steps = 360
         RotatedImage.__init__(self, filename=filename, steps=steps)
-        self.setpos(pos)
-        self.set_rotation(ang)
+        #self.setpos(pos)
+        #self.set_rotation(ang)
 
-    def setpos(self, pos):
-        x, y = trans(pos)
-        self.set_position(x, y)
 
 class HealthBar(ProgressBar):
     def __init__(self, n):

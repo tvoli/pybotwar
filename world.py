@@ -101,9 +101,6 @@ class Robot(object):
         v = view.Robot(pos, ang)
         self.v = v
 
-        t = view.Turret(pos, ang)
-        self.t = t
-
         i = view.RobotInfo(self.n, name)
         self.i = i
 
@@ -300,7 +297,7 @@ class World(object):
         robot = Robot(self.w, name, pos, ang)
 
         self.v.sprites.add(robot.v)
-        self.v.sprites.add(robot.t, level=1)
+        self.v.sprites.add(robot.v.turr, level=1)
         self.v.sprites.add(robot.i.health)
         self.robots[name] = robot
 
@@ -383,8 +380,8 @@ class World(object):
             robot.v.setpos(pos2)
             robot.v.set_rotation(-ang)
 
-            robot.t.setpos(pos2)
-            robot.t.set_rotation(-ang-tang)
+            #robot.t.setpos(pos2)
+            robot.v.set_turr_rot(-tang)
 
             if robot._cannonheat > 0:
                 robot._cannonheat -= conf.cannon_cooling_per_tick
