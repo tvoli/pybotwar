@@ -50,7 +50,6 @@ class Game(object):
         self.results = {}
         self.timeouts = {}
         self.rnd = 0
-        self.t0 = int(time.time())
 
         self.w = world.World()
         self.cl = world.CL()
@@ -90,6 +89,7 @@ class Game(object):
                 self.timeouts[robotname] = 0
 
         self.nrobots = len(self.models)
+        self.t0 = int(time.time())
 
     def tick(self):
         procs = self.procs
