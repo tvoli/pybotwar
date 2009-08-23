@@ -31,7 +31,9 @@ else:
 
 class Robot(object):
     nrobots = 0
-    def __init__(self, w, name, pos, ang):
+    def __init__(self, wld, name, pos, ang):
+        w = wld.w
+
         Robot.nrobots += 1
         self.n = Robot.nrobots
 
@@ -98,10 +100,10 @@ class Robot(object):
         self.turretjoint = w.CreateJoint(jointDef).getAsType()
         self._turretangletarget = 0
 
-        v = view.Robot(pos, ang)
+        v = wld.v.addrobot(pos, ang)
         self.v = v
 
-        i = view.RobotInfo(self.n, name)
+        i = wld.v.addrobotinfo(self.n, name)
         self.i = i
 
     def gyro(self):
@@ -177,7 +179,7 @@ class Bullet(object):
 
         self.body = body
 
-        v = view.Bullet(pos)
+        v = wld.v.addbullet(pos)
         self.v = v
 
     def explode(self):
@@ -196,8 +198,7 @@ class Bullet(object):
             s.userData['bullet'] = self
             s.userData['hits'] = {0:[], 1:[], 2:[]}
 
-        e = view.Explosion(self.body.position)
-        self.wld.v.sprites.add(e)
+        e = self.wld.v.addexplosion(self.body.position)
         self.e = e
 
 class Wall(object):
@@ -295,11 +296,7 @@ class World(object):
         if ang is None:
             ang = random.randrange(628) / float(100)
 
-        robot = Robot(self.w, name, pos, ang)
-
-        self.v.sprites.add(robot.v)
-        self.v.sprites.add(robot.v.turr, level=1)
-        self.v.sprites.add(robot.i.health)
+        robot = Robot(self, name, pos, ang)
         self.robots[name] = robot
 
         return robot
@@ -317,8 +314,6 @@ class World(object):
 
         bullet = Bullet(self, robot)
         bullet._fuse = fuse
-        self.v.sprites.add(bullet.v)
-
         self.bullets.append(bullet)
 
         robot._cannonheat += conf.cannon_heating_per_shot
@@ -426,7 +421,6 @@ class World(object):
             model.v.kill()
 
             if model.body.userData['kind'] == 'robot':
-                model.t.kill()
                 self.w.DestroyBody(model.turret)
                 del self.robots[model.name]
             #print 's1', self.v.sprites

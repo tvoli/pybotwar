@@ -66,6 +66,10 @@ class Robot(RotatedImage):
     def set_turr_rot(self, ang):
         self.turr.set_rotation(self.rotation+ang)
 
+    def kill(self):
+        self.turr.kill()
+        RotatedImage.kill(self)
+
 class Turret(RotatedImage):
     def __init__(self, pos, ang):
         filename = 'turret.png'
@@ -155,3 +159,24 @@ class Arena(Game):
         title.set_position((660, 10))
         title.draw()
         self.set_background(color=(40, 40, 80))
+
+    def addrobot(self, pos, ang):
+        v = Robot(pos, ang)
+        self.sprites.add(v)
+        self.sprites.add(v.turr, level=1)
+        return v
+
+    def addrobotinfo(self, n, name):
+        i = RobotInfo(n, name)
+        self.sprites.add(i.health)
+        return i
+
+    def addbullet(self, pos):
+        v = Bullet(pos)
+        self.sprites.add(v)
+        return v
+
+    def addexplosion(self, pos):
+        e = Explosion(pos)
+        self.sprites.add(e)
+        return e
