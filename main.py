@@ -49,6 +49,8 @@ class Game(object):
         self.procs = {}
         self.results = {}
         self.timeouts = {}
+        self.rnd = 0
+        self.t0 = int(time.time())
 
         self.w = world.World()
         self.cl = world.CL()
@@ -57,8 +59,6 @@ class Game(object):
 
     def run(self):
         self.load_robots()
-        self.t0 = int(time.time())
-        self.rnd = 0
         while ((self.testmode and not self.tournament)
                     or len(self.procs) > 1) and not self.w.v.quit:
             if self.rnd > 60 * conf.maxtime:
