@@ -16,8 +16,8 @@ class Fake(object):
 
 
 class Robot(Fake):
-    pass
-
+    def set_turr_rot(self, ang):
+        pass
 
 class Turret(Fake):
     pass
@@ -48,3 +48,15 @@ class Arena(Fake):
 
     def step(self):
         pass
+
+    def addrobot(self, pos, ang):
+        return Robot(pos, ang)
+
+    def addrobotinfo(self, n, name):
+        return RobotInfo(n, name)
+
+    def addbullet(self, pos):
+        return Bullet(pos)
+
+    def addexplosion(self, pos):
+        return Explosion(pos)
