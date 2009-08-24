@@ -118,8 +118,6 @@ class Game(object):
             #print robotname, line
 
             proc = procs[robotname]
-            proc.stdin.write(line)
-            result = proc.stdout.readline().strip()
 
             if not model.alive:
                 model._kills = nrobots - len(procs)
@@ -130,6 +128,12 @@ class Game(object):
                 proc.stdout.close()
                 proc.kill()
                 continue
+
+            proc.stdin.write(line)
+            try:
+                result = proc.stdout.readline().strip()
+            except IOError:
+                print 'ERROR with', robotname
 
             if result == 'TIMEOUT':
                 timeouts[robotname] += 1
