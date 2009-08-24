@@ -434,7 +434,7 @@
     </g>
     <g
        id="turret"
-       transform="matrix(0.4588712,0,0,0.4588712,162.54493,495.0055)"
+       transform="matrix(0.4588712,0,0,0.4588712,67.941367,496.69485)"
        inkscape:export-filename="/home/lee/python/pybotwar/data/images/turret.png"
        inkscape:export-xdpi="8.2596817"
        inkscape:export-ydpi="8.2596817"
@@ -476,6 +476,40 @@
            d="M 75.890758,938.33112 C 75.890758,962.95165 80.654204,981.66941 134.30327,1011.8178 C 93.738613,1011.8178 60.816574,978.89577 60.816574,938.33112 C 60.816574,897.76646 93.738613,864.84442 134.30327,864.84442 C 82.538478,883.68717 75.890758,917.46609 75.890758,938.33112 z"
            id="path3758"
            sodipodi:nodetypes="ccscz" />
+      </g>
+    </g>
+    <g
+       id="bullet"
+       transform="matrix(0.4588712,0,0,0.4588712,317.68451,503.26255)"
+       inkscape:export-filename="/home/lee/python/pybotwar/data/images/turret.png"
+       inkscape:export-xdpi="8.2596817"
+       inkscape:export-ydpi="8.2596817"
+       inkscape:label="Bullet"
+       style="fill:#e6e6e6">
+      <rect
+         ry="0"
+         rx="0"
+         y="837.32404"
+         x="284.77173"
+         height="217.92607"
+         width="217.92607"
+         id="rect3909"
+         style="opacity:1;fill:#e6e6e6;fill-opacity:0;fill-rule:evenodd;stroke:none;stroke-width:3.84041309000000020;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+      <g
+         inkscape:transform-center-x="-27.029589"
+         transform="matrix(0.8002293,0,0,0.8002293,87.420554,192.70331)"
+         id="g3911"
+         style="fill:#e6e6e6">
+        <path
+           sodipodi:type="arc"
+           style="opacity:1;fill:#e6e6e6;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3.84041309;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+           id="path3913"
+           sodipodi:cx="382.63763"
+           sodipodi:cy="941.70978"
+           sodipodi:rx="70.107994"
+           sodipodi:ry="70.107994"
+           d="M 452.74563,941.70978 A 70.107994,70.107994 0 1 1 312.52964,941.70978 A 70.107994,70.107994 0 1 1 452.74563,941.70978 z"
+           transform="matrix(0.4094058,0,0,0.4094058,225.98357,556.16834)" />
       </g>
     </g>
   </g>
