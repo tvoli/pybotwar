@@ -6,6 +6,7 @@ from PyQt4 import QtCore, QtGui, QtSvg
 
 import main
 import world
+import stats
 
 
 def getrend(app):
@@ -26,7 +27,7 @@ class MainWindow(QtGui.QMainWindow):
         self.openAction.setShortcut(QtGui.QKeySequence(self.tr("Ctrl+O")))
         self.quitAction = fileMenu.addAction(self.tr("E&xit"))
         self.quitAction.setShortcut(QtGui.QKeySequence(self.tr("Ctrl+Q")))
-        self.connect(self.quitAction, QtCore.SIGNAL("triggered()"), QtGui.qApp, QtCore.SLOT("quit()"))
+        self.connect(self.quitAction, QtCore.SIGNAL("triggered()"), self.closeEvent)
 
         self.menuBar().addMenu(fileMenu)
 
@@ -40,6 +41,11 @@ class MainWindow(QtGui.QMainWindow):
         self.game.w.v.app = app
         self.game.w.v.setrend()
         self.game.load_robots()
+
+    def closeEvent(self, ev=None):
+        self.game.finish()
+        QtGui.qApp.quit()
+        stats.dbclose()
 
     def timerEvent(self, ev):
         self.game.tick()
@@ -80,18 +86,26 @@ class Scene(QtGui.QGraphicsScene):
         wcolor = QtGui.QColor(90, 90, 70)
         wbrush = QtGui.QBrush(wcolor)
         wpen = QtGui.QPen(wcolor)
-        w = self.addRect(-400, -300, 10, 600)
-        w.setBrush(wbrush)
-        w.setPen(wpen)
-        w = self.addRect(-400, -300, 600, 10)
-        w.setBrush(wbrush)
-        w.setPen(wpen)
-        w = self.addRect(190, -300, 10, 600)
-        w.setBrush(wbrush)
-        w.setPen(wpen)
-        w = self.addRect(-400, 290, 600, 10)
-        w.setBrush(wbrush)
-        w.setPen(wpen)
+
+        bpen = QtGui.QPen(wcolor)
+        bpen.setWidth(10)
+        bpen.setJoinStyle(2)
+        w = self.addRect(-400, -300, 600, 600)
+        w.setPen(bpen)
+
+
+        #w = self.addRect(-400, -300, 10, 600)
+        #w.setBrush(wbrush)
+        #w.setPen(wpen)
+        #w = self.addRect(-400, -300, 600, 10)
+        #w.setBrush(wbrush)
+        #w.setPen(wpen)
+        #w = self.addRect(190, -300, 10, 600)
+        #w.setBrush(wbrush)
+        #w.setPen(wpen)
+        #w = self.addRect(-400, 290, 600, 10)
+        #w.setBrush(wbrush)
+        #w.setPen(wpen)
 
         view = QtGui.QGraphicsView(self)
         view.resize(800, 600)
@@ -189,20 +203,24 @@ class Turret(GraphicsItem):
         self.item.setElementId('turret')
         self.set_transform()
 
-size2 = 20
+size2 = 15.7
 def tl2(pos):
     px, py =  pos
+    #px, py = 19, 19
     sz = size2 / 2
-    x, y = (px*sz)-35, (py*sz)-15
-    print int(px), int(py), '->', int(x), int(y)
+    x, y = (px*sz)-55, (py*sz)-5
+    #print px, py, '->', x, y
+    #print int(px), int(py), '->', int(x), int(y)
     return x, y
 
 class Bullet(GraphicsItem):
-    def __init__(self, pos):
+    def __init__(self, pos, rend):
         self.pos = pos
         self.ang = 0
         self.scale = 1
         self.cx, self.cy = 0, 0
+
+        GraphicsItem.__init__(self)
 
         x, y = tl2(pos)
         self.item = QtGui.QGraphicsEllipseItem(x, y, 10, 10)
@@ -261,7 +279,7 @@ class Arena(object):
         return RobotInfo(n, name)
 
     def addbullet(self, pos):
-        v = Bullet(pos)
+        v = Bullet(pos, self.rend)
         self.scene.addItem(v.item)
         return v
 
@@ -274,6 +292,7 @@ class Arena(object):
 
 
 def run():
+    stats.dbopen()
     app = QtGui.QApplication(sys.argv)
     import qt4view
     world.view = qt4view
