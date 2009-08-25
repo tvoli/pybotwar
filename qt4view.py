@@ -284,10 +284,19 @@ class Arena(object):
 
 def run():
     app = QtGui.QApplication(sys.argv)
+
+    filename = 'splash.png'
+    filepath = os.path.join('data/images', filename)
+    fp = QtCore.QString(filepath)
+    splashpixmap = QtGui.QPixmap(fp)
+    splash = QtGui.QSplashScreen(splashpixmap)
+    splash.show()
+
     import qt4view
     world.view = qt4view
     win = MainWindow(app)
     win.show()
+    splash.finish(win)
     app.exec_()
 
 
