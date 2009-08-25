@@ -35,9 +35,9 @@
      objecttolerance="10"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.59194388"
-     inkscape:cx="418.45172"
-     inkscape:cy="499.37376"
+     inkscape:zoom="2.3677755"
+     inkscape:cx="308.56237"
+     inkscape:cy="790.83523"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -65,7 +65,7 @@
     <g
        id="r01"
        inkscape:label="Robot 01"
-       transform="matrix(0.9276017,0,0,0.9249132,10.396013,11.662305)">
+       transform="matrix(0.2782805,0,0,0.277474,103.63509,112.221)">
       <rect
          inkscape:export-ydpi="4.6326056"
          inkscape:export-xdpi="4.6326056"
@@ -102,7 +102,7 @@
     <g
        id="r02"
        inkscape:label="Robot 02"
-       transform="matrix(0.9276017,0,0,0.924913,10.396013,23.205514)">
+       transform="matrix(0.2782805,0,0,0.2774739,104.82964,113.39689)">
       <rect
          style="opacity:1;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3.84041309;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
          id="rect3700"
@@ -139,7 +139,7 @@
     <g
        id="r03"
        inkscape:label="Robot 03"
-       transform="matrix(0.9276017,0,0,0.9249129,10.396013,34.368213)">
+       transform="matrix(0.2782805,0,0,0.2774739,104.82964,114.49465)">
       <rect
          inkscape:export-ydpi="24.972649"
          inkscape:export-xdpi="24.972649"
@@ -176,7 +176,7 @@
     <g
        id="r04"
        inkscape:label="Robot 04"
-       transform="matrix(0.9276017,0,0,0.9249131,10.396013,46.418647)">
+       transform="matrix(0.2782805,0,0,0.2774739,103.63509,115.77462)">
       <rect
          style="opacity:1;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3.84041309;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
          id="rect3712"
@@ -213,7 +213,7 @@
     <g
        id="r05"
        inkscape:label="Robot 05"
-       transform="matrix(0.9276017,0,0,0.9249134,10.396013,58.34215)">
+       transform="matrix(0.2782805,0,0,0.277474,102.44054,117.02859)">
       <rect
          inkscape:export-ydpi="24.972664"
          inkscape:export-xdpi="24.972664"
@@ -250,7 +250,7 @@
     <g
        id="r06"
        inkscape:label="Robot 06"
-       transform="matrix(0.9276017,0,0,0.9249132,34.979501,11.662305)">
+       transform="matrix(0.2782805,0,0,0.277474,77.538625,112.221)">
       <rect
          style="opacity:1;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3.84041309;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
          id="rect3724"
@@ -287,7 +287,7 @@
     <g
        id="r07"
        inkscape:label="Robot 07"
-       transform="matrix(0.9276017,0,0,0.924913,34.979501,23.205514)">
+       transform="matrix(0.2782805,0,0,0.2774739,78.733175,113.39689)">
       <rect
          inkscape:export-ydpi="24.972649"
          inkscape:export-xdpi="24.972649"
@@ -324,7 +324,7 @@
     <g
        id="r08"
        inkscape:label="Robot 08"
-       transform="matrix(0.9276017,0,0,0.9249129,34.979501,34.368213)">
+       transform="matrix(0.2782805,0,0,0.2774739,78.733175,114.49465)">
       <rect
          style="opacity:1;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3.84041309;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
          id="rect3736"
@@ -361,7 +361,7 @@
     <g
        id="r09"
        inkscape:label="Robot 09"
-       transform="matrix(0.9276017,0,0,0.9249131,34.979501,46.418647)">
+       transform="matrix(0.2782805,0,0,0.2774739,77.538625,115.77462)">
       <rect
          inkscape:export-ydpi="24.972649"
          inkscape:export-xdpi="24.972649"
@@ -398,7 +398,7 @@
     <g
        id="r10"
        inkscape:label="Robot 10"
-       transform="matrix(0.9276017,0,0,0.9249134,34.979501,58.34215)">
+       transform="matrix(0.2782805,0,0,0.277474,76.344075,117.02859)">
       <rect
          style="opacity:1;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3.84041309;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
          id="rect3748"
@@ -434,7 +434,7 @@
     </g>
     <g
        id="turret"
-       transform="matrix(0.4588712,0,0,0.4588712,67.941367,496.69485)"
+       transform="matrix(0.1376614,0,0,0.1376614,101.177,229.47727)"
        inkscape:export-filename="/home/lee/python/pybotwar/data/images/turret.png"
        inkscape:export-xdpi="8.2596817"
        inkscape:export-ydpi="8.2596817"
@@ -480,7 +480,7 @@
     </g>
     <g
        id="bullet"
-       transform="matrix(0.4588712,0,0,0.4588712,317.68451,503.26255)"
+       transform="matrix(0.1376614,0,0,0.1376614,170.37201,232.4995)"
        inkscape:export-filename="/home/lee/python/pybotwar/data/images/turret.png"
        inkscape:export-xdpi="8.2596817"
        inkscape:export-ydpi="8.2596817"
@@ -494,7 +494,7 @@
          height="217.92607"
          width="217.92607"
          id="rect3909"
-         style="opacity:1;fill:#e6e6e6;fill-opacity:0;fill-rule:evenodd;stroke:none;stroke-width:3.84041309000000020;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+         style="opacity:1;fill:#e6e6e6;fill-opacity:0;fill-rule:evenodd;stroke:none;stroke-width:3.84041309;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
       <g
          inkscape:transform-center-x="-27.029589"
          transform="matrix(0.8002293,0,0,0.8002293,87.420554,192.70331)"
