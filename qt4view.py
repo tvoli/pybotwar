@@ -285,14 +285,21 @@ class Arena(object):
         pass
 
 
+class Splash(QtGui.QSplashScreen):
+    def __init__(self, app):
+        rend = getrend(app)
+        img = QtGui.QPixmap(500, 250)
+        painter = QtGui.QPainter(img)
+        self.painter = painter # need to hold this or Qt throws an error
+        rend.render(painter, 'splash')
+        QtGui.QSplashScreen.__init__(self, img)
+
+
+
 def run():
     app = QtGui.QApplication(sys.argv)
 
-    filename = 'splash.png'
-    filepath = os.path.join('data/images', filename)
-    fp = QtCore.QString(filepath)
-    splashpixmap = QtGui.QPixmap(fp)
-    splash = QtGui.QSplashScreen(splashpixmap)
+    splash = Splash(app)
     splash.show()
 
     import qt4view

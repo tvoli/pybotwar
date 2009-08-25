@@ -507,7 +507,11 @@
       </g>
     </g>
     <g
-       id="g4231">
+       id="splash"
+       inkscape:export-filename="/home/lee/python/pybotwar/data/images/splash.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"
+       inkscape:label="Splash Screen">
       <rect
          ry="16.025642"
          rx="15.317919"
