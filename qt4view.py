@@ -94,7 +94,7 @@ class Scene(QtGui.QGraphicsScene):
     def __init__(self):
         QtGui.QGraphicsScene.__init__(self)
         self.setSceneRect(-350, -350, 700, 700)
-        color = QtGui.QColor(40, 40, 70)
+        color = QtGui.QColor(30, 30, 60)
         brush = QtGui.QBrush(color)
         self.setBackgroundBrush(brush)
 
@@ -107,6 +107,8 @@ class Scene(QtGui.QGraphicsScene):
         bpen.setJoinStyle(2)
         ar = self.addRect(-300, -300, 600, 600)
         ar.setPen(bpen)
+        bcolor = QtGui.QColor(40, 40, 70)
+        ar.setBrush(bcolor)
         self.arenarect = ar
 
 
