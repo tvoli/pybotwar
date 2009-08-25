@@ -2,7 +2,7 @@ import os
 import sys
 import math
 pi = math.pi
-from PyQt4 import QtCore, QtGui, QtSvg
+from PyQt4 import QtCore, QtGui, QtSvg, uic
 
 import main
 import world
@@ -17,24 +17,27 @@ def getrend(app):
     rend = QtSvg.QSvgRenderer(fp, app)
     return rend
 
+uidir = 'data/ui'
+uifile = 'mainwindow.ui'
+uipath = os.path.join(uidir, uifile)
+MWClass, _ = uic.loadUiType(uipath)
 
 class MainWindow(QtGui.QMainWindow):
     def __init__(self, app):
+        self.paused = False
+        
         QtGui.QMainWindow.__init__(self)
-
-        self.setWindowTitle('pybotwar')
-
-        fileMenu = QtGui.QMenu(self.tr("&File"), self)
-        self.openAction = fileMenu.addAction(self.tr("&Open..."))
-        self.openAction.setShortcut(QtGui.QKeySequence(self.tr("Ctrl+O")))
-        self.quitAction = fileMenu.addAction(self.tr("E&xit"))
-        self.quitAction.setShortcut(QtGui.QKeySequence(self.tr("Ctrl+Q")))
-        self.connect(self.quitAction, QtCore.SIGNAL("triggered()"), self.closeEvent)
-
-        self.menuBar().addMenu(fileMenu)
+        self.ui = MWClass()
+        self.ui.setupUi(self)
 
         self.scene = Scene()
-        self.setCentralWidget(self.scene.view)
+        view = self.ui.arenaview
+        view.setScene(self.scene)
+        self.scene.view = view
+        view.resize(600, 600)
+        #view.fitInView(self.scene.arenarect)
+        view.show()
+        view.scale(.9, .9)
 
         self.startTimer(17)
 
@@ -49,8 +52,16 @@ class MainWindow(QtGui.QMainWindow):
         QtGui.qApp.quit()
         stats.dbclose()
 
-    def timerEvent(self, ev):
+    def pauseBattle(self, ev):
+        self.paused = ev
+
+    def singleStep(self):
+        self.pauseBattle(True)
         self.game.tick()
+
+    def timerEvent(self, ev):
+        if not self.paused:
+            self.game.tick()
 
         if self.game.rnd > 60 * conf.maxtime:
             self.closeEvent()
@@ -76,17 +87,18 @@ class MainWindow(QtGui.QMainWindow):
             ox, oy = self.width(), self.height()
         s = ev.size()
         sx, sy = s.width(), s.height()
-        scale = 1.2*(float(sy)/800)
+        scale = 0.85*(sy/600.0)
         print scale
 
         trans = QtGui.QTransform()
         trans.scale(scale, scale)
         self.scene.view.setTransform(trans)
 
+
 class Scene(QtGui.QGraphicsScene):
     def __init__(self):
         QtGui.QGraphicsScene.__init__(self)
-        self.setSceneRect(-400, -300, 800, 600)
+        self.setSceneRect(-350, -350, 700, 700)
         color = QtGui.QColor(40, 40, 70)
         brush = QtGui.QBrush(color)
         self.setBackgroundBrush(brush)
@@ -98,20 +110,16 @@ class Scene(QtGui.QGraphicsScene):
         bpen = QtGui.QPen(wcolor)
         bpen.setWidth(30)
         bpen.setJoinStyle(2)
-        w = self.addRect(-400, -300, 600, 600)
-        w.setPen(bpen)
+        ar = self.addRect(-300, -300, 600, 600)
+        ar.setPen(bpen)
+        self.arenarect = ar
 
-        view = QtGui.QGraphicsView(self)
-        view.resize(800, 600)
-        view.show()
-        view.scale(.9, .9)
-        self.view = view
 
 size = 30
 def tl(pos):
     px, py =  pos
     sz = size / 2
-    x, y = (px*sz)-100, (py*sz)+0
+    x, y = (px*sz)-0, (py*sz)+0
     return x, y
 
 class GraphicsItem(QtGui.QGraphicsItem):
