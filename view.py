@@ -154,11 +154,12 @@ class Arena(Game):
     splash_filename = 'splash.png'
     def __init__(self):
         Game.__init__(self)
+        self.set_background(color=(40, 40, 80))
+        self.set_title('pybotwar')
         titleicon = String(message="pybotwar", fontSize=32)
         title = Stationary(sprite=titleicon)
         title.set_position((660, 10))
         title.draw()
-        self.set_background(color=(40, 40, 80))
 
     def addrobot(self, pos, ang):
         v = Robot(pos, ang)
