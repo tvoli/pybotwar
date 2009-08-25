@@ -14,6 +14,7 @@ pybotwar is released under GPLv3.
 Changes in pybotwar-0.6:
     - much expanded README file
     - add robot program template
+    - new (optional) PyQt4 interface
     - add position sensor and example robot to test it out
     - new robot and turret images
     - fix possibility of 2 robots spawning at same position
