@@ -338,6 +338,9 @@ if __name__ == '__main__':
         for line in results:
             print line[1], ':', line[4], 'wins', line[6], 'robots defeated'
 
+    elif pyqtgraphics:
+        qt4view.run()
+
     else:
         game = Game(testmode)
         game.run()

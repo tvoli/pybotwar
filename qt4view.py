@@ -7,6 +7,7 @@ from PyQt4 import QtCore, QtGui, QtSvg
 import main
 import world
 import stats
+import conf
 
 
 def getrend(app):
@@ -21,6 +22,8 @@ class MainWindow(QtGui.QMainWindow):
     def __init__(self, app):
         QtGui.QMainWindow.__init__(self)
 
+        self.setWindowTitle('pybotwar')
+
         fileMenu = QtGui.QMenu(self.tr("&File"), self)
         self.openAction = fileMenu.addAction(self.tr("&Open..."))
         self.openAction.setShortcut(QtGui.QKeySequence(self.tr("Ctrl+O")))
@@ -33,7 +36,7 @@ class MainWindow(QtGui.QMainWindow):
         self.scene = Scene()
         self.setCentralWidget(self.scene.view)
 
-        self.startTimer(25)
+        self.startTimer(17)
 
         self.game = main.Game()
         self.game.w.v.scene = self.scene
@@ -48,6 +51,12 @@ class MainWindow(QtGui.QMainWindow):
 
     def timerEvent(self, ev):
         self.game.tick()
+
+        if self.game.rnd > 60 * conf.maxtime:
+            self.closeEvent()
+
+        if len(self.game.procs) <= 1:
+            self.closeEvent()
 
     def test(self):
         self.scene.r.set_rotation(self.rot)
@@ -274,13 +283,12 @@ class Arena(object):
 
 
 def run():
-    stats.dbopen()
     app = QtGui.QApplication(sys.argv)
     import qt4view
     world.view = qt4view
     win = MainWindow(app)
     win.show()
-    sys.exit(app.exec_())
+    app.exec_()
 
 
 if __name__ == "__main__":
