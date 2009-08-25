@@ -56,6 +56,7 @@ class MainWindow(QtGui.QMainWindow):
         self.paused = ev
 
     def singleStep(self):
+        self.ui.actionPause.setChecked(True)
         self.pauseBattle(True)
         self.game.tick()
 
