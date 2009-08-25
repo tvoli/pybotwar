@@ -20,7 +20,6 @@ def getrend(app):
 class MainWindow(QtGui.QMainWindow):
     def __init__(self, app):
         QtGui.QMainWindow.__init__(self)
-        #self.resize(800, 600)
 
         fileMenu = QtGui.QMenu(self.tr("&File"), self)
         self.openAction = fileMenu.addAction(self.tr("&Open..."))
@@ -88,24 +87,10 @@ class Scene(QtGui.QGraphicsScene):
         wpen = QtGui.QPen(wcolor)
 
         bpen = QtGui.QPen(wcolor)
-        bpen.setWidth(10)
+        bpen.setWidth(30)
         bpen.setJoinStyle(2)
         w = self.addRect(-400, -300, 600, 600)
         w.setPen(bpen)
-
-
-        #w = self.addRect(-400, -300, 10, 600)
-        #w.setBrush(wbrush)
-        #w.setPen(wpen)
-        #w = self.addRect(-400, -300, 600, 10)
-        #w.setBrush(wbrush)
-        #w.setPen(wpen)
-        #w = self.addRect(190, -300, 10, 600)
-        #w.setBrush(wbrush)
-        #w.setPen(wpen)
-        #w = self.addRect(-400, 290, 600, 10)
-        #w.setBrush(wbrush)
-        #w.setPen(wpen)
 
         view = QtGui.QGraphicsView(self)
         view.resize(800, 600)
@@ -113,11 +98,11 @@ class Scene(QtGui.QGraphicsScene):
         view.scale(.9, .9)
         self.view = view
 
-size = 102
+size = 30
 def tl(pos):
     px, py =  pos
     sz = size / 2
-    x, y = (px*sz)-330, (py*sz)+5
+    x, y = (px*sz)-100, (py*sz)+0
     return x, y
 
 class GraphicsItem(QtGui.QGraphicsItem):
@@ -130,13 +115,11 @@ class GraphicsItem(QtGui.QGraphicsItem):
         x -= cx
         y -= cy
         ang = self.ang
-        scale = self.scale
 
         trans = QtGui.QTransform()
-        trans.scale(scale, scale)
         trans.translate(x, y)
         trans.translate(cx, cy).rotate(ang).translate(-cx, -cy)
-        self.item.setTransform(trans)
+        self.setTransform(trans)
 
     def setpos(self, pos):
         self.pos = pos
@@ -162,10 +145,10 @@ class Robot(GraphicsItem):
     def __init__(self, pos, ang, rend):
         Robot.nrobots += 1
 
-        self.pos = pos
+        self.pos = tl(pos)
         self.ang = ang
-        self.scale = .30
-        self.cx, self.cy = 50, 50
+        self.scale = 1
+        self.cx, self.cy = 15, 15
 
         GraphicsItem.__init__(self)
 
@@ -191,10 +174,10 @@ class Robot(GraphicsItem):
 
 class Turret(GraphicsItem):
     def __init__(self, robot, rend):
-        self.pos = 50, 50
+        self.pos = 15, 15
         self.ang = 0
         self.scale = 1
-        self.cx, self.cy = 50, 50
+        self.cx, self.cy = 15, 15
 
         GraphicsItem.__init__(self)
 
@@ -203,41 +186,41 @@ class Turret(GraphicsItem):
         self.item.setElementId('turret')
         self.set_transform()
 
-size2 = 15.7
-def tl2(pos):
-    px, py =  pos
-    #px, py = 19, 19
-    sz = size2 / 2
-    x, y = (px*sz)-55, (py*sz)-5
-    #print px, py, '->', x, y
-    #print int(px), int(py), '->', int(x), int(y)
-    return x, y
+    def set_transform(self):
+        cx, cy = self.cx, self.cy
+        x, y = self.pos
+        x -= cx
+        y -= cy
+        ang = self.ang
+
+        trans = QtGui.QTransform()
+        trans.translate(x, y)
+        trans.translate(cx, cy).rotate(ang).translate(-cx, -cy)
+        self.item.setTransform(trans)
+
 
 class Bullet(GraphicsItem):
-    def __init__(self, pos, rend):
-        self.pos = pos
+    def __init__(self, pos, scene):
+        self.pos = tl(pos)
         self.ang = 0
         self.scale = 1
-        self.cx, self.cy = 0, 0
+        self.cx, self.cy = 2, 2
 
         GraphicsItem.__init__(self)
 
-        x, y = tl2(pos)
-        self.item = QtGui.QGraphicsEllipseItem(x, y, 10, 10)
-        color = QtGui.QColor(90, 90, 70)
+        self.item = scene.addEllipse(0, 0, 4, 4)
+        self.item.setParentItem(self)
+        color = QtGui.QColor(200, 200, 200)
         brush = QtGui.QBrush(color)
         self.item.setBrush(brush)
         self.set_transform()
 
     def setpos(self, pos):
-        self.pos = tl2(pos)
+        self.pos = tl(pos)
         self.set_transform()
 
-    def set_transform(self):
-        x, y = self.pos
-        trans = QtGui.QTransform()
-        trans.translate(x, y)
-        self.item.setTransform(trans)
+    def boundingRect(self):
+        return self.item.boundingRect()
 
 
 class Wall(object):
@@ -271,16 +254,15 @@ class Arena(object):
 
     def addrobot(self, pos, ang):
         v = Robot(pos, ang, self.rend)
-        self.scene.addItem(v.item)
-        #self.scene.addItem(v.turr.item)
+        self.scene.addItem(v)
         return v
 
     def addrobotinfo(self, n, name):
         return RobotInfo(n, name)
 
     def addbullet(self, pos):
-        v = Bullet(pos, self.rend)
-        self.scene.addItem(v.item)
+        v = Bullet(pos, self.scene)
+        self.scene.addItem(v)
         return v
 
     def addexplosion(self, pos):
