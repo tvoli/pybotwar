@@ -34,10 +34,7 @@ class MainWindow(QtGui.QMainWindow):
         view = self.ui.arenaview
         view.setScene(self.scene)
         self.scene.view = view
-        view.resize(600, 600)
-        #view.fitInView(self.scene.arenarect)
         view.show()
-        view.scale(.9, .9)
 
         self.startTimer(17)
 
@@ -82,14 +79,11 @@ class MainWindow(QtGui.QMainWindow):
         self.turr_rot -= 2
 
     def resizeEvent(self, ev):
-        os = ev.oldSize()
-        ox, oy = os.width(), os.height()
-        if ox < 0:
-            ox, oy = self.width(), self.height()
-        s = ev.size()
-        sx, sy = s.width(), s.height()
-        scale = 0.85*(sy/600.0)
-        print scale
+        frect = self.ui.arenaframe.frameRect()
+        sx, sy = frect.width(), frect.height()
+        print sx, sy
+        minsize = min((sx, sy))
+        scale = 0.85*(minsize/600.)
 
         trans = QtGui.QTransform()
         trans.scale(scale, scale)
