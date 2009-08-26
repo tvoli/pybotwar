@@ -110,7 +110,7 @@ class Scene(QtGui.QGraphicsScene):
         ar = self.addRect(-300, -300, 600, 600)
         ar.setPen(bpen)
         bcolor = QtGui.QColor(40, 40, 70)
-        ar.setBrush(bcolor)
+        #ar.setBrush(bcolor)
         self.arenarect = ar
 
 
