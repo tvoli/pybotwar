@@ -10,6 +10,7 @@ import stats
 import conf
 
 
+
 def getrend(app):
     filename = 'robot.svg'
     filepath = os.path.join('data/images', filename)
@@ -25,7 +26,7 @@ MWClass, _ = uic.loadUiType(uipath)
 class MainWindow(QtGui.QMainWindow):
     def __init__(self, app):
         self.paused = False
-        
+
         QtGui.QMainWindow.__init__(self)
         self.ui = MWClass()
         self.ui.setupUi(self)
@@ -41,6 +42,7 @@ class MainWindow(QtGui.QMainWindow):
         self.game = main.Game()
         self.game.w.v.scene = self.scene
         self.game.w.v.app = app
+        self.game.w.v.rinfo = self.ui.rinfo
         self.game.w.v.setrend()
         self.game.load_robots()
 
@@ -241,9 +243,31 @@ class Wall(object):
     def __init__(self, pos, size):
         pass
 
-class RobotInfo(object):
-    def __init__(self, n, name):
+class RobotInfo(QtGui.QHBoxLayout):
+    def __init__(self, n, name, rend):
+        QtGui.QHBoxLayout.__init__(self)
+
+        icon = QtGui.QPixmap(50, 50)
+        self.icon = icon
+        painter = QtGui.QPainter(icon)
+        self.painter = painter # need to hold this or Qt throws an error
+        imageid = 'r{0:02d}'.format(n)
+        rend.render(painter, imageid)
+        iconl = QtGui.QLabel()
+        iconl.setPixmap(icon)
+
+        vl = QtGui.QVBoxLayout()
+        nm = QtGui.QLabel(name)
+        hl = QtGui.QLabel('health')
+
+        vl.addWidget(nm)
+        vl.addWidget(hl)
+
+        self.addWidget(iconl)
+        self.addLayout(vl)
+
         self.health = Health()
+
 
 class Health(object):
     def step(self, n=None):
@@ -272,7 +296,9 @@ class Arena(object):
         return v
 
     def addrobotinfo(self, n, name):
-        return RobotInfo(n, name)
+        ri = RobotInfo(n, name, self.rend)
+        self.rinfo.addLayout(ri)
+        return ri
 
     def addbullet(self, pos):
         v = Bullet(pos, self.scene)
@@ -291,6 +317,7 @@ class Splash(QtGui.QSplashScreen):
     def __init__(self, app):
         rend = getrend(app)
         img = QtGui.QPixmap(500, 250)
+        self.img = img
         painter = QtGui.QPainter(img)
         self.painter = painter # need to hold this or Qt throws an error
         rend.render(painter, 'splash')
