@@ -10,7 +10,6 @@ import stats
 import conf
 
 
-
 def getrend(app):
     filename = 'robot.svg'
     filepath = os.path.join('data/images', filename)
@@ -22,6 +21,9 @@ uidir = 'data/ui'
 uifile = 'mainwindow.ui'
 uipath = os.path.join(uidir, uifile)
 MWClass, _ = uic.loadUiType(uipath)
+
+nipath = os.path.join(uidir, uifile)
+NIClass, _ = uic.loadUiType(uipath)
 
 class MainWindow(QtGui.QMainWindow):
     def __init__(self, app):
@@ -91,6 +93,15 @@ class MainWindow(QtGui.QMainWindow):
         trans.scale(scale, scale)
         self.scene.view.setTransform(trans)
 
+    def configure(self):
+        pass
+
+    def loadRobot(self):
+        pass
+
+    def restart(self):
+        pass
+
 
 class Scene(QtGui.QGraphicsScene):
     def __init__(self):
@@ -110,7 +121,7 @@ class Scene(QtGui.QGraphicsScene):
         ar = self.addRect(-300, -300, 600, 600)
         ar.setPen(bpen)
         bcolor = QtGui.QColor(40, 40, 70)
-        #ar.setBrush(bcolor)
+        ar.setBrush(bcolor)
         self.arenarect = ar
 
 
@@ -266,6 +277,9 @@ class RobotInfo(QtGui.QHBoxLayout):
         self.addWidget(iconl)
         self.addLayout(vl)
 
+        #r = QtCore.QRect(0, 0, 300, 50)
+        #self.setGeometry(r)
+
         self.health = Health()
 
 
@@ -273,18 +287,48 @@ class Health(object):
     def step(self, n=None):
         pass
 
-class Explosion(object):
-    def __init__(self, a=None, b=None):
-        pass
+class Explosion(GraphicsItem):
+    def __init__(self, pos, scene):
+        self.pos = tl(pos)
+        self.ang = 0
+        self.scale = 1
+        self.cx, self.cy = 45, 45
+
+        GraphicsItem.__init__(self)
+
+        self.item0 = scene.addEllipse(0, 0, 90, 90)
+        self.item0.setParentItem(self)
+        color = QtGui.QColor(250, 200, 0)
+        brush = QtGui.QBrush(color)
+        self.item0.setBrush(brush)
+
+        self.item1 = scene.addEllipse(15, 15, 60, 60)
+        self.item1.setParentItem(self)
+        color = QtGui.QColor(200, 100, 100)
+        brush = QtGui.QBrush(color)
+        self.item1.setBrush(brush)
+
+        self.item2 = scene.addEllipse(30, 30, 30, 30)
+        self.item2.setParentItem(self)
+        color = QtGui.QColor(200, 50, 50)
+        brush = QtGui.QBrush(color)
+        self.item2.setBrush(brush)
+
+        self.set_transform()
 
     def setpos(self, pos):
-        pass
+        self.pos = tl(pos)
+        self.set_transform()
 
     def set_rotation(self, ang):
         pass
 
     def kill(self):
-        pass
+        scene = self.item0.scene()
+        scene.removeItem(self.item0)
+        scene.removeItem(self.item1)
+        scene.removeItem(self.item2)
+
 
 class Arena(object):
     def setrend(self):
@@ -306,7 +350,8 @@ class Arena(object):
         return v
 
     def addexplosion(self, pos):
-        e = Explosion(pos)
+        e = Explosion(pos, self.scene)
+        self.scene.addItem(e)
         return e
 
     def step(self, x=None):
@@ -317,7 +362,6 @@ class Splash(QtGui.QSplashScreen):
     def __init__(self, app):
         rend = getrend(app)
         img = QtGui.QPixmap(500, 250)
-        self.img = img
         painter = QtGui.QPainter(img)
         self.painter = painter # need to hold this or Qt throws an error
         rend.render(painter, 'splash')
