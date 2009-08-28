@@ -307,12 +307,14 @@ class Explosion(GraphicsItem):
         color = QtGui.QColor(200, 100, 100)
         brush = QtGui.QBrush(color)
         self.item1.setBrush(brush)
+        self.item1.setParentItem(self.item0)
 
         self.item2 = scene.addEllipse(30, 30, 30, 30)
         self.item2.setParentItem(self)
         color = QtGui.QColor(200, 50, 50)
         brush = QtGui.QBrush(color)
         self.item2.setBrush(brush)
+        self.item2.setParentItem(self.item1)
 
         self.set_transform()
 
@@ -337,6 +339,7 @@ class Arena(object):
     def addrobot(self, pos, ang):
         v = Robot(pos, ang, self.rend)
         self.scene.addItem(v)
+        v.setParentItem(self.scene.arenarect)
         return v
 
     def addrobotinfo(self, n, name):
@@ -347,11 +350,13 @@ class Arena(object):
     def addbullet(self, pos):
         v = Bullet(pos, self.scene)
         self.scene.addItem(v)
+        v.setParentItem(self.scene.arenarect)
         return v
 
     def addexplosion(self, pos):
         e = Explosion(pos, self.scene)
         self.scene.addItem(e)
+        e.setParentItem(self.scene.arenarect)
         return e
 
     def step(self, x=None):

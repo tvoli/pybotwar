@@ -10,5 +10,3 @@ debug mode (show sensors and actions)
 other game types (race, find/collect objects, maze)
 document how to write robot programs
 may be pinging own bullets?
-qt4view
-    fix object draw order
