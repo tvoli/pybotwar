@@ -22,11 +22,10 @@ uifile = 'mainwindow.ui'
 uipath = os.path.join(uidir, uifile)
 MWClass, _ = uic.loadUiType(uipath)
 
-nipath = os.path.join(uidir, uifile)
-NIClass, _ = uic.loadUiType(uipath)
 
 class MainWindow(QtGui.QMainWindow):
     def __init__(self, app):
+        self.app = app
         self.paused = False
 
         QtGui.QMainWindow.__init__(self)
@@ -39,17 +38,20 @@ class MainWindow(QtGui.QMainWindow):
         self.scene.view = view
         view.show()
 
-        self.startTimer(17)
+        self.start_game()
 
-        self.game = main.Game()
-        self.game.w.v.scene = self.scene
-        self.game.w.v.app = app
-        self.game.w.v.rinfo = self.ui.rinfo
-        self.game.w.v.setrend()
-        self.game.load_robots()
+        self.startTimer(17)
 
         # Call resize a bit later or else view will not resize properly
         QtCore.QTimer.singleShot(1, self.resizeEvent)
+
+    def start_game(self):
+        self.game = main.Game()
+        self.game.w.v.scene = self.scene
+        self.game.w.v.app = self.app
+        self.game.w.v.rinfo = self.ui.rinfo
+        self.game.w.v.setrend()
+        self.game.load_robots()
 
     def closeEvent(self, ev=None):
         self.game.finish()
@@ -96,13 +98,37 @@ class MainWindow(QtGui.QMainWindow):
         self.scene.view.setTransform(trans)
 
     def configure(self):
-        pass
+        self.cd = ConfDialog()
+        self.cd.show()
 
     def loadRobot(self):
         pass
 
     def restart(self):
-        pass
+        for name, robot in self.game.w.robots.items():
+            robot.v.kill()
+
+        self.game.finish()
+
+        world.Robot.nrobots = 0
+        Robot.nrobots = 0
+        self.start_game()
+
+
+class ConfDialog(QtGui.QDialog):
+    def __init__(self):
+        QtGui.QDialog.__init__(self)
+        uifile = 'bd.ui'
+        uipath = os.path.join(uidir, uifile)
+        uic.loadUi(uipath, self)
+
+    def accept(self):
+        print 'accepted'
+        QtGui.QDialog.accept(self)
+
+    def reject(self):
+        print 'rejected'
+        QtGui.QDialog.reject(self)
 
 
 class Scene(QtGui.QGraphicsScene):
