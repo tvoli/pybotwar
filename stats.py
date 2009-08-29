@@ -126,8 +126,8 @@ def tournament_exists(tournament, name, fp):
     r = c.fetchall()
     return bool(r)
 
-def tournament_update(tournament, name, win, opponents, kills):
-    fp = fingerprint(name)
+def tournament_update(tournament, kind, name, win, opponents, kills):
+    fp = fingerprint(kind)
     win = int(win) # turn True/False in to 1/0
     if tournament_exists(tournament, name, fp):
         q = '''\

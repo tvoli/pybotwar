@@ -83,7 +83,7 @@ class Game(object):
                 print 'ERROR!'
             else:
                 print 'STARTED'
-                model = self.w.makerobot(robotname)
+                model = self.w.makerobot(robot, robotname)
                 self.models[robotname] = model
                 self.procs[robotname] = proc
                 self.timeouts[robotname] = 0
@@ -265,10 +265,10 @@ class Game(object):
                 win = 0
 
             if not testmode:
-                stats.update(model.name, win, nrobots-1, model._kills)
+                stats.update(model.kind, win, nrobots-1, model._kills)
 
             if tournament is not None:
-                stats.tournament_update(tournament, model.name, win,
+                stats.tournament_update(tournament, model.kind, model.name, win,
                                                 nrobots-1, model._kills)
 
 

@@ -31,7 +31,7 @@ else:
 
 class Robot(object):
     nrobots = 0
-    def __init__(self, wld, name, pos, ang):
+    def __init__(self, wld, kind, name, pos, ang):
         w = wld.w
 
         Robot.nrobots += 1
@@ -39,6 +39,7 @@ class Robot(object):
 
         self.alive = True
         self.health = conf.maxhealth
+        self.kind = kind
         self.name = name
 
         self._pingtype = 'w'
@@ -284,7 +285,7 @@ class World(object):
 
         return False
 
-    def makerobot(self, name, pos=None, ang=None):
+    def makerobot(self, kind, name, pos=None, ang=None):
         rhx = self.ahalfx-2
         rhy = self.ahalfy-2
 
@@ -296,7 +297,7 @@ class World(object):
         if ang is None:
             ang = random.randrange(628) / float(100)
 
-        robot = Robot(self, name, pos, ang)
+        robot = Robot(self, kind, name, pos, ang)
         self.robots[name] = robot
 
         return robot
