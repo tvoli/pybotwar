@@ -140,9 +140,6 @@ class Scene(QtGui.QGraphicsScene):
         self.setBackgroundBrush(brush)
 
         wcolor = QtGui.QColor(90, 90, 70)
-        wbrush = QtGui.QBrush(wcolor)
-        wpen = QtGui.QPen(wcolor)
-
         bpen = QtGui.QPen(wcolor)
         bpen.setWidth(30)
         bpen.setJoinStyle(2)
