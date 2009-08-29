@@ -269,10 +269,10 @@ class RobotInfo(QtGui.QHBoxLayout):
 
         vl = QtGui.QVBoxLayout()
         nm = QtGui.QLabel(name)
-        hl = QtGui.QLabel('health')
+        self.health = Health()
 
         vl.addWidget(nm)
-        vl.addWidget(hl)
+        vl.addWidget(self.health)
 
         self.addWidget(iconl)
         self.addLayout(vl)
@@ -280,12 +280,30 @@ class RobotInfo(QtGui.QHBoxLayout):
         #r = QtCore.QRect(0, 0, 300, 50)
         #self.setGeometry(r)
 
-        self.health = Health()
 
 
-class Health(object):
+class Health(QtGui.QProgressBar):
+    def __init__(self):
+        QtGui.QProgressBar.__init__(self)
+        self.setMaximum(conf.maxhealth)
+        self.setMinimum(0)
+        self._val = conf.maxhealth
+        self.setValue(self._val)
+
     def step(self, n=None):
-        pass
+        if n is not None:
+            self._val -= n
+        else:
+            self._val -= 1
+
+        if self._val < 0:
+            self._val = 0
+
+        self.setValue(self._val)
+        if self._val <= 0.30 * conf.maxhealth:
+            pal = self.palette()
+            pal.setColor(QtGui.QPalette.Highlight, QtGui.QColor('red'))
+            self.setPalette(pal)
 
 class Explosion(GraphicsItem):
     def __init__(self, pos, scene):
@@ -318,6 +336,9 @@ class Explosion(GraphicsItem):
 
         self.set_transform()
 
+    def boundingRect(self):
+        return self.item0.boundingRect()
+
     def setpos(self, pos):
         self.pos = tl(pos)
         self.set_transform()
@@ -328,8 +349,6 @@ class Explosion(GraphicsItem):
     def kill(self):
         scene = self.item0.scene()
         scene.removeItem(self.item0)
-        scene.removeItem(self.item1)
-        scene.removeItem(self.item2)
 
 
 class Arena(object):
@@ -367,6 +386,7 @@ class Splash(QtGui.QSplashScreen):
     def __init__(self, app):
         rend = getrend(app)
         img = QtGui.QPixmap(500, 250)
+        self.img = img
         painter = QtGui.QPainter(img)
         self.painter = painter # need to hold this or Qt throws an error
         rend.render(painter, 'splash')
