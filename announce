@@ -26,3 +26,4 @@ Changes in pybotwar-0.6:
     - reload penalty for firing while cannon overheated (defaults to 0)
     - reload penalty for firing before cannon is loaded (defaults to 0)
     - use both tangent and normal impulse to determine collision damage
+    - fix crash saving stats when using multiple copies of the same robot
