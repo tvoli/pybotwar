@@ -48,6 +48,9 @@ class MainWindow(QtGui.QMainWindow):
         self.game.w.v.setrend()
         self.game.load_robots()
 
+        # Call resize a bit later or else view will not resize properly
+        QtCore.QTimer.singleShot(1, self.resizeEvent)
+
     def closeEvent(self, ev=None):
         self.game.finish()
         QtGui.qApp.quit()
@@ -82,10 +85,9 @@ class MainWindow(QtGui.QMainWindow):
 
         self.turr_rot -= 2
 
-    def resizeEvent(self, ev):
+    def resizeEvent(self, ev=None):
         frect = self.ui.arenaframe.frameRect()
         sx, sy = frect.width(), frect.height()
-        print sx, sy
         minsize = min((sx, sy))
         scale = 0.85*(minsize/600.)
 
