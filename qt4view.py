@@ -138,15 +138,17 @@ class Scene(QtGui.QGraphicsScene):
         color = QtGui.QColor(30, 30, 60)
         brush = QtGui.QBrush(color)
         self.setBackgroundBrush(brush)
+        self.add_arenarect()
 
-        wcolor = QtGui.QColor(90, 90, 70)
-        bpen = QtGui.QPen(wcolor)
-        bpen.setWidth(30)
-        bpen.setJoinStyle(2)
+    def add_arenarect(self):
+        linecolor = QtGui.QColor(90, 90, 70)
+        pen = QtGui.QPen(linecolor)
+        pen.setWidth(30)
+        pen.setJoinStyle(2)
         ar = self.addRect(-300, -300, 600, 600)
-        ar.setPen(bpen)
-        bcolor = QtGui.QColor(40, 40, 70)
-        ar.setBrush(bcolor)
+        ar.setPen(pen)
+        bgcolor = QtGui.QColor(40, 40, 70)
+        ar.setBrush(bgcolor)
         self.arenarect = ar
 
 
