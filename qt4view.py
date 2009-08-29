@@ -269,9 +269,10 @@ class RobotInfo(QtGui.QHBoxLayout):
 
         vl = QtGui.QVBoxLayout()
         nm = QtGui.QLabel(name)
-        self.health = Health()
-
+        nm.setFont(QtGui.QFont('Serif', 14))
         vl.addWidget(nm)
+
+        self.health = Health()
         vl.addWidget(self.health)
 
         self.addWidget(iconl)
