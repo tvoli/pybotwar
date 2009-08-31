@@ -35,16 +35,16 @@
      objecttolerance="10"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="2.2922039"
-     inkscape:cx="312.85724"
-     inkscape:cy="796.69979"
+     inkscape:zoom="3.2384962"
+     inkscape:cx="176.91436"
+     inkscape:cy="801.60955"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
      showguides="true"
      inkscape:guide-bbox="true"
      inkscape:window-width="1680"
-     inkscape:window-height="988"
+     inkscape:window-height="984"
      inkscape:window-x="-4"
      inkscape:window-y="-3" />
   <metadata
@@ -65,7 +65,7 @@
     <g
        id="r01"
        inkscape:label="Robot 01"
-       transform="matrix(0.2782805,0,0,0.277474,103.63509,112.221)">
+       transform="matrix(0.2790918,0,0,0.277474,103.51833,112.221)">
       <rect
          inkscape:export-ydpi="4.6326056"
          inkscape:export-xdpi="4.6326056"
@@ -96,13 +96,13 @@
          inkscape:export-filename="/home/lee/r01b.png"
          sodipodi:nodetypes="ccccccccc"
          id="rect3697"
-         d="M 173.42046,68.822969 L 220.81555,68.822969 C 237.33903,68.822969 250.64133,84.239219 250.64133,94.824529 C 250.64133,94.824529 250.64133,103.30496 250.64133,109.57269 C 250.64133,120.158 237.33903,135.57425 220.81555,135.57425 L 173.42046,135.57425 C 156.89698,135.57425 143.59469,136.76748 143.59469,126.18216 L 143.59469,77.901669 C 143.59469,67.316359 156.89698,68.822969 173.42046,68.822969 z"
-         style="fill:#800000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3.84041309;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+         d="M 174.73903,70.679104 L 219.49698,70.679104 C 235.10107,70.679104 247.66321,85.237571 247.66321,95.233899 C 247.66321,95.233899 247.66321,103.24247 247.66321,109.16145 C 247.66321,119.15778 235.10107,133.71625 219.49698,133.71625 L 174.73903,133.71625 C 159.13494,133.71625 146.57281,134.84308 146.57281,124.84675 L 146.57281,79.252652 C 146.57281,69.256324 159.13494,70.679104 174.73903,70.679104 z"
+         style="fill:#800000;fill-opacity:1;fill-rule:evenodd;stroke:#8c8c8c;stroke-width:3.62672687;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dashoffset:0;stroke-opacity:0.54901961;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
     </g>
     <g
        id="r02"
        inkscape:label="Robot 02"
-       transform="matrix(0.2782805,0,0,0.2774739,104.82964,113.39689)">
+       transform="matrix(0.2790918,0,0,0.2774739,104.71288,113.39689)">
       <rect
          style="opacity:1;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3.84041309;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
          id="rect3700"
@@ -128,8 +128,8 @@
          inkscape:export-xdpi="24.972649"
          inkscape:export-ydpi="24.972649" />
       <path
-         style="fill:#ff6600;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3.84041309;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-         d="M 173.42046,222.55376 L 220.81555,222.55376 C 237.33903,222.55376 250.64133,237.97001 250.64133,248.55532 C 250.64133,248.55532 250.64133,257.03575 250.64133,263.30348 C 250.64133,273.88879 237.33903,289.30504 220.81555,289.30504 L 173.42046,289.30504 C 156.89698,289.30504 143.59469,290.49827 143.59469,279.91295 L 143.59469,231.63246 C 143.59469,221.04715 156.89698,222.55376 173.42046,222.55376 z"
+         style="fill:#ff6600;fill-opacity:1;fill-rule:evenodd;stroke:#8c8c8c;stroke-width:3.62300897;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dashoffset:0;stroke-opacity:0.54901961;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+         d="M 174.76197,224.44219 L 219.47404,224.44219 C 235.06214,224.44219 247.6114,238.98573 247.6114,248.97181 C 247.6114,248.97181 247.6114,256.97217 247.6114,262.88509 C 247.6114,272.87117 235.06214,287.41471 219.47404,287.41471 L 174.76197,287.41471 C 159.17387,287.41471 146.62462,288.54039 146.62462,278.5543 L 146.62462,233.00695 C 146.62462,223.02087 159.17387,224.44219 174.76197,224.44219 z"
          id="path3704"
          sodipodi:nodetypes="ccccccccc"
          inkscape:export-filename="/home/lee/python/pybotwar/data/images/r02.png"
@@ -139,7 +139,7 @@
     <g
        id="r03"
        inkscape:label="Robot 03"
-       transform="matrix(0.2782805,0,0,0.2774739,104.82964,114.49465)">
+       transform="matrix(0.2790918,0,0,0.2774739,104.71288,114.49465)">
       <rect
          inkscape:export-ydpi="24.972649"
          inkscape:export-xdpi="24.972649"
@@ -170,13 +170,13 @@
          inkscape:export-filename="/home/lee/python/pybotwar/data/images/r03.png"
          sodipodi:nodetypes="ccccccccc"
          id="path3710"
-         d="M 173.42046,371.2165 L 220.81555,371.2165 C 237.33903,371.2165 250.64133,386.63275 250.64133,397.21806 C 250.64133,397.21806 250.64133,405.69849 250.64133,411.96622 C 250.64133,422.55153 237.33903,437.96778 220.81555,437.96778 L 173.42046,437.96778 C 156.89698,437.96778 143.59469,439.16101 143.59469,428.57569 L 143.59469,380.2952 C 143.59469,369.70989 156.89698,371.2165 173.42046,371.2165 z"
-         style="fill:#ffff00;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3.84041309;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+         d="M 174.92966,373.34098 L 219.30635,373.34098 C 234.77752,373.34098 247.23266,387.77544 247.23266,397.68661 C 247.23266,397.68661 247.23266,405.62696 247.23266,411.49553 C 247.23266,421.4067 234.77752,435.84116 219.30635,435.84116 L 174.92966,435.84116 C 159.45849,435.84116 147.00336,436.9584 147.00336,427.04721 L 147.00336,381.8415 C 147.00336,371.93032 159.45849,373.34098 174.92966,373.34098 z"
+         style="fill:#ffff00;fill-opacity:1;fill-rule:evenodd;stroke:#8c8c8c;stroke-width:3.59583354;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dashoffset:0;stroke-opacity:0.54901961;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
     </g>
     <g
        id="r04"
        inkscape:label="Robot 04"
-       transform="matrix(0.2782805,0,0,0.2774739,103.63509,115.77462)">
+       transform="matrix(0.2790918,0,0,0.2774739,103.51833,115.77462)">
       <rect
          style="opacity:1;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3.84041309;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
          id="rect3712"
@@ -202,8 +202,8 @@
          inkscape:export-xdpi="24.972664"
          inkscape:export-ydpi="24.972664" />
       <path
-         style="fill:#008000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3.84041309;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-         d="M 173.42046,531.70469 L 220.81555,531.70469 C 237.33903,531.70469 250.64133,547.12094 250.64133,557.70625 C 250.64133,557.70625 250.64133,566.18668 250.64133,572.45441 C 250.64133,583.03972 237.33903,598.45597 220.81555,598.45597 L 173.42046,598.45597 C 156.89698,598.45597 143.59469,599.6492 143.59469,589.06388 L 143.59469,540.78339 C 143.59469,530.19808 156.89698,531.70469 173.42046,531.70469 z"
+         style="fill:#008000;fill-opacity:1;fill-rule:evenodd;stroke:#8c8c8c;stroke-width:3.62300897;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dashoffset:0;stroke-opacity:0.54901961;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+         d="M 174.76197,533.59312 L 219.47404,533.59312 C 235.06214,533.59312 247.6114,548.13666 247.6114,558.12274 C 247.6114,558.12274 247.6114,566.1231 247.6114,572.03602 C 247.6114,582.0221 235.06214,596.56564 219.47404,596.56564 L 174.76197,596.56564 C 159.17387,596.56564 146.62462,597.69132 146.62462,587.70523 L 146.62462,542.15788 C 146.62462,532.1718 159.17387,533.59312 174.76197,533.59312 z"
          id="path3716"
          sodipodi:nodetypes="ccccccccc"
          inkscape:export-filename="/home/lee/python/pybotwar/data/images/r04.png"
@@ -213,7 +213,7 @@
     <g
        id="r05"
        inkscape:label="Robot 05"
-       transform="matrix(0.2782805,0,0,0.277474,102.44054,117.02859)"
+       transform="matrix(0.2790918,0,0,0.277474,102.32378,117.02859)"
        inkscape:export-xdpi="89.999817"
        inkscape:export-ydpi="89.999817">
       <rect
@@ -246,13 +246,13 @@
          inkscape:export-filename="/home/lee/python/pybotwar/data/images/r05.png"
          sodipodi:nodetypes="ccccccccc"
          id="path3722"
-         d="M 173.42046,690.50353 L 220.81555,690.50353 C 237.33903,690.50353 250.64133,705.91978 250.64133,716.50509 C 250.64133,716.50509 250.64133,724.98552 250.64133,731.25325 C 250.64133,741.83856 237.33903,757.25481 220.81555,757.25481 L 173.42046,757.25481 C 156.89698,757.25481 143.59469,758.44804 143.59469,747.86272 L 143.59469,699.58223 C 143.59469,688.99692 156.89698,690.50353 173.42046,690.50353 z"
-         style="fill:#00ffff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3.84041309;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+         d="M 174.76197,692.39196 L 219.47404,692.39196 C 235.06214,692.39196 247.6114,706.9355 247.6114,716.92158 C 247.6114,716.92158 247.6114,724.92194 247.6114,730.83486 C 247.6114,740.82094 235.06214,755.36448 219.47404,755.36448 L 174.76197,755.36448 C 159.17387,755.36448 146.62462,756.49016 146.62462,746.50407 L 146.62462,700.95672 C 146.62462,690.97064 159.17387,692.39196 174.76197,692.39196 z"
+         style="fill:#00ffff;fill-opacity:1;fill-rule:evenodd;stroke:#8c8c8c;stroke-width:3.62300897;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dashoffset:0;stroke-opacity:0.54901961;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
     </g>
     <g
        id="r06"
        inkscape:label="Robot 06"
-       transform="matrix(0.2782805,0,0,0.277474,77.538625,112.221)">
+       transform="matrix(0.2790918,0,0,0.277474,77.146372,112.221)">
       <rect
          style="opacity:1;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3.84041309;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
          id="rect3724"
@@ -278,8 +278,8 @@
          inkscape:export-xdpi="24.972664"
          inkscape:export-ydpi="24.972664" />
       <path
-         style="fill:#800080;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3.84041309;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-         d="M 512.97968,68.822969 L 560.37477,68.822969 C 576.89825,68.822969 590.20055,84.239219 590.20055,94.824529 C 590.20055,94.824529 590.20055,103.30496 590.20055,109.57269 C 590.20055,120.158 576.89825,135.57425 560.37477,135.57425 L 512.97968,135.57425 C 496.4562,135.57425 483.1539,136.76748 483.1539,126.18216 L 483.1539,77.901669 C 483.1539,67.316359 496.4562,68.822969 512.97968,68.822969 z"
+         style="fill:#800080;fill-opacity:1;fill-rule:evenodd;stroke:#8c8c8c;stroke-width:3.65018463;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dashoffset:0;stroke-opacity:0.54901961;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+         d="M 514.1535,70.475345 L 559.20095,70.475345 C 574.90597,70.475345 587.54936,85.127976 587.54936,95.18896 C 587.54936,95.18896 587.54936,103.24933 587.54936,109.2066 C 587.54936,119.26758 574.90597,133.92021 559.20095,133.92021 L 514.1535,133.92021 C 498.44848,133.92021 485.80509,135.05434 485.80509,124.99334 L 485.80509,79.104346 C 485.80509,69.043362 498.44848,70.475345 514.1535,70.475345 z"
          id="path3728"
          sodipodi:nodetypes="ccccccccc"
          inkscape:export-filename="/home/lee/python/pybotwar/data/images/r06.png"
@@ -289,7 +289,7 @@
     <g
        id="r07"
        inkscape:label="Robot 07"
-       transform="matrix(0.2782805,0,0,0.2774739,78.733175,113.39689)">
+       transform="matrix(0.2790918,0,0,0.2774739,78.340922,113.39689)">
       <rect
          inkscape:export-ydpi="24.972649"
          inkscape:export-xdpi="24.972649"
@@ -320,13 +320,13 @@
          inkscape:export-filename="/home/lee/python/pybotwar/data/images/r07.png"
          sodipodi:nodetypes="ccccccccc"
          id="path3734"
-         d="M 512.97968,222.55376 L 560.37477,222.55376 C 576.89825,222.55376 590.20055,237.97001 590.20055,248.55532 C 590.20055,248.55532 590.20055,257.03575 590.20055,263.30348 C 590.20055,273.88879 576.89825,289.30504 560.37477,289.30504 L 512.97968,289.30504 C 496.4562,289.30504 483.1539,290.49827 483.1539,279.91295 L 483.1539,231.63246 C 483.1539,221.04715 496.4562,222.55376 512.97968,222.55376 z"
-         style="fill:#ff00ff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3.84041309;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+         d="M 514.1535,224.20614 L 559.20095,224.20614 C 574.90597,224.20614 587.54936,238.85877 587.54936,248.91975 C 587.54936,248.91975 587.54936,256.98012 587.54936,262.93739 C 587.54936,272.99837 574.90597,287.651 559.20095,287.651 L 514.1535,287.651 C 498.44848,287.651 485.80509,288.78513 485.80509,278.72413 L 485.80509,232.83514 C 485.80509,222.77415 498.44848,224.20614 514.1535,224.20614 z"
+         style="fill:#ff00ff;fill-opacity:1;fill-rule:evenodd;stroke:#8c8c8c;stroke-width:3.65018463;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dashoffset:0;stroke-opacity:0.54901961;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
     </g>
     <g
        id="r08"
        inkscape:label="Robot 08"
-       transform="matrix(0.2782805,0,0,0.2774739,78.733175,114.49465)">
+       transform="matrix(0.2731551,0,0,0.2774739,81.202461,114.49467)">
       <rect
          style="opacity:1;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3.84041309;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
          id="rect3736"
@@ -352,8 +352,8 @@
          inkscape:export-xdpi="24.972649"
          inkscape:export-ydpi="24.972649" />
       <path
-         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3.84041309;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-         d="M 512.97968,371.2165 L 560.37477,371.2165 C 576.89825,371.2165 590.20055,386.63275 590.20055,397.21806 C 590.20055,397.21806 590.20055,405.69849 590.20055,411.96622 C 590.20055,422.55153 576.89825,437.96778 560.37477,437.96778 L 512.97968,437.96778 C 496.4562,437.96778 483.1539,439.16101 483.1539,428.57569 L 483.1539,380.2952 C 483.1539,369.70989 496.4562,371.2165 512.97968,371.2165 z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#8c8c8c;stroke-width:2.6966114;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.54901961;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+         d="M 512.96562,372.75504 L 560.38883,372.75504 C 576.92211,372.75504 590.23231,387.46028 590.23231,397.55738 C 590.23231,397.55738 590.23231,405.64669 590.23231,411.62535 C 590.23231,421.72245 576.92211,436.42769 560.38883,436.42769 L 512.96562,436.42769 C 496.43234,436.42769 483.12214,437.56589 483.12214,427.46877 L 483.12214,381.41502 C 483.12214,371.31792 496.43234,372.75504 512.96562,372.75504 z"
          id="path3740"
          sodipodi:nodetypes="ccccccccc"
          inkscape:export-filename="/home/lee/python/pybotwar/data/images/r08.png"
@@ -363,7 +363,7 @@
     <g
        id="r09"
        inkscape:label="Robot 09"
-       transform="matrix(0.2782805,0,0,0.2774739,77.538625,115.77462)"
+       transform="matrix(0.2790918,0,0,0.2774739,77.146372,115.77462)"
        inkscape:export-xdpi="89.999817"
        inkscape:export-ydpi="89.999817">
       <rect
@@ -396,13 +396,13 @@
          inkscape:export-filename="/home/lee/python/pybotwar/data/images/r09.png"
          sodipodi:nodetypes="ccccccccc"
          id="path3746"
-         d="M 512.97968,531.70469 L 560.37477,531.70469 C 576.89825,531.70469 590.20055,547.12094 590.20055,557.70625 C 590.20055,557.70625 590.20055,566.18668 590.20055,572.45441 C 590.20055,583.03972 576.89825,598.45597 560.37477,598.45597 L 512.97968,598.45597 C 496.4562,598.45597 483.1539,599.6492 483.1539,589.06388 L 483.1539,540.78339 C 483.1539,530.19808 496.4562,531.70469 512.97968,531.70469 z"
-         style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3.84041309;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+         d="M 514.31656,533.82151 L 559.5927,533.82151 C 575.37744,533.82151 588.08501,548.2595 588.08501,558.17312 C 588.08501,558.17312 588.08501,566.11541 588.08501,571.98542 C 588.08501,581.89902 575.37744,596.33702 559.5927,596.33702 L 514.31656,596.33702 C 498.53182,596.33702 485.82425,597.45454 485.82425,587.54091 L 485.82425,542.32412 C 485.82425,532.4105 498.53182,533.82151 514.31656,533.82151 z"
+         style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#8c8c8c;stroke-width:3.63253665;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dashoffset:0;stroke-opacity:0.54901961;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
     </g>
     <g
        id="r10"
        inkscape:label="Robot 10"
-       transform="matrix(0.2782805,0,0,0.277474,76.344075,117.02859)"
+       transform="matrix(0.2790918,0,0,0.277474,75.951822,117.02859)"
        inkscape:export-xdpi="89.999817"
        inkscape:export-ydpi="89.999817">
       <rect
@@ -430,8 +430,8 @@
          inkscape:export-xdpi="4.6326056"
          inkscape:export-ydpi="4.6326056" />
       <path
-         style="fill:#55ff55;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3.84041309000000020;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-         d="M 512.97968,690.50353 L 560.37477,690.50353 C 576.89825,690.50353 590.20055,705.91978 590.20055,716.50509 C 590.20055,716.50509 590.20055,724.98552 590.20055,731.25325 C 590.20055,741.83856 576.89825,757.25481 560.37477,757.25481 L 512.97968,757.25481 C 496.4562,757.25481 483.1539,758.44804 483.1539,747.86272 L 483.1539,699.58223 C 483.1539,688.99692 496.4562,690.50353 512.97968,690.50353 z"
+         style="fill:#55ff55;fill-opacity:1;fill-rule:evenodd;stroke:#8c8c8c;stroke-width:3.58398962;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dashoffset:0;stroke-opacity:0.54901961;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+         d="M 514.56196,692.73089 L 558.79249,692.73089 C 574.2127,692.73089 586.62681,707.1178 586.62681,716.99633 C 586.62681,716.99633 586.62681,724.91053 586.62681,730.75976 C 586.62681,740.63829 574.2127,755.02521 558.79249,755.02521 L 514.56196,755.02521 C 499.14175,755.02521 486.72764,756.13876 486.72764,746.26022 L 486.72764,701.20341 C 486.72764,691.32488 499.14175,692.73089 514.56196,692.73089 z"
          id="path3752"
          sodipodi:nodetypes="ccccccccc"
          inkscape:export-filename="/home/lee/r01b.png"
