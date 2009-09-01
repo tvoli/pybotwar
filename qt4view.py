@@ -105,13 +105,27 @@ class MainWindow(QtGui.QMainWindow):
         pass
 
     def restart(self):
+        rinfo = self.ui.rinfo
+        print 'rinfo', rinfo
         for name, robot in self.game.w.robots.items():
             robot.v.kill()
 
         self.game.finish()
-
         world.Robot.nrobots = 0
         Robot.nrobots = 0
+
+        #g = rinfo.geometry()
+        self.scene.removeItem(self.scene.arenarect)
+        while rinfo.count():
+            item = rinfo.itemAt(0)
+            rinfo.removeItem(item)
+
+        #rinfo.setGeometry(g)
+        print 'ms', rinfo.geometry()
+        #rinfo.setSizeConstraint(QtGui.QLayout.SetMaximumSize)
+        #rinfo.setMinimumSize(QtCore.QSize(0, 500))
+
+        self.scene.add_arenarect()
         self.start_game()
 
 
@@ -392,6 +406,8 @@ class Arena(object):
     def addrobotinfo(self, n, name):
         ri = RobotInfo(n, name, self.rend)
         self.rinfo.addLayout(ri)
+        print 'rinfo22', self.rinfo
+        print 'ri', self.rinfo.geometry()
         return ri
 
     def addbullet(self, pos):
