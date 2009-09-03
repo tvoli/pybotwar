@@ -318,6 +318,7 @@ class RobotInfo(QtGui.QHBoxLayout):
         QtGui.QHBoxLayout.__init__(self)
 
         icon = QtGui.QPixmap(50, 50)
+        icon.fill(QtCore.Qt.transparent)
         self.icon = icon
         painter = QtGui.QPainter(icon)
         self.painter = painter # need to hold this or Qt throws an error
@@ -448,6 +449,7 @@ class Splash(QtGui.QSplashScreen):
     def __init__(self, app):
         rend = getrend(app)
         img = QtGui.QPixmap(500, 250)
+        img.fill(QtCore.Qt.transparent)
         self.img = img
         painter = QtGui.QPainter(img)
         self.painter = painter # need to hold this or Qt throws an error
