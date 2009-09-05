@@ -124,7 +124,7 @@ class MainWindow(QtGui.QMainWindow):
 
     def restart(self):
         rinfo = self.ui.rinfo
-        print 'rinfo', rinfo
+        #print 'rinfo', rinfo
         for name, robot in self.game.w.robots.items():
             robot.v.kill()
 
@@ -139,7 +139,7 @@ class MainWindow(QtGui.QMainWindow):
             rinfo.removeItem(item)
 
         #rinfo.setGeometry(g)
-        print 'ms', rinfo.geometry()
+        #print 'ms', rinfo.geometry()
         #rinfo.setSizeConstraint(QtGui.QLayout.SetMaximumSize)
         #rinfo.setMinimumSize(QtCore.QSize(0, 500))
 
