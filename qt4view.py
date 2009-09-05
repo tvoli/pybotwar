@@ -115,21 +115,24 @@ class MainWindow(QtGui.QMainWindow):
         trans.scale(scale, scale)
         self.scene.view.setTransform(trans)
 
-    def configure(self):
+    def notImplementedYet(self):
         self.cd = ConfDialog()
         self.cd.show()
 
+    def configure(self):
+        self.notImplementedYet()
+
     def loadRobot(self):
-        pass
+        self.notImplementedYet()
 
     def newRobot(self):
-        pass
+        self.notImplementedYet()
 
     def newBattle(self):
-        pass
+        self.notImplementedYet()
 
     def newTournament(self):
-        pass
+        self.notImplementedYet()
 
     def restart(self):
         rinfo = self.ui.rinfo
