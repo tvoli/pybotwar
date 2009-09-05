@@ -49,7 +49,8 @@ class Robot(object):
         self._cannonheat = 0
         self._cannonreload = 0
 
-        self._kills = 0
+        self._kills = 0 # number of robots killed while this one is still alive
+        self._damage_caused = 0
 
         bodyDef = box2d.b2BodyDef()
         bodyDef.position = pos
@@ -526,12 +527,15 @@ class CL(box2d.b2ContactListener):
                         pass
                         #print actor2.name, 'already hit by ring', ring
             else:
+                shooter = None
                 if impulse > cds:
                     dmg = coldmg
                     print 'Robot', actor2.name, 'coll for', dmg,
 
             if dmg:
                 actor2.health -= dmg
+                if shooter is not None:
+                    shooter._damage_caused += dmg
                 actor2.i.health.step(dmg)
                 if actor2.health <= 0:
                     actor2.alive = False
@@ -562,12 +566,15 @@ class CL(box2d.b2ContactListener):
                         pass
                         #print actor1.name, 'already hit by ring', ring
             else:
+                shooter = None
                 if impulse > cds:
                     dmg = coldmg
                     print 'Robot', actor1.name, 'coll for', dmg,
 
             if dmg:
                 actor1.health -= dmg
+                if shooter is not None:
+                    shooter._damage_caused += dmg
                 actor1.i.health.step(dmg)
                 if actor1.health <= 0:
                     actor1.alive = False
