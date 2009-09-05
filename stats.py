@@ -4,6 +4,9 @@ import hashlib
 import conf
 
 
+dbversion = 1
+
+
 def dbopen():
     global conn
     conn = sqlite3.connect(conf.dbfile)
@@ -19,11 +22,46 @@ def dbcheck():
         initialize()
         print 'stats database initialized'
 
+    if not dbcheckver():
+        print 'ERROR: Database version mismatch.'
+        return False
+    else:
+        return True
+
+def dbcheckver():
+    dbopen()
+    q = '''SELECT count(*)
+            FROM sqlite_master
+            WHERE type='table' AND
+                name='dbversion'
+        '''
+    c.execute(q)
+    r = c.fetchone()
+    if not r[0]:
+        # No dbversion table exists
+        retval = 0
+    else:
+        q = '''SELECT n
+                FROM dbversion'''
+        c.execute(q)
+        r = c.fetchone()
+        retval = r[0]
+
+    dbclose()
+    return retval
+
+def dbremove():
+    if os.path.exists(conf.dbfile):
+        os.remove(conf.dbfile)
 
 def initialize():
     'Create empty database'
 
     schemadef = '''\
+
+CREATE TABLE dbversion (
+    n integer
+);
 
 CREATE TABLE stats (
     program_name text,
@@ -49,6 +87,14 @@ CREATE TABLE tournament_stats (
     dbopen()
     conn.executescript(schemadef)
     conn.commit()
+
+    q = '''INSERT INTO dbversion
+            VALUES (:n)
+    '''
+    n = dbversion
+    c.execute(q, locals())
+    conn.commit()
+
     dbclose()
 
 

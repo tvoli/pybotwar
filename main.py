@@ -35,7 +35,6 @@ import world
 from world import box2d
 
 import stats
-stats.dbcheck()
 
 import view
 
@@ -248,6 +247,7 @@ class Game(object):
             winner = None
 
         for robotname, model in models.items():
+            print robotname, 'caused', model._damage_caused, 'damage'
             if robotname in procs:
                 line = 'FINISH\n'
                 proc = procs[robotname]
@@ -271,6 +271,12 @@ class Game(object):
                 stats.tournament_update(tournament, model.kind, model.name, win,
                                                 nrobots-1, model._kills)
 
+def dbcheck():
+    if not stats.dbcheck():
+        print 'Run pytbotwar with -D switch to upgrade database.'
+        print 'WARNING: This will delete your current database!'
+        import sys
+        sys.exit(0)
 
 
 if __name__ == '__main__':
@@ -294,6 +300,9 @@ if __name__ == '__main__':
     parser.add_option("-Q", "--pyqt-graphics", dest="pyqtgraphics",
                     action="store_true", default=False,
                     help="enable PyQt interface")
+    parser.add_option("-D", "--upgrade-db", dest="upgrade_db",
+                    action="store_true", default=False,
+                    help="upgrade database (WARNING! Deletes database!)")
 
     (options, args) = parser.parse_args()
 
@@ -302,6 +311,13 @@ if __name__ == '__main__':
     nbattles = options.nbattles
     nographics = options.nographics
     pyqtgraphics = options.pyqtgraphics
+    upgrade_db = options.upgrade_db
+
+    if upgrade_db:
+        stats.dbremove()
+        stats.initialize()
+
+    dbcheck()
 
     if testmode:
         if not os.path.exists(conf.logdir):
