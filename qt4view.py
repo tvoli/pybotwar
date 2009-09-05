@@ -437,8 +437,8 @@ class Arena(object):
     def addrobotinfo(self, n, name):
         ri = RobotInfo(n, name, self.rend)
         self.rinfo.addLayout(ri)
-        print 'rinfo22', self.rinfo
-        print 'ri', self.rinfo.geometry()
+        #print 'rinfo22', self.rinfo
+        #print 'ri', self.rinfo.geometry()
         return ri
 
     def addbullet(self, pos):
