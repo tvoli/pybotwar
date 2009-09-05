@@ -265,11 +265,13 @@ class Game(object):
                 win = 0
 
             if not testmode:
-                stats.update(model.kind, win, nrobots-1, model._kills)
+                stats.update(model.kind, win, nrobots-1, model._kills,
+                                model._damage_caused)
 
             if tournament is not None:
                 stats.tournament_update(tournament, model.kind, model.name, win,
-                                                nrobots-1, model._kills)
+                                                nrobots-1, model._kills,
+                                                model._damage_caused)
 
 def dbcheck():
     if not stats.dbcheck():
@@ -352,7 +354,7 @@ if __name__ == '__main__':
         print nbattles, 'battles between', len(results), 'robots'
         print
         for line in results:
-            print line[1], ':', line[4], 'wins', line[6], 'robots defeated'
+            print line[1], ':', line[4], 'wins', ':', line[6], 'defeated', ':', line[7], 'dmg caused'
 
     elif pyqtgraphics:
         qt4view.run()

@@ -4,7 +4,7 @@ import hashlib
 import conf
 
 
-dbversion = 1
+dbversion = 2
 
 
 def dbopen():
@@ -70,7 +70,8 @@ CREATE TABLE stats (
     matches integer,
     wins integer,
     opponents integer,
-    kills integer
+    kills integer,
+    damage_caused integer
 );
 
 CREATE TABLE tournament_stats (
@@ -80,7 +81,8 @@ CREATE TABLE tournament_stats (
     matches integer,
     wins integer,
     opponents integer,
-    kills integer
+    kills integer,
+    damage_caused integer
 );
 
     '''
@@ -124,7 +126,7 @@ def exists(name, fp):
     r = c.fetchall()
     return bool(r)
 
-def update(name, win, opponents, kills):
+def update(name, win, opponents, kills, damage_caused):
     fp = fingerprint(name)
     win = int(win) # turn True/False in to 1/0
     if exists(name, fp):
@@ -133,7 +135,8 @@ def update(name, win, opponents, kills):
         SET matches = matches + 1,
             wins = wins + :win,
             opponents = opponents + :opponents,
-            kills = kills + :kills
+            kills = kills + :kills,
+            damage_caused = damage_caused + :damage_caused
         WHERE
             program_name = :name AND
             fingerprint = :fp
@@ -147,14 +150,16 @@ def update(name, win, opponents, kills):
                 matches,
                 wins,
                 opponents,
-                kills)
+                kills,
+                damage_caused)
             VALUES
                 (:name,
                     :fp,
                     1,
                     :win,
                     :opponents,
-                    :kills)
+                    :kills,
+                    :damage_caused)
         '''
     c.execute(q, locals())
     conn.commit()
@@ -173,7 +178,7 @@ def tournament_exists(tournament, name, fp):
     r = c.fetchall()
     return bool(r)
 
-def tournament_update(tournament, kind, name, win, opponents, kills):
+def tournament_update(tournament, kind, name, win, opponents, kills, damage_caused):
     fp = fingerprint(kind)
     win = int(win) # turn True/False in to 1/0
     if tournament_exists(tournament, name, fp):
@@ -182,7 +187,8 @@ def tournament_update(tournament, kind, name, win, opponents, kills):
         SET matches = matches + 1,
             wins = wins + :win,
             opponents = opponents + :opponents,
-            kills = kills + :kills
+            kills = kills + :kills,
+            damage_caused = damage_caused + :damage_caused
         WHERE
             tournament = :tournament AND
             program_name = :name AND
@@ -198,7 +204,8 @@ def tournament_update(tournament, kind, name, win, opponents, kills):
                 matches,
                 wins,
                 opponents,
-                kills)
+                kills,
+                damage_caused)
             VALUES
                 (:tournament,
                     :name,
@@ -206,7 +213,8 @@ def tournament_update(tournament, kind, name, win, opponents, kills):
                     1,
                     :win,
                     :opponents,
-                    :kills)
+                    :kills,
+                    :damage_caused)
         '''
     c.execute(q, locals())
     conn.commit()
