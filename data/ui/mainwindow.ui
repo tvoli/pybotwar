@@ -130,7 +130,7 @@
     <property name="title">
      <string>Battle</string>
     </property>
-    <addaction name="actionNew_2"/>
+    <addaction name="actionNew_battle"/>
     <addaction name="actionPause"/>
     <addaction name="actionSingleStep"/>
     <addaction name="actionRestart"/>
@@ -139,7 +139,7 @@
     <property name="title">
      <string>Tournament</string>
     </property>
-    <addaction name="actionNew"/>
+    <addaction name="actionNew_tournament"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuBattle"/>
@@ -199,12 +199,12 @@
     <string>New robot</string>
    </property>
   </action>
-  <action name="actionNew">
+  <action name="actionNew_tournament">
    <property name="text">
     <string>New tournament</string>
    </property>
   </action>
-  <action name="actionNew_2">
+  <action name="actionNew_battle">
    <property name="text">
     <string>New battle</string>
    </property>
@@ -308,6 +308,54 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionNew_robot</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>newRobot()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>438</x>
+     <y>392</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionNew_battle</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>newBattle()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>438</x>
+     <y>392</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionNew_tournament</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>newTournament()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>438</x>
+     <y>392</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>pauseBattle(bool)</slot>
@@ -315,5 +363,8 @@
   <slot>loadRobot()</slot>
   <slot>restart()</slot>
   <slot>configure()</slot>
+  <slot>newRobot()</slot>
+  <slot>newBattle()</slot>
+  <slot>newTournament()</slot>
  </slots>
 </ui>

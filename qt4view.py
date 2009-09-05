@@ -122,6 +122,15 @@ class MainWindow(QtGui.QMainWindow):
     def loadRobot(self):
         pass
 
+    def newRobot(self):
+        pass
+
+    def newBattle(self):
+        pass
+
+    def newTournament(self):
+        pass
+
     def restart(self):
         rinfo = self.ui.rinfo
         #print 'rinfo', rinfo
