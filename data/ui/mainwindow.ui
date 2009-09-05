@@ -116,8 +116,8 @@
     <property name="title">
      <string>File</string>
     </property>
+    <addaction name="actionNew_robot"/>
     <addaction name="actionLoad_robot"/>
-    <addaction name="actionTournament"/>
     <addaction name="actionQuit"/>
    </widget>
    <widget class="QMenu" name="menuSettings">
@@ -130,12 +130,20 @@
     <property name="title">
      <string>Battle</string>
     </property>
+    <addaction name="actionNew_2"/>
     <addaction name="actionPause"/>
     <addaction name="actionSingleStep"/>
     <addaction name="actionRestart"/>
    </widget>
+   <widget class="QMenu" name="menuTournament">
+    <property name="title">
+     <string>Tournament</string>
+    </property>
+    <addaction name="actionNew"/>
+   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuBattle"/>
+   <addaction name="menuTournament"/>
    <addaction name="menuSettings"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
@@ -184,6 +192,21 @@
   <action name="actionRestart">
    <property name="text">
     <string>Restart</string>
+   </property>
+  </action>
+  <action name="actionNew_robot">
+   <property name="text">
+    <string>New robot</string>
+   </property>
+  </action>
+  <action name="actionNew">
+   <property name="text">
+    <string>New tournament</string>
+   </property>
+  </action>
+  <action name="actionNew_2">
+   <property name="text">
+    <string>New battle</string>
    </property>
   </action>
  </widget>
