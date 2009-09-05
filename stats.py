@@ -45,7 +45,8 @@ def dbcheckver():
                 FROM dbversion'''
         c.execute(q)
         r = c.fetchone()
-        retval = r[0]
+        ver = r[0]
+        retval = ver == dbversion
 
     dbclose()
     return retval
