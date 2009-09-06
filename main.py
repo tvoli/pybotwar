@@ -255,6 +255,7 @@ class Game(object):
                 proc.stdin.flush()
                 proc.stdin.close()
                 proc.stdout.close()
+                del procs[robotname]
 
             if winner is None and model.alive:
                 model._kills = nrobots - len(alive)
