@@ -135,6 +135,7 @@ class MainWindow(QtGui.QMainWindow):
 
     def newRobot(self):
         self.te = TE()
+        self.te.openfile() # Open the template for a new robot
         self.te.show()
 
     def newBattle(self):
@@ -180,6 +181,13 @@ class TE(QtGui.QMainWindow):
         self.editor = HighlightedTextEdit(self.ui.centralwidget)
         self.ui.verticalLayout.addWidget(self.editor)
         self.setCentralWidget(self.ui.centralwidget)
+
+    def openfile(self, filepath=None):
+        if filepath is None:
+            filepath = conf.template
+
+        filestring = file(filepath).read()
+        self.editor.code = filestring
 
 
 class ConfDialog(QtGui.QDialog):

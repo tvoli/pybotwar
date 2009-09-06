@@ -19,6 +19,8 @@ robots = [r1, r2, r3, r4, r5, r6, r7]
 
 logdir = 'robots/logs'
 
+template = 'robots/template.py'
+
 
 # Game
 maxtime = 600 # Seconds before calling the match a draw
