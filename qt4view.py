@@ -133,7 +133,6 @@ class MainWindow(QtGui.QMainWindow):
     def loadRobot(self):
         fp = QtGui.QFileDialog.getOpenFileName(self, 'Open Robot', 'robots')
         self.te = TE()
-        print 'FP', fp
         if fp:
             self.te.openfile(fp)
             self.te.show()
