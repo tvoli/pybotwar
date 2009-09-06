@@ -131,7 +131,12 @@ class MainWindow(QtGui.QMainWindow):
         self.notImplementedYet()
 
     def loadRobot(self):
-        self.notImplementedYet()
+        fp = QtGui.QFileDialog.getOpenFileName(self, 'Open Robot', 'robots')
+        self.te = TE()
+        print 'FP', fp
+        if fp:
+            self.te.openfile(fp)
+            self.te.show()
 
     def newRobot(self):
         self.te = TE()
