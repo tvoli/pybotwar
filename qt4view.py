@@ -59,7 +59,7 @@ class MainWindow(QtGui.QMainWindow):
 
         self.start_game()
 
-        self.startTimer(17)
+        self.ticktimer = self.startTimer(17)
 
         # Call resize a bit later or else view will not resize properly
         QtCore.QTimer.singleShot(1, self.resizeEvent)
@@ -73,9 +73,16 @@ class MainWindow(QtGui.QMainWindow):
         self.game.load_robots()
 
     def closeEvent(self, ev=None):
-        self.game.finish()
-        QtGui.qApp.quit()
-        stats.dbclose()
+        self.killTimer(self.ticktimer)
+
+        if len(self.game.procs) > 0:
+            self.game.finish()
+            stats.dbclose()
+
+        if hasattr(self, 'te') and self.te.isVisible():
+            pass
+        else:
+            QtGui.qApp.quit()
 
     def pauseBattle(self, ev):
         self.paused = ev
@@ -164,7 +171,7 @@ class MainWindow(QtGui.QMainWindow):
 class TE(QtGui.QMainWindow):
     def __init__(self):
         QtGui.QMainWindow.__init__(self)
-        uifile = 'ht.ui'
+        uifile = 'editor.ui'
         uipath = os.path.join(uidir, uifile)
         TEClass, _ = uic.loadUiType(uipath)
         self.ui = TEClass()
