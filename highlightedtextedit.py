@@ -207,5 +207,11 @@ if __name__ == "__main__":
 
     app = QtGui.QApplication(sys.argv)
     widget = HighlightedTextEdit()
+    if len(sys.argv) == 2:
+        fname = sys.argv[1]
+        code = file(fname).read()
+        widget.code = code
+        g = QtCore.QRect(0, 0, 800, 600)
+        widget.setGeometry(g)
     widget.show()
     sys.exit(app.exec_())
