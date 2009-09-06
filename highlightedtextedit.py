@@ -150,7 +150,6 @@ class PythonHighlighter(QtGui.QSyntaxHighlighter):
 
         self.base_format.setFont(font)
         self.empty_format = QtGui.QTextCharFormat(self.base_format)
-        self.empty_format.setFontPointSize(font.pointSize()/4.0)
 
         self.keywordFormat = QtGui.QTextCharFormat(self.base_format)
         self.keywordFormat.setForeground(QtCore.Qt.darkBlue)
