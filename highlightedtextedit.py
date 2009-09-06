@@ -161,9 +161,9 @@ class PythonHighlighter(QtGui.QSyntaxHighlighter):
         self.multiLineStringFormat.setBackground(
             QtGui.QBrush(QtGui.QColor(127,127,255)))
         self.quotationFormat1 = QtGui.QTextCharFormat(self.base_format)
-        self.quotationFormat1.setForeground(QtCore.Qt.blue)
+        self.quotationFormat1.setForeground(QtCore.Qt.yellow)
         self.quotationFormat2 = QtGui.QTextCharFormat(self.base_format)
-        self.quotationFormat2.setForeground(QtCore.Qt.blue)
+        self.quotationFormat2.setForeground(QtCore.Qt.yellow)
 
     def updateRules(self):
 
@@ -176,13 +176,14 @@ class PythonHighlighter(QtGui.QSyntaxHighlighter):
         self.rules.append((QtCore.QRegExp(r"\bself\b"), self.selfFormat))
         self.rules.append((QtCore.QRegExp(r"\bQ([A-Z][a-z]*)+\b"), self.qtFormat))
 
-        self.rules.append((QtCore.QRegExp(r"#[^\n]*"), self.singleLineCommentFormat))
-
         self.multiLineStringBegin = QtCore.QRegExp(r'\"\"\"')
         self.multiLineStringEnd = QtCore.QRegExp(r'\"\"\"')
 
-        self.rules.append((QtCore.QRegExp(r'\"[^\n]*\"'), self.quotationFormat1))
-        self.rules.append((QtCore.QRegExp(r"'[^\n]*'"), self.quotationFormat2))
+        self.rules.append((QtCore.QRegExp(r"#[^\n]*"), self.singleLineCommentFormat))
+
+        self.rules.append((QtCore.QRegExp(r'r?\"[^\n]*\"'), self.quotationFormat1))
+        self.rules.append((QtCore.QRegExp(r"r?'[^\n]*'"), self.quotationFormat2))
+
 
     def updateHighlighter(self, font):
 
