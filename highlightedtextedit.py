@@ -70,6 +70,16 @@ class HighlightedTextEdit(QtGui.QTextEdit):
 
     displayFont = QtCore.pyqtProperty("QFont", getDisplayFont, setDisplayFont)
 
+    def keyPressEvent(self, ev):
+        k = ev.key()
+
+        if k == 16777217:
+            spaces = QtCore.QString('    ')
+            self.insertPlainText(spaces)
+
+        else:
+            QtGui.QTextEdit.keyPressEvent(self, ev)
+
 
 class PythonHighlighter(QtGui.QSyntaxHighlighter):
 
