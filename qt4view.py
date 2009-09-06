@@ -21,6 +21,7 @@ import sys
 import math
 pi = math.pi
 from PyQt4 import QtCore, QtGui, QtSvg, uic
+from highlightedtextedit import HighlightedTextEdit
 
 import main
 import world
@@ -126,7 +127,8 @@ class MainWindow(QtGui.QMainWindow):
         self.notImplementedYet()
 
     def newRobot(self):
-        self.notImplementedYet()
+        self.te = TE()
+        self.te.show()
 
     def newBattle(self):
         self.notImplementedYet()
@@ -157,6 +159,20 @@ class MainWindow(QtGui.QMainWindow):
 
         self.scene.add_arenarect()
         self.start_game()
+
+
+class TE(QtGui.QMainWindow):
+    def __init__(self):
+        QtGui.QMainWindow.__init__(self)
+        uifile = 'ht.ui'
+        uipath = os.path.join(uidir, uifile)
+        TEClass, _ = uic.loadUiType(uipath)
+        self.ui = TEClass()
+        self.ui.setupUi(self)
+
+        self.editor = HighlightedTextEdit(self.ui.centralwidget)
+        self.ui.verticalLayout.addWidget(self.editor)
+        self.setCentralWidget(self.ui.centralwidget)
 
 
 class ConfDialog(QtGui.QDialog):
