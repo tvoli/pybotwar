@@ -23,7 +23,112 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 """
 
-from PyQt4 import QtCore, QtGui
+import os
+
+from PyQt4 import QtCore, QtGui, uic
+
+import conf
+
+uidir = 'data/ui'
+
+class TextEditor(QtGui.QMainWindow):
+    def __init__(self):
+        QtGui.QMainWindow.__init__(self)
+        uifile = 'editor.ui'
+        uipath = os.path.join(uidir, uifile)
+        TEClass, _ = uic.loadUiType(uipath)
+        self.ui = TEClass()
+        self.ui.setupUi(self)
+
+        self.editor = HighlightedTextEdit(self.ui.centralwidget)
+        self.ui.verticalLayout.addWidget(self.editor)
+        self.setCentralWidget(self.ui.centralwidget)
+
+        self._filename = None
+
+    def closeEvent(self, ev):
+        if self.maybeSave():
+            ev.accept()
+        else:
+            ev.ignore()
+
+    def openfile(self, filepath=None):
+        if filepath is None:
+            filepath = conf.template
+
+        filestring = file(filepath).read()
+        self.editor.code = filestring
+
+    def undo(self):
+        self.editor.undo()
+
+    def redo(self):
+        self.editor.redo()
+
+    def cut(self):
+        self.editor.cut()
+
+    def copy(self):
+        self.editor.copy()
+
+    def paste(self):
+        self.editor.paste()
+
+    def selectAll(self):
+        self.editor.selectAll()
+
+    def new(self):
+        if self.maybeSave():
+            self.openfile()
+
+    def open(self):
+        if self.maybeSave():
+            fdir = QtCore.QString(os.path.abspath(conf.robot_dirs[0]))
+            fp = QtGui.QFileDialog.getOpenFileName(self, 'Open Robot', fdir)
+            if fp:
+                self.openfile(fp)
+
+    def save(self):
+        if self._filename is None:
+            return self.saveAs()
+        else:
+            return self.savefile()
+
+    def saveAs(self):
+        fdir = QtCore.QString(os.path.abspath(conf.robot_dirs[0]))
+        filename = QtGui.QFileDialog.getSaveFileName(self, 'Save Robot As', fdir)
+        if filename:
+            self._filename = filename
+            return self.savefile()
+        else:
+            return False
+
+    def savefile(self):
+        try:
+            f = file(self._filename, 'w')
+            f.write(self.editor.code)
+        except:
+            QtGui.QMessageBox.warning(self, 'Cannot Save', 'Cannot save file')
+            self._filename = None
+            return False
+        else:
+            self.editor._doc.setModified(False)
+            return True
+
+    def maybeSave(self):
+        if self.editor._doc.isModified():
+            ret = QtGui.QMessageBox.warning(self, self.tr("Application"),
+                        self.tr("The document has been modified.\n"
+                                "Do you want to save your changes?"),
+                        QtGui.QMessageBox.Yes | QtGui.QMessageBox.Default,
+                        QtGui.QMessageBox.No,
+                        QtGui.QMessageBox.Cancel | QtGui.QMessageBox.Escape)
+            if ret == QtGui.QMessageBox.Yes:
+                return self.save()
+            elif ret == QtGui.QMessageBox.Cancel:
+                return False
+        return True
+
 
 
 class HighlightedTextEdit(QtGui.QTextEdit):
@@ -43,6 +148,7 @@ class HighlightedTextEdit(QtGui.QTextEdit):
         char_format = QtGui.QTextCharFormat()
         char_format.setFont(self.font())
         self.highlighter = PythonHighlighter(self.document(), char_format)
+        self._doc = self.document()
 
     # The code property is implemented with the getCode() and setCode()
     # methods, and contains the plain text shown in the editor.

@@ -21,7 +21,7 @@ import sys
 import math
 pi = math.pi
 from PyQt4 import QtCore, QtGui, QtSvg, uic
-from highlightedtextedit import HighlightedTextEdit
+from highlightedtextedit import TextEditor
 
 import main
 import world
@@ -137,13 +137,13 @@ class MainWindow(QtGui.QMainWindow):
     def loadRobot(self):
         fdir = QtCore.QString(os.path.abspath(conf.robot_dirs[0]))
         fp = QtGui.QFileDialog.getOpenFileName(self, 'Open Robot', fdir)
-        self.te = TE()
+        self.te = TextEditor()
         if fp:
             self.te.openfile(fp)
             self.te.show()
 
     def newRobot(self):
-        self.te = TE()
+        self.te = TextEditor()
         self.te.openfile() # Open the template for a new robot
         self.te.show()
 
@@ -176,27 +176,6 @@ class MainWindow(QtGui.QMainWindow):
 
         self.scene.add_arenarect()
         self.start_game()
-
-
-class TE(QtGui.QMainWindow):
-    def __init__(self):
-        QtGui.QMainWindow.__init__(self)
-        uifile = 'editor.ui'
-        uipath = os.path.join(uidir, uifile)
-        TEClass, _ = uic.loadUiType(uipath)
-        self.ui = TEClass()
-        self.ui.setupUi(self)
-
-        self.editor = HighlightedTextEdit(self.ui.centralwidget)
-        self.ui.verticalLayout.addWidget(self.editor)
-        self.setCentralWidget(self.ui.centralwidget)
-
-    def openfile(self, filepath=None):
-        if filepath is None:
-            filepath = conf.template
-
-        filestring = file(filepath).read()
-        self.editor.code = filestring
 
 
 class ConfDialog(QtGui.QDialog):
