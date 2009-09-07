@@ -88,12 +88,18 @@ def communicate(r):
         o = loop(r, line)
         if o is not None:
             oline = '%s\n' % (str(o))
-            sys.stdout.write(oline)
-            sys.stdout.flush()
+            try:
+                sys.stdout.write(oline)
+                sys.stdout.flush()
+            except IOError:
+                break
         else:
             oline = 'END\n'
-            sys.stdout.write(oline)
-            sys.stdout.flush()
+            try:
+                sys.stdout.write(oline)
+                sys.stdout.flush()
+            except IOError:
+                pass
             break
 
 
