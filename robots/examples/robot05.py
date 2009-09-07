@@ -2,19 +2,19 @@ from robot import Robot
 
 class TheRobot(Robot):
     def initialize(self):
-        self._spin = False
+        self._spinning = False
 
     def respond(self):
-        if self._spin:
+        if self._spinning:
             self.spin()
-        else:
-            self.ping()
-            self.ping_react()
+
+        self.ping()
+        self.ping_react()
 
     def spin(self, n=None):
         # Spin for n ticks, then stop
         if n is not None:
-            self._spin = True
+            self._spinning = True
             self._spin_n = n
         else:
             self.force(0)
@@ -22,12 +22,12 @@ class TheRobot(Robot):
 
             self._spin_n -= 1
             if self._spin_n <= 0:
-                self._spin = False
+                self._spinning = False
 
     def ping_react(self):
         kind, angle, dist = self.sensors['PING']
 
-        if kind == 'w':
+        if kind == 'w' and not self._spinning:
             # Pinged a wall
             if dist < 8:
                 self.spin(30)
