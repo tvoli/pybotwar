@@ -135,7 +135,8 @@ class MainWindow(QtGui.QMainWindow):
         self.notImplementedYet()
 
     def loadRobot(self):
-        fp = QtGui.QFileDialog.getOpenFileName(self, 'Open Robot', 'robots')
+        fdir = QtCore.QString(os.path.abspath(conf.robot_dirs[0]))
+        fp = QtGui.QFileDialog.getOpenFileName(self, 'Open Robot', fdir)
         self.te = TE()
         if fp:
             self.te.openfile(fp)
