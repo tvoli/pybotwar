@@ -72,6 +72,8 @@ class MainWindow(QtGui.QMainWindow):
         self.game.w.v.setrend()
         self.game.load_robots()
 
+        self.ui.countdown.display(conf.maxtime)
+
     def closeEvent(self, ev=None):
         self.killTimer(self.ticktimer)
 
@@ -95,6 +97,8 @@ class MainWindow(QtGui.QMainWindow):
     def timerEvent(self, ev):
         if not self.paused:
             self.game.tick()
+            if not self.game.rnd%60:
+                self.ui.countdown.display(self.ui.countdown.value()-1)
 
         if self.game.rnd > 60 * conf.maxtime:
             self.closeEvent()
