@@ -11,4 +11,5 @@ document how to write robot programs
 may be pinging own bullets?
 
 qt4view
-    show elapsed time
+    editor line numbers
+    allow external editor
