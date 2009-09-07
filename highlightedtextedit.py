@@ -44,7 +44,7 @@ class TextEditor(QtGui.QMainWindow):
         self.ui.verticalLayout.addWidget(self.editor)
         self.setCentralWidget(self.ui.centralwidget)
 
-        self._filename = None
+        self._filepath = None
 
     def closeEvent(self, ev):
         if self.maybeSave():
@@ -55,11 +55,13 @@ class TextEditor(QtGui.QMainWindow):
     def openfile(self, filepath=None):
         if filepath is None:
             filepath = conf.template
+        else:
+            self._filepath = filepath
 
         filestring = file(filepath).read()
         self.editor.code = filestring
 
-        if filepath is None:
+        if filepath is None or filepath==conf.template:
             title = 'Untitled'
         else:
             _, title = os.path.split(str(filepath))
@@ -95,27 +97,27 @@ class TextEditor(QtGui.QMainWindow):
                 self.openfile(fp)
 
     def save(self):
-        if self._filename is None:
+        if self._filepath is None:
             return self.saveAs()
         else:
             return self.savefile()
 
     def saveAs(self):
         fdir = QtCore.QString(os.path.abspath(conf.robot_dirs[0]))
-        filename = QtGui.QFileDialog.getSaveFileName(self, 'Save Robot As', fdir)
+        filepath = QtGui.QFileDialog.getSaveFileName(self, 'Save Robot As', fdir)
         if filename:
-            self._filename = filename
+            self._filepath = filepath
             return self.savefile()
         else:
             return False
 
     def savefile(self):
         try:
-            f = file(self._filename, 'w')
+            f = file(self._filepath, 'w')
             f.write(self.editor.code)
         except:
             QtGui.QMessageBox.warning(self, 'Cannot Save', 'Cannot save file')
-            self._filename = None
+            self._filepath = None
             return False
         else:
             self.editor._doc.setModified(False)
