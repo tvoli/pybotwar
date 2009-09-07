@@ -59,6 +59,12 @@ class TextEditor(QtGui.QMainWindow):
         filestring = file(filepath).read()
         self.editor.code = filestring
 
+        if filepath is None:
+            title = 'Untitled'
+        else:
+            _, title = os.path.split(str(filepath))
+        self.setWindowTitle(title)
+
     def undo(self):
         self.editor.undo()
 
