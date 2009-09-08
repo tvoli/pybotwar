@@ -52,7 +52,7 @@ python:
 
 pybox2d:
     http://pybox2d.googlecode.com/
-        (tested with pybox2d svn r195)
+        (tested with pybox2d svn r206)
 
 pygame (optional):
     http://pygame.org/
