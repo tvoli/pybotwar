@@ -54,14 +54,17 @@ pybox2d:
     http://pybox2d.googlecode.com/
         (tested with pybox2d svn r195)
 
-pygame:
+pygame (optional):
     http://pygame.org/
         (tested with pygame-1.8.1)
 
-pygsear:
+pygsear (optional -- required if using pygame):
     http://www.nongnu.org/pygsear/
         (tested with pygsear-0.53.2)
 
+pyqt4 (optional):
+    http://www.riverbankcomputing.co.uk/software/pyqt/
+        (tested with pyqt-4.4.4)
 
 
 RUNNING
@@ -77,13 +80,14 @@ Use the -h option for additional help:
     | Usage: main.py [options]
     |
     | Options:
-    |     -h, --help            show this help message and exit
-    |     -T, --testmode        run in test mode
-    |     -t, --tournament      run a tournament
-    |     -n NBATTLES, --battles=NBATTLES
-    |                             number of battles in tournament
-    |     -g, --no-graphics     non graphics mode
-
+    |   -h, --help            show this help message and exit
+    |   -T, --testmode        run in test mode
+    |   -t, --tournament      run a tournament
+    |   -n NBATTLES, --battles=NBATTLES
+    |                         number of battles in tournament
+    |   -g, --no-graphics     non graphics mode
+    |   -Q, --pyqt-graphics   enable PyQt interface
+    |   -D, --upgrade-db      upgrade database (WARNING! Deletes database!)
 
 
 CONFIGURATION
@@ -122,7 +126,7 @@ Or, if you only want to test your own robot:
 
 You can also run with multiple copies of the same robot:
 
-    # Three of example robot 1 and three of my new robot
+    # Three copies of example robot 1 and three of my new robot
     robots = [r1, r1, r1, mine, mine, mine]
 
 If you want to run with only your new robot, be sure to
@@ -135,8 +139,8 @@ In your new module, add initialization code to the .initialize()
 method if desired, otherwise add a pass statement or delete the
 method.
 
-The .initialize() method is called once immediately after the
-robot is created and must return in less than a second or
+The .initialize() method is called once, immediately after the
+robot is created, and must return in less than a second or
 the robot will be placed in an error state and removed from
 the battle.
 
@@ -164,7 +168,7 @@ random orientations. Also, many robots will use random numbers
 to determine which way to go and when to perform their actions.
 
 Therefore, each time the same set of robots are placed in the
-arena, the result will be slightly different.
+arena, the result will be different.
 
 To determine which robots are truly the strongest, run a
 tournament. A tournament is a series of battles run with the
