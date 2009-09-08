@@ -128,11 +128,13 @@ class MainWindow(QtGui.QMainWindow):
         self.scene.view.setTransform(trans)
 
     def notImplementedYet(self):
-        self.cd = ConfDialog()
-        self.cd.show()
+        self.niy = NotImplementedYet()
+        self.niy.show()
 
     def configure(self):
-        self.notImplementedYet()
+        self.cd = TextEditor()
+        self.cd.openfile('conf.py')
+        self.cd.show()
 
     def loadRobot(self):
         fdir = QtCore.QString(os.path.abspath(conf.robot_dirs[0]))
@@ -178,7 +180,7 @@ class MainWindow(QtGui.QMainWindow):
         self.start_game()
 
 
-class ConfDialog(QtGui.QDialog):
+class NotImplementedYet(QtGui.QDialog):
     def __init__(self):
         QtGui.QDialog.__init__(self)
         uifile = 'bd.ui'
@@ -186,11 +188,9 @@ class ConfDialog(QtGui.QDialog):
         uic.loadUi(uipath, self)
 
     def accept(self):
-        print 'accepted'
         QtGui.QDialog.accept(self)
 
     def reject(self):
-        print 'rejected'
         QtGui.QDialog.reject(self)
 
 
