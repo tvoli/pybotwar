@@ -158,6 +158,13 @@ class HighlightedTextEdit(QtGui.QTextEdit):
         self.highlighter = PythonHighlighter(self.document(), char_format)
         self._doc = self.document()
 
+        pal = QtGui.QPalette()
+        bgc = QtGui.QColor(0, 0, 0)
+        pal.setColor(QtGui.QPalette.Base, bgc)
+        textc = QtGui.QColor(255, 255, 255)
+        pal.setColor(QtGui.QPalette.Text, textc)
+        self.setPalette(pal)
+
     # The code property is implemented with the getCode() and setCode()
     # methods, and contains the plain text shown in the editor.
 
