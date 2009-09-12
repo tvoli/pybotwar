@@ -23,8 +23,6 @@ pi = math.pi
 from PyQt4 import QtCore, QtGui, QtSvg, uic
 from highlightedtextedit import TextEditor
 
-import main
-import world
 import stats
 import conf
 
@@ -65,7 +63,9 @@ class MainWindow(QtGui.QMainWindow):
         QtCore.QTimer.singleShot(1, self.resizeEvent)
 
     def start_game(self):
-        self.game = main.Game()
+        import game
+
+        self.game = game.Game()
         self.game.w.v.scene = self.scene
         self.game.w.v.app = self.app
         self.game.w.v.rinfo = self.ui.rinfo
@@ -162,6 +162,7 @@ class MainWindow(QtGui.QMainWindow):
             robot.v.kill()
 
         self.game.finish()
+        import world
         world.Robot.nrobots = 0
         Robot.nrobots = 0
 
@@ -495,8 +496,6 @@ def run():
     splash = Splash(app)
     splash.show()
 
-    import qt4view
-    world.view = qt4view
     win = MainWindow(app)
     win.show()
     splash.finish(win)

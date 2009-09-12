@@ -23,10 +23,8 @@ pi = box2d.b2_pi
 
 import conf
 
-if conf.graphical_display:
-    import view
-else:
-    import noview as view
+import viewselect
+view = viewselect.get_view_module()
 
 
 class Robot(object):
