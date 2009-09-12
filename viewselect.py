@@ -1,5 +1,4 @@
 def select_view_module(name):
-    print 'selecting', name
     global selectedview
     if name == 'pygame':
         import pgview
@@ -15,5 +14,4 @@ def select_view_module(name):
 
 def get_view_module():
     global selectedview
-    print 'getting', selectedview
     return selectedview
