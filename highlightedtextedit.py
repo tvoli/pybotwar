@@ -153,8 +153,10 @@ class HighlightedTextEdit(QtGui.QTextEdit):
 
         self.setFrameShape(QtGui.QFrame.Box)
         self.setFrameShadow(QtGui.QFrame.Plain)
+        self.setWordWrapMode(QtGui.QTextOption.NoWrap)
         char_format = QtGui.QTextCharFormat()
         char_format.setFont(self.font())
+        char_format.setFontPointSize(16)
         self.highlighter = PythonHighlighter(self.document(), char_format)
         self._doc = self.document()
 
