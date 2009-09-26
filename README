@@ -35,7 +35,8 @@ INSTALLATION
 Make sure the required dependencies are installed.
 
 pybotwar uses pybox2d for the physical simulation,
-and uses pygame and pygsear for the visualization.
+and uses either pyqt or pygame and pygsear for the
+visualization.
 
 Unpack the pybotwar archive and run the program
 from the unpacked folder. No installation is needed,
