@@ -5,6 +5,7 @@ additional components:
     distance traveled sensor
     proximity sensor
     touch sensor
+    ping sensor (reacts when robot gets pinged)
 debug mode (show sensors and actions)
 other game types (race, find/collect objects, maze)
 document how to write robot programs
