@@ -125,9 +125,15 @@ def build_robot(modname, robotname, testmode, rbox):
 
         import traceback
         tb = traceback.format_exc()
-        logfile.write(tb)
-        logfile.write('\n')
-        logfile.flush()
+        if logfile is not None:
+            logfile.write(tb)
+            logfile.write('\n')
+            logfile.flush()
+        else:
+            import sys
+            sys.stderr.write(tb)
+            sys.stderr.write('\n')
+            sys.stderr.flush()
 
     else:
         rbox.append(r)
