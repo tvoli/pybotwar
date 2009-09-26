@@ -20,6 +20,8 @@ import os
 import random
 from time import sleep
 
+from util import defaultNonedict
+
 import conf
 
 
@@ -28,6 +30,8 @@ class Robot(object):
         self.name = name
 
         self._overtime_count = 0
+
+        self.sensors = defaultNonedict()
 
         self._steps = []
 

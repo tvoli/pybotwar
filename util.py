@@ -24,3 +24,10 @@ from defaults import *
 
     print 'conf.py created'
     print 'please check configuration.'
+
+
+from collections import defaultdict
+
+class defaultNonedict(defaultdict):
+    def __missing__(self, key):
+        return None

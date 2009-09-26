@@ -20,6 +20,8 @@ import os
 from threading import Thread
 from time import sleep
 
+from util import defaultNonedict
+
 import conf
 
 
@@ -27,7 +29,7 @@ _overtime_count = 0
 
 def loop(r, i):
     data = i.split('|')
-    sensors = {}
+    sensors = defaultNonedict()
     for d in data:
         k, v = d.split(':')
 
