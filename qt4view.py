@@ -21,7 +21,7 @@ import sys
 import math
 pi = math.pi
 from PyQt4 import QtCore, QtGui, QtSvg, uic
-from highlightedtextedit import TextEditor
+from editor import TextEditor
 
 import stats
 import conf
