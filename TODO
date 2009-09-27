@@ -10,6 +10,7 @@ debug mode (show sensors and actions)
 other game types (race, find/collect objects, maze)
 document how to write robot programs
 may be pinging own bullets?
+randomize order in which robots are handled by main loop?
 
 qt4view
     editor line numbers
