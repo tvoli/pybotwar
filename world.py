@@ -44,6 +44,8 @@ class Robot(object):
         self._pingangle = 0
         self._pingdist = 0
 
+        self._pinged = -5 # Tick most recently pinged by another robot's radar
+
         self._cannonheat = 0
         self._cannonreload = 0
 
@@ -321,7 +323,7 @@ class World(object):
 
         return bullet
 
-    def makeping(self, rname):
+    def makeping(self, rname, rnd):
         robot = self.robots[rname]
         body = robot.turret
 
@@ -344,6 +346,10 @@ class World(object):
         if shape is not None:
             hitbody = shape.GetBody()
             kind = hitbody.userData['kind']
+            if kind == 'robot':
+                actor = hitbody.userData['actor']
+                if actor._pinged != rnd - 1:
+                    actor._pinged = rnd
             return kind, angle, dist
         else:
             # Not sure why shape returns None here. Seems to be when the

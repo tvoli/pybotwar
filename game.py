@@ -104,7 +104,8 @@ class Game(object):
             gyro = model.gyro()
             heat = int(model._cannonheat)
             loading = int(model._cannonreload)
-            line = 'TICK:%s|HEALTH:%s|POS:%s|TUR:%s|PING:%s|GYRO:%s|HEAT:%s|LOADING:%s\n' % (rnd, health, possens, tur, ping, gyro, heat, loading)
+            pinged = int(model._pinged == rnd - 1)
+            line = 'TICK:%s|HEALTH:%s|POS:%s|TUR:%s|PING:%s|GYRO:%s|HEAT:%s|LOADING:%s|PINGED:%s\n' % (rnd, health, possens, tur, ping, gyro, heat, loading, pinged)
             #print robotname, line
 
             proc = procs[robotname]
@@ -203,7 +204,7 @@ class Game(object):
                         w.makebullet(robotname, ticks)
                 elif kind == 'PING':
                     if val:
-                        kind, angle, dist = w.makeping(robotname)
+                        kind, angle, dist = w.makeping(robotname, rnd)
                         if kind is not None:
                             model._pingtype = kind[0]
                             model._pingangle = angle
