@@ -235,6 +235,12 @@ class Game(object):
             print 'WINNER:', model.name
             winner = model
             model._kills = nrobots-1
+        elif not testmode:
+            winner = None
+            print 'Battle over after', conf.maxtime, 'seconds.'
+            print 'STILL ALIVE:'
+            for model in alive:
+                print '   ', model.name
         else:
             winner = None
 
