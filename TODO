@@ -12,5 +12,4 @@ may be pinging own bullets?
 randomize order in which robots are handled by main loop?
 
 qt4view
-    editor line numbers
     allow external editor

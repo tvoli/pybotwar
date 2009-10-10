@@ -21,10 +21,12 @@
 import os
 
 from PyQt4 import QtCore, QtGui, uic
+from PyQt4.Qt import QFrame, QWidget, QHBoxLayout, QPainter
 
 import conf
 
 import highlightedtextedit
+import numberedtextedit
 
 uidir = 'data/ui'
 
@@ -37,7 +39,7 @@ class TextEditor(QtGui.QMainWindow):
         self.ui = TEClass()
         self.ui.setupUi(self)
 
-        self.editor = HighlightedTextEdit(self.ui.centralwidget)
+        self.editor = LineTextWidget(self.ui.centralwidget)
         self.ui.verticalLayout.addWidget(self.editor)
         self.setCentralWidget(self.ui.centralwidget)
 
@@ -56,7 +58,7 @@ class TextEditor(QtGui.QMainWindow):
             self._filepath = filepath
 
         filestring = file(filepath).read()
-        self.editor.code = filestring
+        self.editor.edit.code = filestring
 
         if filepath is None or filepath==conf.template:
             title = 'Untitled'
@@ -65,22 +67,22 @@ class TextEditor(QtGui.QMainWindow):
         self.setWindowTitle(title)
 
     def undo(self):
-        self.editor.undo()
+        self.editor.edit.undo()
 
     def redo(self):
-        self.editor.redo()
+        self.editor.edit.redo()
 
     def cut(self):
-        self.editor.cut()
+        self.editor.edit.cut()
 
     def copy(self):
-        self.editor.copy()
+        self.editor.edit.copy()
 
     def paste(self):
-        self.editor.paste()
+        self.editor.edit.paste()
 
     def selectAll(self):
-        self.editor.selectAll()
+        self.editor.edit.selectAll()
 
     def new(self):
         if self.maybeSave():
@@ -111,17 +113,17 @@ class TextEditor(QtGui.QMainWindow):
     def savefile(self):
         try:
             f = file(self._filepath, 'w')
-            f.write(self.editor.code)
+            f.write(self.editor.edit.code)
         except:
             QtGui.QMessageBox.warning(self, 'Cannot Save', 'Cannot save file')
             self._filepath = None
             return False
         else:
-            self.editor._doc.setModified(False)
+            self.editor.edit._doc.setModified(False)
             return True
 
     def maybeSave(self):
-        if self.editor._doc.isModified():
+        if self.editor.edit._doc.isModified():
             ret = QtGui.QMessageBox.warning(self, self.tr("Application"),
                         self.tr("The document has been modified.\n"
                                 "Do you want to save your changes?"),
@@ -144,6 +146,7 @@ class HighlightedTextEdit(highlightedtextedit.HighlightedTextEdit):
         char_format = QtGui.QTextCharFormat()
         char_format.setFont(self.font())
         char_format.setFontPointSize(16)
+        self.setFontPointSize(16)
         self.highlighter = PythonHighlighter(self.document(), char_format)
         self._doc = self.document()
 
@@ -211,6 +214,87 @@ class PythonHighlighter(highlightedtextedit.PythonHighlighter):
 
         self.rules.append((QtCore.QRegExp(r'r?\"[^\n]*\"'), self.quotationFormat1))
         self.rules.append((QtCore.QRegExp(r"r?'[^\n]*'"), self.quotationFormat2))
+
+
+class NumberBar(numberedtextedit.NumberBar):
+    def __init__(self, *args):
+        numberedtextedit.NumberBar.__init__(self, *args)
+        self.setFont(QtGui.QFont('Serif', 14))
+
+    def update(self, *args):
+        width = self.fontMetrics().width(str(self.highest_line)) + 25
+        if self.width() != width:
+            self.setFixedWidth(width)
+        QWidget.update(self, *args)
+
+    def paintEvent(self, event):
+        h = self.size().height()
+        w = self.size().width()
+
+        contents_y = self.edit.verticalScrollBar().value()
+        page_bottom = contents_y + self.edit.viewport().height()
+        font_metrics = self.fontMetrics()
+
+        painter = QPainter(self)
+        painter.setBackgroundMode(QtCore.Qt.OpaqueMode)
+        bgc = QtGui.QColor(0, 0, 0)
+        painter.fillRect(0, 0, w, h, bgc)
+
+        numbersborderc = QtGui.QColor(55, 75, 75)
+        painter.setPen(numbersborderc)
+        painter.drawLine(w-1, 0, w-1, h)
+
+        bg = QtGui.QBrush(bgc)
+        painter.setBackground(bg)
+        textc = QtGui.QColor(55, 255, 255)
+        painter.setPen(textc)
+        fg = QtGui.QBrush(bgc)
+        painter.setBrush(fg)
+
+        line_count = 0
+        # Iterate over all text blocks in the document.
+        block = self.edit.document().begin()
+        while block.isValid():
+            line_count += 1
+
+            # The top left position of the block in the document
+            position = self.edit.document().documentLayout().blockBoundingRect(block).topLeft()
+
+            # Draw the line number right justified at the y position of the
+            # line. 3 is a magic padding number. drawText(x, y, text).
+            painter.drawText(self.width() - font_metrics.width(str(line_count)) - 8, round(position.y()) - contents_y + font_metrics.ascent(), str(line_count))
+
+            block = block.next()
+
+        self.highest_line = line_count
+        painter.end()
+
+        QWidget.paintEvent(self, event)
+
+
+class LineTextWidget(numberedtextedit.LineTextWidget):
+    def __init__(self, *args):
+        from PyQt4.Qt import QFrame
+
+        QFrame.__init__(self, *args)
+
+        self.setFrameStyle(QFrame.StyledPanel | QFrame.Sunken)
+
+        self.edit = HighlightedTextEdit()
+        self.edit.setFrameStyle(QFrame.NoFrame)
+        self.edit.setAcceptRichText(False)
+
+        self.number_bar = NumberBar()
+        self.number_bar.setTextEdit(self.edit)
+
+        hbox = QHBoxLayout(self)
+        hbox.setSpacing(0)
+        hbox.setMargin(0)
+        hbox.addWidget(self.number_bar)
+        hbox.addWidget(self.edit)
+
+        self.edit.installEventFilter(self)
+        self.edit.viewport().installEventFilter(self)
 
 
 if __name__ == "__main__":
