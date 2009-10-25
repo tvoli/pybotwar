@@ -104,7 +104,7 @@ class TextEditor(QtGui.QMainWindow):
     def saveAs(self):
         fdir = QtCore.QString(os.path.abspath(conf.robot_dirs[0]))
         filepath = QtGui.QFileDialog.getSaveFileName(self, 'Save Robot As', fdir)
-        if filename:
+        if filepath:
             self._filepath = filepath
             return self.savefile()
         else:
