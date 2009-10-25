@@ -59,6 +59,8 @@ class MainWindow(QtGui.QMainWindow):
 
         self.ticktimer = self.startTimer(17)
 
+        self.editors = []
+
         # Call resize a bit later or else view will not resize properly
         QtCore.QTimer.singleShot(1, self.resizeEvent)
 
@@ -81,9 +83,18 @@ class MainWindow(QtGui.QMainWindow):
             self.game.finish()
             stats.dbclose()
 
-        if hasattr(self, 'te') and self.te.isVisible():
-            pass
-        else:
+        doquit = True
+        # Try to close any open editor windows
+        for te in self.editors:
+            if te.isVisible():
+                te.close()
+
+        # If any are still open, don't quit
+        for te in self.editors:
+            if te.isVisible():
+                doquit = False
+
+        if doquit:
             QtGui.qApp.quit()
 
     def pauseBattle(self, ev):
@@ -132,22 +143,25 @@ class MainWindow(QtGui.QMainWindow):
         self.niy.show()
 
     def configure(self):
-        self.cd = TextEditor()
-        self.cd.openfile('conf.py')
-        self.cd.show()
+        cd = TextEditor()
+        self.editors.append(cd)
+        cd.openfile('conf.py')
+        cd.show()
 
     def loadRobot(self):
         fdir = QtCore.QString(os.path.abspath(conf.robot_dirs[0]))
         fp = QtGui.QFileDialog.getOpenFileName(self, 'Open Robot', fdir)
-        self.te = TextEditor()
+        te = TextEditor()
+        self.editors.append(te)
         if fp:
-            self.te.openfile(fp)
-            self.te.show()
+            te.openfile(fp)
+            te.show()
 
     def newRobot(self):
-        self.te = TextEditor()
-        self.te.openfile() # Open the template for a new robot
-        self.te.show()
+        te = TextEditor()
+        self.editors.append(te)
+        te.openfile() # Open the template for a new robot
+        te.show()
 
     def newBattle(self):
         self.notImplementedYet()

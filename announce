@@ -17,3 +17,4 @@ Changes in pybotwar-0.7:
     - internal text editor improvements
     - added new "pinged" sensor to detect when robot is seen by others
     - randomize order robots are handled each tick
+    - allow multiple open editor windows
