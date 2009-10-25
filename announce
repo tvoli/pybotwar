@@ -14,3 +14,6 @@ pybotwar is released under GPLv3.
 
 Changes in pybotwar-0.7:
     - decouple view modules so pygame not needed if using pyqt
+    - internal text editor improvements
+    - added new "pinged" sensor to detect when robot is seen by others
+    - randomize order robots are handled each tick

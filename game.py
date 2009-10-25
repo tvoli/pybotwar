@@ -19,6 +19,7 @@
 import subprocess
 from subprocess import PIPE
 import time
+import random
 
 import viewselect
 view = viewselect.get_view_module()
@@ -89,7 +90,9 @@ class Game(object):
         rnd = self.rnd
         result = ''
 
-        for robotname, model in self.models.items():
+        items = self.models.items()
+        random.shuffle(items)
+        for robotname, model in items:
             if robotname not in self.procs:
                 continue
 
