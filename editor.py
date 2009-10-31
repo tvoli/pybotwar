@@ -362,6 +362,29 @@ class NumberBar(numberedtextedit.NumberBar):
 
         QWidget.paintEvent(self, event)
 
+    def mousePressEvent(self, ev):
+        py = ev.y()
+        contents_y = self.edit.verticalScrollBar().value()
+        realy = contents_y + py
+
+        doc = self.edit.document()
+        layout = doc.documentLayout()
+        block = doc.begin()
+        line_count = 0
+        while block.isValid():
+            line_count += 1
+            rect = layout.blockBoundingRect(block)
+            top = rect.topLeft().y()
+            bottom = rect.bottomLeft().y()
+            if top <= realy <= bottom:
+                break
+            block = block.next()
+
+        textpos = block.position()
+        curs = QtGui.QTextCursor(doc)
+        curs.setPosition(textpos, 0)
+        self.edit.setTextCursor(curs)
+
     def wheelEvent(self, ev):
         self.edit.wheelEvent(ev)
 
