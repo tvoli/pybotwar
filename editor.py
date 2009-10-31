@@ -19,6 +19,7 @@
 
 
 import os
+import sys
 
 from PyQt4 import QtCore, QtGui, uic
 from PyQt4.Qt import QFrame, QWidget, QHBoxLayout, QPainter
@@ -101,6 +102,41 @@ class TextEditor(QtGui.QMainWindow):
         else:
             return self.savefile()
 
+    def savecheck(self):
+        filepath = self._filepath
+        fdir, fname = os.path.split(str(filepath))
+        if fname.endswith('.py'):
+            fmodname = fname[:-3]
+        else:
+            title = QtCore.QString('File Name Error')
+            msg = QtCore.QString('Unable to import module. File name must end in .py')
+            print 'ERR', title, msg
+            msgbox = QtGui.QMessageBox.information(self, title, msg)
+            return
+
+        if fdir not in sys.path:
+            sys.path.append(fdir)
+
+        try:
+            if fmodname not in sys.modules:
+                __import__(fmodname)
+            else:
+                mod = sys.modules[fmodname]
+                reload(mod)
+
+        except SyntaxError, e:
+            title = QtCore.QString('Syntax Error')
+            msg = QtCore.QString(str(e))
+            msgbox = QtGui.QMessageBox.information(self, title, msg)
+            self.selectline(e.lineno)
+
+        except Exception, e:
+            import traceback
+            tb = traceback.format_exc()
+            title = QtCore.QString('Error')
+            msg = QtCore.QString('Other non-syntax exception: ' + tb)
+            msgbox = QtGui.QMessageBox.information(self, title, msg)
+
     def saveAs(self):
         fdir = QtCore.QString(os.path.abspath(conf.robot_dirs[0]))
         filepath = QtGui.QFileDialog.getSaveFileName(self, 'Save Robot As', fdir)
@@ -114,12 +150,15 @@ class TextEditor(QtGui.QMainWindow):
         try:
             f = file(self._filepath, 'w')
             f.write(self.editor.edit.code)
+            self.savecheck()
         except:
             QtGui.QMessageBox.warning(self, 'Cannot Save', 'Cannot save file')
             self._filepath = None
             return False
         else:
             self.editor.edit._doc.setModified(False)
+            _, title = os.path.split(str(self._filepath))
+            self.setWindowTitle(title)
             return True
 
     def maybeSave(self):
@@ -136,6 +175,24 @@ class TextEditor(QtGui.QMainWindow):
                 return False
         return True
 
+    def selectline(self, n):
+        docline = 1
+        doccharstart = 0
+        blk = self.editor.edit._doc.begin()
+        while docline < n:
+            txt = blk.text()
+            lentxt = len(txt)+1
+            doccharstart += lentxt
+            blk = blk.next()
+            docline += 1
+        txt = blk.text()
+        lentxt = len(txt)
+        doccharend = doccharstart + lentxt
+
+        curs = QtGui.QTextCursor(self.editor.edit._doc)
+        curs.setPosition(doccharstart, 0)
+        curs.setPosition(doccharend, 1)
+        self.editor.edit.setTextCursor(curs)
 
 
 class HighlightedTextEdit(highlightedtextedit.HighlightedTextEdit):
