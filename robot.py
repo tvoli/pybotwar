@@ -43,6 +43,8 @@ class Robot(object):
         self._ping = 0
         self._turretangle = 0
 
+        self.logfile = None
+
     def initialize(self):
         '''Set up the robot before it starts running.
             Must complete in < 1 second (by default).
