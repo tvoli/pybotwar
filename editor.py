@@ -362,6 +362,9 @@ class NumberBar(numberedtextedit.NumberBar):
 
         QWidget.paintEvent(self, event)
 
+    def wheelEvent(self, ev):
+        self.edit.wheelEvent(ev)
+
 
 class LineTextWidget(numberedtextedit.LineTextWidget):
     def __init__(self, *args):
