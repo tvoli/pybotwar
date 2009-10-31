@@ -240,7 +240,10 @@ class Game(object):
             model._kills = nrobots-1
         elif not testmode:
             winner = None
-            print 'Battle over after', conf.maxtime, 'seconds.'
+            if self.rnd >= conf.maxtime*60:
+                print 'Battle stopped after maximum time:', conf.maxtime, 'seconds.'
+            else:
+                print 'Battle stopped after', int(self.rnd/60), 'seconds.'
             print 'STILL ALIVE:'
             for model in alive:
                 print '   ', model.name
