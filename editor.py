@@ -216,10 +216,44 @@ class HighlightedTextEdit(highlightedtextedit.HighlightedTextEdit):
 
     def keyPressEvent(self, ev):
         k = ev.key()
+        #print 'k', k
 
-        if k == 16777217:
-            spaces = QtCore.QString('    ')
-            self.insertPlainText(spaces)
+        if k not in (16777217, 16777219):
+            QtGui.QTextEdit.keyPressEvent(self, ev)
+            return
+
+        curs = self.textCursor()
+        col = curs.columnNumber()
+        blkn = curs.blockNumber()
+        blk = self._doc.findBlockByNumber(blkn)
+        txt = blk.text()
+        firstnonspace = 0
+        for c in txt:
+            if c != ' ':
+                break
+            firstnonspace += 1
+
+        if col == 0:
+            if k == 16777217:
+                spaces = QtCore.QString('    ')
+                self.insertPlainText(spaces)
+            elif k == 16777219:
+                if txt[:4] == '    ':
+                    for char in range(4):
+                        curs.deleteChar()
+
+        elif col == firstnonspace:
+            if k == 16777217:
+                nexttabstop = 4-(col%4)
+                spaces = QtCore.QString(' '*nexttabstop)
+                self.insertPlainText(spaces)
+
+            elif k == 16777219:
+                prevtabstop = col%4
+                if not prevtabstop:
+                    prevtabstop = 4
+                for char in range(prevtabstop):
+                    curs.deletePreviousChar()
 
         else:
             QtGui.QTextEdit.keyPressEvent(self, ev)
