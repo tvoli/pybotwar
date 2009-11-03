@@ -501,6 +501,7 @@ class Splash(QtGui.QSplashScreen):
         self.painter = painter # need to hold this or Qt throws an error
         rend.render(painter, 'splash')
         QtGui.QSplashScreen.__init__(self, img)
+        self.setMask(img.mask())
 
 
 
