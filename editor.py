@@ -92,7 +92,7 @@ class TextEditor(QtGui.QMainWindow):
     def open(self):
         if self.maybeSave():
             fdir = QtCore.QString(os.path.abspath(conf.robot_dirs[0]))
-            fp = QtGui.QFileDialog.getOpenFileName(self, 'Open Robot', fdir)
+            fp = QtGui.QFileDialog.getOpenFileName(self, 'Open Robot', fdir, 'Text files (*.py)')
             if fp:
                 self.openfile(fp)
 

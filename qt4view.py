@@ -150,7 +150,7 @@ class MainWindow(QtGui.QMainWindow):
 
     def loadRobot(self):
         fdir = QtCore.QString(os.path.abspath(conf.robot_dirs[0]))
-        fp = QtGui.QFileDialog.getOpenFileName(self, 'Open Robot', fdir)
+        fp = QtGui.QFileDialog.getOpenFileName(self, 'Open Robot', fdir, 'Text files (*.py)')
         te = TextEditor()
         self.editors.append(te)
         if fp:
