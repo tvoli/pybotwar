@@ -22,6 +22,7 @@ import math
 pi = math.pi
 from PyQt4 import QtCore, QtGui, QtSvg, uic
 from editor import TextEditor
+from combatants import CombatantsEditor
 
 import stats
 import conf
@@ -43,7 +44,7 @@ MWClass, _ = uic.loadUiType(uipath)
 class MainWindow(QtGui.QMainWindow):
     def __init__(self, app):
         self.app = app
-        self.paused = False
+        self.paused = True
 
         QtGui.QMainWindow.__init__(self)
         self.ui = MWClass()
@@ -164,7 +165,8 @@ class MainWindow(QtGui.QMainWindow):
         te.show()
 
     def newBattle(self):
-        self.notImplementedYet()
+        self.com = CombatantsEditor()
+        self.com.show()
 
     def newTournament(self):
         self.notImplementedYet()
