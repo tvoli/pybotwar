@@ -234,7 +234,7 @@ class Scene(QtGui.QGraphicsScene):
 
 size = 30
 def tl(pos):
-    px, py =  pos
+    px, py =  pos.x, pos.y
     sz = size / 2
     x, y = (px*sz)-0, (py*sz)+0
     return x, y

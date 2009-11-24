@@ -33,7 +33,10 @@ import conf
 
 
 def trans(pos):
-    px, py =  pos
+    try:
+        px, py =  pos.x, pos.y
+    except AttributeError:
+        px, py = pos[0], pos[1]
     sz = size / 2
     x, y = (px*sz)+300, (py*sz)+300
     return x, y

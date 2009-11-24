@@ -19,7 +19,7 @@
 import random
 
 import Box2D as box2d
-pi = box2d.b2_pi
+pi = 3.1415927410125732
 
 import conf
 
@@ -277,10 +277,10 @@ class World(object):
         wl = Wall(self.w, (x, y), (w, h))
 
     def posoccupied(self, pos):
-        px, py = pos
+        px, py = pos.x, pos.y
         for name, robot in self.robots.items():
-            b = robot.body
-            rx, ry = b.position
+            rbpos = robot.body.position
+            rx, ry = rbpos.x, rbpos.y
             if (rx-2 < px < rx+2) and (ry-2 < py < ry+2):
                 return True
 
