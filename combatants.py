@@ -27,9 +27,6 @@ from PyQt4.Qt import QFrame, QWidget, QHBoxLayout, QPainter
 
 import conf
 
-import highlightedtextedit
-import numberedtextedit
-
 uidir = 'data/ui'
 
 class CombatantsEditor(QtGui.QMainWindow):
@@ -60,3 +57,4 @@ class CombatantsEditor(QtGui.QMainWindow):
     def show_selected(self):
         for robotname in conf.robots:
             item = QtGui.QListWidgetItem(robotname, self.ui.selectedrobots)
+
