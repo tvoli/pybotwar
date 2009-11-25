@@ -92,13 +92,14 @@ def dbcheck():
 
 
 
-if __name__ == '__main__':
+def runmain():
     if upgrade_db:
         stats.dbremove()
         stats.initialize()
 
     dbcheck()
 
+    global testmode
     if testmode:
         if not os.path.exists(conf.logdir):
             print 'Log directory does not exist:', conf.logdir
@@ -141,3 +142,11 @@ if __name__ == '__main__':
         for f in os.listdir(conf.logdir):
             fpath = os.path.join(conf.logdir, f)
             os.remove(fpath)
+
+
+if __name__ == '__main__':
+    try:
+        runmain()
+    except KeyboardInterrupt:
+        pass
+

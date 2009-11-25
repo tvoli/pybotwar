@@ -175,4 +175,7 @@ if __name__ == '__main__':
             oline = 'START\n'
             sys.stdout.write(oline)
             sys.stdout.flush()
-            communicate(robot)
+            try:
+                communicate(robot)
+            except KeyboardInterrupt:
+                pass
