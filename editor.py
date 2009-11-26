@@ -118,6 +118,7 @@ class TextEditor(QtGui.QMainWindow):
             sys.path.append(fdir)
 
         try:
+            sys.dont_write_bytecode = True
             if fmodname not in sys.modules:
                 __import__(fmodname)
             else:
