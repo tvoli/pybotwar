@@ -44,7 +44,7 @@ MWClass, _ = uic.loadUiType(uipath)
 class MainWindow(QtGui.QMainWindow):
     def __init__(self, app):
         self.app = app
-        self.paused = True
+        self.paused = False
 
         QtGui.QMainWindow.__init__(self)
         self.ui = MWClass()
@@ -55,6 +55,8 @@ class MainWindow(QtGui.QMainWindow):
         view.setScene(self.scene)
         self.scene.view = view
         view.show()
+
+        self.ui.actionPause.trigger()
 
         self.start_game()
 
