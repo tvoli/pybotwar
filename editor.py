@@ -217,12 +217,12 @@ class HighlightedTextEdit(highlightedtextedit.HighlightedTextEdit):
 
     def keyPressEvent(self, ev):
         k = ev.key()
-        #print 'k', k
 
         Tab = QtCore.Qt.Key_Tab
+        Backtab = QtCore.Qt.Key_Backtab
         Backspace = QtCore.Qt.Key_Backspace
 
-        if k not in (Tab, Backspace):
+        if k not in (Tab, Backtab, Backspace):
             QtGui.QTextEdit.keyPressEvent(self, ev)
             return
 
@@ -237,14 +237,18 @@ class HighlightedTextEdit(highlightedtextedit.HighlightedTextEdit):
                 break
             firstnonspace += 1
 
+        #print k, col, firstnonspace
+
         if col == 0:
             if k == Tab:
                 spaces = QtCore.QString('    ')
                 self.insertPlainText(spaces)
-            elif k == Backspace:
+            elif k == Backtab:
                 if txt[:4] == '    ':
                     for char in range(4):
                         curs.deleteChar()
+            elif k == Backspace:
+                QtGui.QTextEdit.keyPressEvent(self, ev)
 
         elif col == firstnonspace:
             if k == Tab:
@@ -252,7 +256,7 @@ class HighlightedTextEdit(highlightedtextedit.HighlightedTextEdit):
                 spaces = QtCore.QString(' '*nexttabstop)
                 self.insertPlainText(spaces)
 
-            elif k == Backspace:
+            elif k in (Backtab, Backspace):
                 prevtabstop = col%4
                 if not prevtabstop:
                     prevtabstop = 4
