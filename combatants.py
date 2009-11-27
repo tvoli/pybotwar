@@ -45,6 +45,8 @@ class CombatantsEditor(QtGui.QMainWindow):
         for d in conf.robot_dirs:
             g = '%s/*.py' % d
             found = glob.glob(g)
+            if conf.template in found:
+                found.remove(conf.template)
             available.update(found)
 
         for robotpath in available:
