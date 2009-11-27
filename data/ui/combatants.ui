@@ -35,7 +35,11 @@
          </widget>
         </item>
         <item>
-         <widget class="QListWidget" name="availablerobots"/>
+         <widget class="QListWidget" name="availablerobots">
+          <property name="sortingEnabled">
+           <bool>true</bool>
+          </property>
+         </widget>
         </item>
        </layout>
       </item>
@@ -82,7 +86,11 @@
          </widget>
         </item>
         <item>
-         <widget class="QListWidget" name="selectedrobots"/>
+         <widget class="QListWidget" name="selectedrobots">
+          <property name="sortingEnabled">
+           <bool>true</bool>
+          </property>
+         </widget>
         </item>
        </layout>
       </item>
