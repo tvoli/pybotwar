@@ -100,6 +100,11 @@ class MainWindow(QtGui.QMainWindow):
         if doquit:
             QtGui.qApp.quit()
 
+    def startBattle(self):
+        if self.game.rnd <= 1 and self.paused:
+            self.ui.actionPause.trigger()
+            self.ui.actionStart_battle.setDisabled(True)
+
     def pauseBattle(self, ev):
         self.paused = ev
 

@@ -159,7 +159,7 @@
      <x>0</x>
      <y>0</y>
      <width>877</width>
-     <height>25</height>
+     <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -180,6 +180,7 @@
     <property name="title">
      <string>Battle</string>
     </property>
+    <addaction name="actionStart_battle"/>
     <addaction name="actionNew_battle"/>
     <addaction name="actionPause"/>
     <addaction name="actionSingleStep"/>
@@ -257,6 +258,11 @@
   <action name="actionNew_battle">
    <property name="text">
     <string>New battle</string>
+   </property>
+  </action>
+  <action name="actionStart_battle">
+   <property name="text">
+    <string>Start battle</string>
    </property>
   </action>
  </widget>
@@ -406,6 +412,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionStart_battle</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>startBattle()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>438</x>
+     <y>392</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>pauseBattle(bool)</slot>
@@ -416,5 +438,6 @@
   <slot>newRobot()</slot>
   <slot>newBattle()</slot>
   <slot>newTournament()</slot>
+  <slot>startBattle()</slot>
  </slots>
 </ui>
