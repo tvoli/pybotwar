@@ -56,9 +56,9 @@ class MainWindow(QtGui.QMainWindow):
         self.scene.view = view
         view.show()
 
-        self.ui.actionPause.trigger()
-
         self.start_game()
+
+        self.singleStep()
 
         self.ticktimer = self.startTimer(17)
 
