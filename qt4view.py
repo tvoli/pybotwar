@@ -102,7 +102,8 @@ class MainWindow(QtGui.QMainWindow):
 
     def startBattle(self):
         if self.game.rnd <= 1 and self.paused:
-            self.ui.actionPause.trigger()
+            self.paused = False
+            self.ui.actionPause.setChecked(False)
             self.ui.actionStart_battle.setDisabled(True)
 
     def pauseBattle(self, ev):
@@ -172,7 +173,7 @@ class MainWindow(QtGui.QMainWindow):
         te.show()
 
     def newBattle(self):
-        self.com = CombatantsEditor()
+        self.com = CombatantsEditor(self)
         self.com.show()
 
     def newTournament(self):

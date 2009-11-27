@@ -30,7 +30,8 @@ import conf
 uidir = 'data/ui'
 
 class CombatantsEditor(QtGui.QMainWindow):
-    def __init__(self):
+    def __init__(self, parent):
+        self.parent = parent
         QtGui.QMainWindow.__init__(self)
         uifile = 'combatants.ui'
         uipath = os.path.join(uidir, uifile)
@@ -60,11 +61,41 @@ class CombatantsEditor(QtGui.QMainWindow):
         for robotname in conf.robots:
             item = QtGui.QListWidgetItem(robotname, self.ui.selectedrobots)
 
-    def addrobot(self, ev):
+    def addrobot(self):
+        available = self.ui.availablerobots
+        selected = self.ui.selectedrobots
+        for item in available.selectedItems():
+            row = available.row(item)
+            available.takeItem(row)
+            selected.addItem(item)
+
+    def removerobot(self):
+        available = self.ui.availablerobots
+        selected = self.ui.selectedrobots
+        for item in selected.selectedItems():
+            row = selected.row(item)
+            selected.takeItem(row)
+            available.addItem(item)
+
+    def removeall(self):
+        selected = self.ui.selectedrobots
+        while selected.count():
+            item = selected.item(0)
+            selected.setItemSelected(item, True)
+            self.removerobot()
+
+    def savebattle(self):
         pass
 
-    def removerobot(self, ev):
-        pass
-
-    def removeall(self, ev):
-        pass
+    def startbattle(self):
+        selected = self.ui.selectedrobots
+        robots = []
+        for i in range(selected.count()):
+            item = selected.item(i)
+            name = str(item.text())
+            robots.append(name)
+        conf.robots = robots
+        self.parent.restart()
+        self.parent.paused = True
+        self.close()
+        self.parent.startBattle()

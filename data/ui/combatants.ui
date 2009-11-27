@@ -188,10 +188,92 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>cancelbutton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>338</x>
+     <y>312</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>284</x>
+     <y>178</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>savebutton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>savebattle()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>427</x>
+     <y>312</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>284</x>
+     <y>178</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>startbutton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>startbattle()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>519</x>
+     <y>312</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>284</x>
+     <y>178</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>availablerobots</sender>
+   <signal>itemDoubleClicked(QListWidgetItem*)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>addrobot()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>124</x>
+     <y>165</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>284</x>
+     <y>178</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>selectedrobots</sender>
+   <signal>itemDoubleClicked(QListWidgetItem*)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>removerobot()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>443</x>
+     <y>165</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>284</x>
+     <y>178</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>addrobot()</slot>
   <slot>removerobot()</slot>
   <slot>removeall()</slot>
+  <slot>savebattle()</slot>
+  <slot>startbattle()</slot>
  </slots>
 </ui>
