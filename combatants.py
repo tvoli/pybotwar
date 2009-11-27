@@ -58,3 +58,11 @@ class CombatantsEditor(QtGui.QMainWindow):
         for robotname in conf.robots:
             item = QtGui.QListWidgetItem(robotname, self.ui.selectedrobots)
 
+    def addrobot(self, ev):
+        pass
+
+    def removerobot(self, ev):
+        pass
+
+    def removeall(self, ev):
+        pass
