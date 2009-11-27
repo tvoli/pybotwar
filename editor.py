@@ -198,7 +198,9 @@ class TextEditor(QtGui.QMainWindow):
 
 class HighlightedTextEdit(highlightedtextedit.HighlightedTextEdit):
     def __init__(self, parent=None):
-        highlightedtextedit.HighlightedTextEdit.__init__(self, parent)
+        QtGui.QTextEdit.__init__(self, parent)
+        self.setFrameShape(QtGui.QFrame.Box)
+        self.setFrameShadow(QtGui.QFrame.Plain)
 
         self.setWordWrapMode(QtGui.QTextOption.NoWrap)
         char_format = QtGui.QTextCharFormat()
