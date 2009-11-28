@@ -42,24 +42,27 @@ class CombatantsEditor(QtGui.QMainWindow):
         self.show_available()
 
     def show_available(self):
-        available = set()
+        available = self.ui.availablerobots
+        selected = self.ui.selectedrobots
+        robotpaths = set()
         for d in conf.robot_dirs:
             g = '%s/*.py' % d
             found = glob.glob(g)
             if conf.template in found:
                 found.remove(conf.template)
-            available.update(found)
+            robotpaths.update(found)
 
-        for robotpath in available:
+        for robotpath in robotpaths:
             d, filename = os.path.split(robotpath)
             robotname = filename[:-3]
-            if not self.ui.selectedrobots.findItems(robotname, QtCore.Qt.MatchExactly):
-                item = QtGui.QListWidgetItem(robotname, self.ui.availablerobots)
+            if not selected.findItems(robotname, QtCore.Qt.MatchExactly):
+                item = QtGui.QListWidgetItem(robotname, available)
 
 
     def show_selected(self):
+        selected = self.ui.selectedrobots
         for robotname in conf.robots:
-            item = QtGui.QListWidgetItem(robotname, self.ui.selectedrobots)
+            item = QtGui.QListWidgetItem(robotname, selected)
 
     def addrobot(self):
         available = self.ui.availablerobots
@@ -100,6 +103,7 @@ class CombatantsEditor(QtGui.QMainWindow):
         lineup.close()
 
     def loadbattle(self):
+        available = self.ui.availablerobots
         fdir = QtCore.QString(os.path.abspath(conf.lineups))
         fp = QtGui.QFileDialog.getOpenFileName(self, 'Open Battle Lineup', fdir)
         if fp:
@@ -110,8 +114,7 @@ class CombatantsEditor(QtGui.QMainWindow):
             not_available = []
             for line in lineup:
                 name = line.strip()
-                found = self.ui.availablerobots.findItems(name,
-                                                        QtCore.Qt.MatchExactly)
+                found = available.findItems(name, QtCore.Qt.MatchExactly)
                 if not found:
                     not_available.append(name)
                 else:
@@ -123,7 +126,6 @@ class CombatantsEditor(QtGui.QMainWindow):
                 lines = '\n'.join(not_available)
                 warn = QtGui.QMessageBox.warning(self, 'Not Found', text+lines)
             else:
-                available = self.ui.availablerobots
                 for item in items:
                     available.setItemSelected(item, True)
                     self.addrobot()
