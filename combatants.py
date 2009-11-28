@@ -140,7 +140,8 @@ class CombatantsEditor(QtGui.QMainWindow):
         return robots
 
     def startbattle(self):
-        conf.robots = self.getselected()
+        robots = self.getselected()
+        conf.robots = robots
         self.parent.restart()
         self.parent.paused = True
         self.close()
