@@ -159,7 +159,7 @@
      <x>0</x>
      <y>0</y>
      <width>877</width>
-     <height>26</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -180,8 +180,8 @@
     <property name="title">
      <string>Battle</string>
     </property>
-    <addaction name="actionStart_battle"/>
     <addaction name="actionNew_battle"/>
+    <addaction name="actionStart_battle"/>
     <addaction name="actionPause"/>
     <addaction name="actionSingleStep"/>
     <addaction name="actionRestart"/>
@@ -192,10 +192,19 @@
     </property>
     <addaction name="actionNew_tournament"/>
    </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>Help</string>
+    </property>
+    <addaction name="actionPybotwar_help"/>
+    <addaction name="separator"/>
+    <addaction name="actionAbout_pybotwar"/>
+   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuBattle"/>
    <addaction name="menuTournament"/>
    <addaction name="menuSettings"/>
+   <addaction name="menuHelp"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionQuit">
@@ -263,6 +272,16 @@
   <action name="actionStart_battle">
    <property name="text">
     <string>Start battle</string>
+   </property>
+  </action>
+  <action name="actionAbout_pybotwar">
+   <property name="text">
+    <string>About pybotwar</string>
+   </property>
+  </action>
+  <action name="actionPybotwar_help">
+   <property name="text">
+    <string>pybotwar help</string>
    </property>
   </action>
  </widget>
@@ -428,6 +447,38 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionAbout_pybotwar</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>about()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>438</x>
+     <y>392</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionPybotwar_help</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>help()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>438</x>
+     <y>392</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>pauseBattle(bool)</slot>
@@ -439,5 +490,7 @@
   <slot>newBattle()</slot>
   <slot>newTournament()</slot>
   <slot>startBattle()</slot>
+  <slot>help()</slot>
+  <slot>about()</slot>
  </slots>
 </ui>

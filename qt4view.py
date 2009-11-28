@@ -206,6 +206,12 @@ class MainWindow(QtGui.QMainWindow):
         self.scene.add_arenarect()
         self.start_game()
 
+    def help(self):
+        pass
+
+    def about(self):
+        pass
+
 
 class NotImplementedYet(QtGui.QDialog):
     def __init__(self):
