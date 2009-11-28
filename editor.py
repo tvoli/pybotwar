@@ -87,8 +87,7 @@ class TextEditor(QtGui.QMainWindow):
         self.editor.edit.selectAll()
 
     def new(self):
-        if self.maybeSave():
-            self.openfile()
+        self.parent.newRobot()
 
     def open(self):
         self.parent.loadRobot()
