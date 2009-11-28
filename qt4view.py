@@ -231,6 +231,10 @@ class MainWindow(QtGui.QMainWindow):
         self.scene.add_arenarect()
         self.start_game()
 
+        if self.paused:
+            self.ui.actionPause.setChecked(True)
+            self.ui.actionStart_battle.setDisabled(False)
+
     def help(self):
         pass
 
