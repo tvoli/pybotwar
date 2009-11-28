@@ -159,10 +159,18 @@ class MainWindow(QtGui.QMainWindow):
 
     def loadRobot(self):
         fdir = QtCore.QString(os.path.abspath(conf.robot_dirs[0]))
-        fp = QtGui.QFileDialog.getOpenFileName(self, 'Open Robot', fdir, 'Text files (*.py)')
-        te = TextEditor(self)
-        self.editors.append(te)
+        fp = QtGui.QFileDialog.getOpenFileName(self, 'Open file', fdir, 'Text files (*.py)')
         if fp:
+            # Check to see if the file is already open in an editor
+            for ed in self.editors:
+                if ed._filepath == fp:
+                    # If it is, raise the window and get out
+                    ed.activateWindow()
+                    ed.raise_()
+                    return
+
+            te = TextEditor(self)
+            self.editors.append(te)
             te.openfile(fp)
             te.show()
 
