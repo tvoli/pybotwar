@@ -55,7 +55,7 @@ class CombatantsEditor(QtGui.QMainWindow):
         for robotpath in robotpaths:
             d, filename = os.path.split(robotpath)
             robotname = filename[:-3]
-            if not selected.findItems(robotname, QtCore.Qt.MatchExactly):
+            if not available.findItems(robotname, QtCore.Qt.MatchExactly):
                 item = QtGui.QListWidgetItem(robotname, available)
 
 
