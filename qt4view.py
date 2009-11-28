@@ -152,7 +152,7 @@ class MainWindow(QtGui.QMainWindow):
         self.niy.show()
 
     def configure(self):
-        cd = TextEditor()
+        cd = TextEditor(self)
         self.editors.append(cd)
         cd.openfile('conf.py')
         cd.show()
@@ -160,14 +160,14 @@ class MainWindow(QtGui.QMainWindow):
     def loadRobot(self):
         fdir = QtCore.QString(os.path.abspath(conf.robot_dirs[0]))
         fp = QtGui.QFileDialog.getOpenFileName(self, 'Open Robot', fdir, 'Text files (*.py)')
-        te = TextEditor()
+        te = TextEditor(self)
         self.editors.append(te)
         if fp:
             te.openfile(fp)
             te.show()
 
     def newRobot(self):
-        te = TextEditor()
+        te = TextEditor(self)
         self.editors.append(te)
         te.openfile() # Open the template for a new robot
         te.show()

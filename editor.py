@@ -32,7 +32,8 @@ import numberedtextedit
 uidir = 'data/ui'
 
 class TextEditor(QtGui.QMainWindow):
-    def __init__(self):
+    def __init__(self, parent):
+        self.parent = parent
         QtGui.QMainWindow.__init__(self)
         uifile = 'editor.ui'
         uipath = os.path.join(uidir, uifile)
@@ -90,11 +91,13 @@ class TextEditor(QtGui.QMainWindow):
             self.openfile()
 
     def open(self):
-        if self.maybeSave():
-            fdir = QtCore.QString(os.path.abspath(conf.robot_dirs[0]))
-            fp = QtGui.QFileDialog.getOpenFileName(self, 'Open Robot', fdir, 'Text files (*.py)')
-            if fp:
-                self.openfile(fp)
+        fdir = QtCore.QString(os.path.abspath(conf.robot_dirs[0]))
+        fp = QtGui.QFileDialog.getOpenFileName(self, 'Open file', fdir, 'Text files (*.py)')
+        if fp:
+            te = TextEditor(self.parent)
+            self.parent.editors.append(te)
+            te.openfile(fp)
+            te.show()
 
     def save(self):
         if self._filepath is None:
