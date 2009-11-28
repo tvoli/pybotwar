@@ -63,6 +63,7 @@ class MainWindow(QtGui.QMainWindow):
         self.ticktimer = self.startTimer(17)
 
         self.editors = []
+        self._fdir = None
 
         # Call resize a bit later or else view will not resize properly
         QtCore.QTimer.singleShot(1, self.resizeEvent)
@@ -157,8 +158,14 @@ class MainWindow(QtGui.QMainWindow):
         cd.openfile('conf.py')
         cd.show()
 
-    def loadRobot(self):
-        fdir = QtCore.QString(os.path.abspath(conf.robot_dirs[0]))
+    def loadRobot(self, efdir=None):
+        if efdir is not None:
+            fdir = efdir
+        elif self._fdir is None:
+            fdir = QtCore.QString(os.path.abspath(conf.robot_dirs[0]))
+        else:
+            fdir = self._fdir
+
         fp = QtGui.QFileDialog.getOpenFileName(self, 'Open file', fdir, 'Text files (*.py)')
         if fp:
             # Check to see if the file is already open in an editor
@@ -173,6 +180,10 @@ class MainWindow(QtGui.QMainWindow):
             self.editors.append(te)
             te.openfile(fp)
             te.show()
+
+        if efdir is None:
+            # Opening from Main Window. Remember directory.
+            self._fdir = te._fdir
 
     def newRobot(self):
         te = TextEditor(self)

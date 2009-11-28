@@ -46,6 +46,7 @@ class TextEditor(QtGui.QMainWindow):
         self.setCentralWidget(self.ui.centralwidget)
 
         self._filepath = None
+        self._fdir = None
 
     def closeEvent(self, ev):
         if self.maybeSave():
@@ -65,7 +66,8 @@ class TextEditor(QtGui.QMainWindow):
         if filepath is None or filepath==conf.template:
             title = 'Untitled'
         else:
-            _, title = os.path.split(str(filepath))
+            fdir, title = os.path.split(str(filepath))
+            self._fdir = fdir
         self.setWindowTitle(title)
 
     def undo(self):
@@ -90,7 +92,7 @@ class TextEditor(QtGui.QMainWindow):
         self.parent.newRobot()
 
     def open(self):
-        self.parent.loadRobot()
+        self.parent.loadRobot(self._fdir)
 
     def save(self):
         if self._filepath is None:
