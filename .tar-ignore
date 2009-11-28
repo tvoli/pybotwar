@@ -4,4 +4,4 @@
 conf.py
 stats.db
 doc
-logs
+logs/*
