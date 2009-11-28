@@ -179,9 +179,19 @@ class MainWindow(QtGui.QMainWindow):
     def newTournament(self):
         self.notImplementedYet()
 
+    def deleteLayoutItems(self, layout):
+        if layout is not None:
+            while layout.count():
+                item = layout.takeAt(0)
+                widget = item.widget()
+                if widget is not None:
+                    widget.deleteLater()
+                else:
+                    self.deleteLayoutItems(item.layout())
+
     def restart(self):
         rinfo = self.ui.rinfo
-        #print 'rinfo', rinfo
+
         for name, robot in self.game.w.robots.items():
             robot.v.kill()
 
@@ -190,16 +200,8 @@ class MainWindow(QtGui.QMainWindow):
         world.Robot.nrobots = 0
         Robot.nrobots = 0
 
-        #g = rinfo.geometry()
         self.scene.removeItem(self.scene.arenarect)
-        while rinfo.count():
-            item = rinfo.itemAt(0)
-            rinfo.removeItem(item)
-
-        #rinfo.setGeometry(g)
-        #print 'ms', rinfo.geometry()
-        #rinfo.setSizeConstraint(QtGui.QLayout.SetMaximumSize)
-        #rinfo.setMinimumSize(QtCore.QSize(0, 500))
+        self.deleteLayoutItems(rinfo)
 
         self.scene.add_arenarect()
         self.start_game()
