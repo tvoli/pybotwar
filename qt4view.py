@@ -66,6 +66,7 @@ class MainWindow(QtGui.QMainWindow):
         self._fdir = None
 
         # Call resize a bit later or else view will not resize properly
+        self._initialresize = True
         QtCore.QTimer.singleShot(1, self.resizeEvent)
 
     def start_game(self):
@@ -139,10 +140,15 @@ class MainWindow(QtGui.QMainWindow):
         self.turr_rot -= 2
 
     def resizeEvent(self, ev=None):
-        frect = self.ui.arenaframe.frameRect()
-        sx, sy = frect.width(), frect.height()
-        minsize = min((sx, sy))
-        scale = 0.85*(minsize/600.)
+        if self._initialresize:
+            # Initial scaling comes out wrong for some reason. Fake it.
+            scale = 0.66725
+            self._initialresize = False
+        else:
+            frect = self.ui.arenaframe.frameRect()
+            sx, sy = frect.width(), frect.height()
+            minsize = min((sx, sy))
+            scale = 0.85*(minsize/600.)
 
         trans = QtGui.QTransform()
         trans.scale(scale, scale)
