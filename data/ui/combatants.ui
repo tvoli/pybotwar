@@ -66,6 +66,13 @@
           </property>
          </widget>
         </item>
+        <item>
+         <widget class="QPushButton" name="loadbutton">
+          <property name="text">
+           <string>Load Lineup</string>
+          </property>
+         </widget>
+        </item>
        </layout>
       </item>
       <item>
@@ -268,6 +275,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>loadbutton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>loadbattle()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>283</x>
+     <y>244</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>284</x>
+     <y>178</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>addrobot()</slot>
@@ -275,5 +298,6 @@
   <slot>removeall()</slot>
   <slot>savebattle()</slot>
   <slot>startbattle()</slot>
+  <slot>loadbattle()</slot>
  </slots>
 </ui>

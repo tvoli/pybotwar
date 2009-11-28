@@ -85,16 +85,58 @@ class CombatantsEditor(QtGui.QMainWindow):
             self.removerobot()
 
     def savebattle(self):
-        pass
+        robots = self.getselected()
+        fdir = QtCore.QString(os.path.abspath(conf.lineups))
+        filepath = QtGui.QFileDialog.getSaveFileName(self, 'Save Battle Lineup As', fdir)
+        if not filepath:
+            return
 
-    def startbattle(self):
+        lineup = file(filepath, 'w')
+        for name in robots:
+            lineup.write(name)
+            lineup.write('\n')
+        lineup.close()
+
+    def loadbattle(self):
+        fdir = QtCore.QString(os.path.abspath(conf.lineups))
+        fp = QtGui.QFileDialog.getOpenFileName(self, 'Open Battle Lineup', fdir)
+        if fp:
+            self.removeall()
+            lineup = file(fp)
+
+            items = []
+            not_available = []
+            for line in lineup:
+                name = line.strip()
+                found = self.ui.availablerobots.findItems(name,
+                                                        QtCore.Qt.MatchExactly)
+                if not found:
+                    not_available.append(name)
+                else:
+                    item = found[0]
+                    items.append(item)
+
+            if not_available:
+                text = 'Robot code not found:\n'
+                lines = '\n'.join(not_available)
+                warn = QtGui.QMessageBox.warning(self, 'Not Found', text+lines)
+            else:
+                available = self.ui.availablerobots
+                for item in items:
+                    available.setItemSelected(item, True)
+                    self.addrobot()
+
+    def getselected(self):
         selected = self.ui.selectedrobots
         robots = []
         for i in range(selected.count()):
             item = selected.item(i)
             name = str(item.text())
             robots.append(name)
-        conf.robots = robots
+        return robots
+
+    def startbattle(self):
+        conf.robots = self.getselected()
         self.parent.restart()
         self.parent.paused = True
         self.close()

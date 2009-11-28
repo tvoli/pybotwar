@@ -21,6 +21,8 @@ logdir = 'robots/logs'
 
 template = 'robots/template.py'
 
+lineups = 'robots/lineups'
+
 
 # Game
 maxtime = 600 # Seconds before calling the match a draw
