@@ -65,17 +65,19 @@ class CombatantsEditor(QtGui.QMainWindow):
         available = self.ui.availablerobots
         selected = self.ui.selectedrobots
         for item in available.selectedItems():
-            row = available.row(item)
-            available.takeItem(row)
-            selected.addItem(item)
+            name = str(item.text())
+            newitem = QtGui.QListWidgetItem(name, selected)
 
     def removerobot(self):
         available = self.ui.availablerobots
         selected = self.ui.selectedrobots
         for item in selected.selectedItems():
+            name = str(item.text())
             row = selected.row(item)
             selected.takeItem(row)
-            available.addItem(item)
+            found = available.findItems(name, QtCore.Qt.MatchExactly)
+            if not found:
+                available.addItem(item)
 
     def removeall(self):
         selected = self.ui.selectedrobots
