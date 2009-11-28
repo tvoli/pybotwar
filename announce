@@ -14,9 +14,11 @@ pybotwar is released under GPLv3.
 
 Changes in pybotwar-0.7:
     - pybox2d-2.0.2b1 compatibility (latest pybox2d release)
-    - decouple view modules so pygame not needed if using pyqt
-    - internal text editor improvements
+    - decouple view modules so unused graphic modules are not required
     - added new "pinged" sensor to detect when robot is seen by others
     - randomize order robots are handled each tick
-    - allow multiple open editor windows
-    - do a few simple checks on robot programs when saving
+    - PyQt4 interface improvements
+        - new battle dialog to select combatants
+        - internal text editor improvements
+        - allow multiple open editor windows
+        - do a few simple checks on robot programs when saving
