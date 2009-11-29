@@ -234,9 +234,9 @@ class MainWindow(QtGui.QMainWindow):
         self.scene.add_arenarect()
         self.start_game()
 
-        if self.paused:
-            self.ui.actionPause.setChecked(True)
-            self.ui.actionStart_battle.setDisabled(False)
+        paused = self.paused
+        self.singleStep()
+        self.pauseBattle(paused)
 
     def help(self):
         QtGui.QDesktopServices().openUrl(QtCore.QUrl(conf.help_url))
