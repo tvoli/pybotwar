@@ -239,7 +239,7 @@ class MainWindow(QtGui.QMainWindow):
         pass
 
     def about(self):
-        pass
+        AboutDialog().exec_()
 
 
 class NotImplementedYet(QtGui.QDialog):
@@ -254,6 +254,14 @@ class NotImplementedYet(QtGui.QDialog):
 
     def reject(self):
         QtGui.QDialog.reject(self)
+
+
+class AboutDialog(QtGui.QDialog):
+    def __init__(self):
+        QtGui.QDialog.__init__(self)
+        uifile = 'about.ui'
+        uipath = os.path.join(uidir, uifile)
+        uic.loadUi(uipath, self)
 
 
 class Scene(QtGui.QGraphicsScene):
