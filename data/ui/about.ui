@@ -61,7 +61,7 @@
       </font>
      </property>
      <property name="text">
-      <string>pybotwar v0.7</string>
+      <string>pybotwar 0.7</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
