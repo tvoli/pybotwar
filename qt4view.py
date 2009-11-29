@@ -103,16 +103,19 @@ class MainWindow(QtGui.QMainWindow):
             QtGui.qApp.quit()
 
     def startBattle(self):
-        if self.game.rnd <= 1 and self.paused:
-            self.paused = False
-            self.ui.actionPause.setChecked(False)
-            self.ui.actionStart_battle.setDisabled(True)
+        if self.paused:
+            self.pauseBattle(False)
 
     def pauseBattle(self, ev):
         self.paused = ev
+        if self.paused:
+            self.ui.actionPause.setChecked(True)
+            self.ui.actionStart_battle.setDisabled(False)
+        else:
+            self.ui.actionPause.setChecked(False)
+            self.ui.actionStart_battle.setDisabled(True)
 
     def singleStep(self):
-        self.ui.actionPause.setChecked(True)
         self.pauseBattle(True)
         self.game.tick()
 
