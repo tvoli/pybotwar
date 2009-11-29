@@ -156,18 +156,18 @@
      objecttolerance="10"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="2.2899626"
-     inkscape:cx="293.85189"
-     inkscape:cy="803.43829"
+     inkscape:zoom="4.5799252"
+     inkscape:cx="568.11782"
+     inkscape:cy="861.21347"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
      showguides="true"
      inkscape:guide-bbox="true"
      inkscape:window-width="1487"
-     inkscape:window-height="887"
+     inkscape:window-height="990"
      inkscape:window-x="24"
-     inkscape:window-y="47"
+     inkscape:window-y="0"
      inkscape:window-maximized="0" />
   <metadata
      id="metadata3177">
@@ -659,14 +659,15 @@
       <text
          sodipodi:linespacing="100%"
          id="text3929"
-         y="233.76425"
-         x="626.37354"
-         style="font-size:18.57394028px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:#f80000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3.84041309;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Cortoba;-inkscape-font-specification:Cortoba"
+         y="234.00943"
+         x="625.99054"
+         style="font-size:22.76661301px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:#f80000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3.84041309;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Nimbus Mono L;-inkscape-font-specification:Nimbus Mono L"
          xml:space="preserve"><tspan
-           y="233.76425"
-           x="626.37354"
+           y="234.00943"
+           x="625.99054"
            id="tspan3931"
-           sodipodi:role="line">v 0.7</tspan></text>
+           sodipodi:role="line"
+           dx="0 -0.43668836 -3.8427892 -3.8427889">v0.7</tspan></text>
       <g
          style="fill:#e6e6e6"
          inkscape:label="Bullet"
