@@ -1,8 +1,6 @@
 pybotwar is a fun and educational game where players
-create computer programs to control simulated robots
-to compete in a battle arena.
+write computer programs to control simulated robots.
 
-pybotwar:
 http://pybotwar.googlecode.com
 
 
@@ -137,7 +135,7 @@ begins:
     python main.py -T
 
 In your new module, add initialization code to the .initialize()
-method if desired, otherwise add a pass statement or delete the
+method if needed, otherwise add a pass statement or delete the
 method.
 
 The .initialize() method is called once, immediately after the
@@ -169,7 +167,7 @@ random orientations. Also, many robots will use random numbers
 to determine which way to go and when to perform their actions.
 
 Therefore, each time the same set of robots are placed in the
-arena, the result will be different.
+arena, the results may be different.
 
 To determine which robots are truly the strongest, run a
 tournament. A tournament is a series of battles run with the
