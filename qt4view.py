@@ -239,7 +239,7 @@ class MainWindow(QtGui.QMainWindow):
             self.ui.actionStart_battle.setDisabled(False)
 
     def help(self):
-        pass
+        QtGui.QDesktopServices().openUrl(QtCore.QUrl(conf.help_url))
 
     def about(self):
         AboutDialog().exec_()

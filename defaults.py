@@ -74,3 +74,7 @@ bullet_density = .2
 
 # Statistics
 dbfile = 'stats.db'
+
+
+# Other
+help_url = 'http://code.google.com/p/pybotwar/wiki/Programming'
