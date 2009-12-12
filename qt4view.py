@@ -425,9 +425,9 @@ class RobotInfo(QtGui.QHBoxLayout):
         icon.fill(QtCore.Qt.transparent)
         self.icon = icon
         painter = QtGui.QPainter(icon)
-        self.painter = painter # need to hold this or Qt throws an error
         imageid = 'r{0:02d}'.format(n)
         rend.render(painter, imageid)
+        painter.end()
         iconl = QtGui.QLabel()
         iconl.setPixmap(icon)
 
@@ -556,8 +556,8 @@ class Splash(QtGui.QSplashScreen):
         img.fill(QtCore.Qt.transparent)
         self.img = img
         painter = QtGui.QPainter(img)
-        self.painter = painter # need to hold this or Qt throws an error
         rend.render(painter, 'splash')
+        painter.end()
         QtGui.QSplashScreen.__init__(self, img)
         self.setMask(img.mask())
 
