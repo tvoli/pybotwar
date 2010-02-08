@@ -99,7 +99,7 @@ class Game(object):
             health = model.health
             body = model.body
             pos = body.position
-            possens = '%s;%s' % (int(pos.x*10), int(pos.y*10))
+            possens = '%s;%s' % (int(pos.x), int(pos.y))
             tur = model.get_turretangle()
             ping = '%s;%s;%s' % (model._pingtype,
                                     model._pingangle,
