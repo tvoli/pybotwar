@@ -129,7 +129,7 @@ def runmain():
 
     elif pyqtgraphics:
         import qt4view
-        qt4view.run()
+        qt4view.run(testmode)
 
     else:
         game = Game(testmode)

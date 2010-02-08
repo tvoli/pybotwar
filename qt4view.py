@@ -42,8 +42,9 @@ MWClass, _ = uic.loadUiType(uipath)
 
 
 class MainWindow(QtGui.QMainWindow):
-    def __init__(self, app):
+    def __init__(self, app, testmode):
         self.app = app
+        self.testmode = testmode
         self.paused = False
 
         QtGui.QMainWindow.__init__(self)
@@ -72,7 +73,7 @@ class MainWindow(QtGui.QMainWindow):
     def start_game(self):
         import game
 
-        self.game = game.Game()
+        self.game = game.Game(self.testmode)
         self.game.w.v.scene = self.scene
         self.game.w.v.app = self.app
         self.game.w.v.rinfo = self.ui.rinfo
@@ -563,13 +564,13 @@ class Splash(QtGui.QSplashScreen):
 
 
 
-def run():
+def run(testmode):
     app = QtGui.QApplication(sys.argv)
 
     splash = Splash(app)
     splash.show()
 
-    win = MainWindow(app)
+    win = MainWindow(app, testmode)
     win.show()
     splash.finish(win)
     app.exec_()
