@@ -10,5 +10,40 @@ other game types (race, find/collect objects, maze)
 document how to write robot programs
 may be pinging own bullets?
 
+Error when using New Battle and removing robot:
+diff -r 6a97c1c59e93 qt4view.py
+--- a/qt4view.py    Mon Feb 08 16:42:17 2010 -0500
++++ b/qt4view.py    Fri Mar 19 10:01:45 2010 -0400
+@@ -329,7 +329,8 @@
+
+     def kill(self):
+         scene = self.item.scene()
+-        scene.removeItem(self.item)
++        if scene is not None:
++            scene.removeItem(self.item)
+
+ class Robot(GraphicsItem):
+     nrobots = 0
+
+
+
+Error when running from different user account:
+diff -r 6a97c1c59e93 stats.py
+--- a/stats.py    Mon Feb 08 16:42:17 2010 -0500
++++ b/stats.py    Fri Mar 19 10:01:45 2010 -0400
+@@ -161,8 +161,12 @@
+                     :kills,
+                     :damage_caused)
+         '''
+-    c.execute(q, locals())
+-    conn.commit()
++    try:
++        c.execute(q, locals())
++    except:
++        pass
++    else:
++        conn.commit()
+ 
+
 qt4view
     allow external editor
