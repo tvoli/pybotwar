@@ -128,6 +128,7 @@ class Game(object):
                 result = proc.stdout.readline().strip()
             except IOError:
                 print 'ERROR with', robotname
+                continue
 
             if result == 'TIMEOUT':
                 timeouts[robotname] += 1
