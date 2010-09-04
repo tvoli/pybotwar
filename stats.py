@@ -8,17 +8,29 @@ dbversion = 2
 
 
 def dbopen():
+    global dbversion
+    if dbversion == ':memory:':
+        return
+
     global conn
-    conn = sqlite3.connect(conf.dbfile)
+    fname = os.path.expanduser(conf.dbfile)
+    try:
+        conn = sqlite3.connect(fname)
+    except sqlite3.OperationalError:
+        conn = sqlite3.connect(':memory:')
+        dbversion = ':memory:'
+
     conn.row_factory = sqlite3.Row
     global c
     c = conn.cursor()
 
 def dbclose():
-    conn.close()
+    if dbversion != ':memory:':
+        conn.close()
 
 def dbcheck():
-    if not os.path.exists(conf.dbfile):
+    fname = os.path.expanduser(conf.dbfile)
+    if not os.path.exists(fname):
         initialize()
         print 'stats database initialized'
 
@@ -52,8 +64,9 @@ def dbcheckver():
     return retval
 
 def dbremove():
-    if os.path.exists(conf.dbfile):
-        os.remove(conf.dbfile)
+    fname = os.path.expanduser(conf.dbfile)
+    if os.path.exists(fname):
+        os.remove(fname)
 
 def initialize():
     'Create empty database'
@@ -98,7 +111,8 @@ CREATE TABLE tournament_stats (
     c.execute(q, locals())
     conn.commit()
 
-    dbclose()
+    if dbversion != ':memory:':
+        dbclose()
 
 
 
@@ -233,3 +247,34 @@ def tournament_results(tournament):
     c.execute(q, locals())
     r = c.fetchall()
     return r
+
+
+def top10():
+    dbopen()
+    q = '''
+    SELECT
+        program_name,
+        fingerprint,
+        matches,
+        wins,
+        opponents,
+        kills,
+        damage_caused
+
+    FROM stats
+    ORDER BY
+        wins DESC,
+        kills DESC
+
+    '''
+
+    c.execute(q, locals())
+    results = c.fetchall()
+
+    print 'Top 10 List:'
+    for n, line in enumerate(results[:10]):
+        print n+1, '::', line[0], ':', line[3], 'wins', ':', line[5], 'defeated', ':', line[6], 'dmg caused'
+
+
+if __name__ == '__main__':
+    top10()

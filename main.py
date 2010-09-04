@@ -137,6 +137,10 @@ def runmain():
 
     stats.dbclose()
 
+    if not tournament:
+        stats.top10()
+
+
     # Clean up log directory if not in test mode
     if not testmode and os.path.exists(conf.logdir):
         for f in os.listdir(conf.logdir):
