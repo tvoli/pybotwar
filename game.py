@@ -121,6 +121,7 @@ class Game(object):
                 proc.stdin.close()
                 proc.stdout.close()
                 proc.kill()
+                time.sleep(0.1)
                 continue
 
             proc.stdin.write(line)
@@ -249,6 +250,7 @@ class Game(object):
             for model in alive:
                 print '   ', model.name
         else:
+            print 'Test mode ended'
             winner = None
 
         for robotname, model in models.items():
