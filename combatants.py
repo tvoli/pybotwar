@@ -40,6 +40,7 @@ class CombatantsEditor(QtGui.QMainWindow):
         self.ui.setupUi(self)
         self.show_selected()
         self.show_available()
+        self.setup_lineups_dir()
 
     def show_available(self):
         available = self.ui.availablerobots
@@ -89,10 +90,16 @@ class CombatantsEditor(QtGui.QMainWindow):
             selected.setItemSelected(item, True)
             self.removerobot()
 
+    def setup_lineups_dir(self):
+        pfdir = self.parent._fdir
+        fdir = os.path.join(pfdir, conf.lineups)
+        if not os.path.exists(fdir):
+            os.mkdir(fdir)
+        self._fdir = fdir
+
     def savebattle(self):
         robots = self.getselected()
-        fdir = QtCore.QString(os.path.abspath(conf.lineups))
-        filepath = QtGui.QFileDialog.getSaveFileName(self, 'Save Battle Lineup As', fdir)
+        filepath = QtGui.QFileDialog.getSaveFileName(self, 'Save Battle Lineup As', self._fdir)
         if not filepath:
             return
 
@@ -105,7 +112,7 @@ class CombatantsEditor(QtGui.QMainWindow):
     def loadbattle(self):
         available = self.ui.availablerobots
         fdir = QtCore.QString(os.path.abspath(conf.lineups))
-        fp = QtGui.QFileDialog.getOpenFileName(self, 'Open Battle Lineup', fdir)
+        fp = QtGui.QFileDialog.getOpenFileName(self, 'Open Battle Lineup', self._fdir)
         if fp:
             self.removeall()
             lineup = file(fp)

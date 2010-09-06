@@ -101,6 +101,8 @@ class TextEditor(QtGui.QMainWindow):
             return self.savefile()
 
     def savecheck(self):
+        'Check the saved file for errors and importability.'
+
         filepath = self._filepath
         fdir, fname = os.path.split(str(filepath))
         if fname.endswith('.py'):
@@ -139,7 +141,11 @@ class TextEditor(QtGui.QMainWindow):
     def saveAs(self):
         fdir = QtCore.QString(os.path.abspath(conf.robot_dirs[0]))
         filepath = QtGui.QFileDialog.getSaveFileName(self, 'Save Robot As', fdir)
+        filepath = str(filepath)
         if filepath:
+            root, ext = os.path.splitext(filepath)
+            if ext != '.py':
+                filepath = root + '.py'
             self._filepath = filepath
             return self.savefile()
         else:

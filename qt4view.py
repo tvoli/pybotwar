@@ -66,6 +66,8 @@ class MainWindow(QtGui.QMainWindow):
         self.editors = []
         self._fdir = None
 
+        self.setup_settings()
+
         # Call resize a bit later or else view will not resize properly
         self._initialresize = True
         QtCore.QTimer.singleShot(1, self.resizeEvent)
@@ -181,7 +183,10 @@ class MainWindow(QtGui.QMainWindow):
             # Check to see if the file is already open in an editor
             for ed in self.editors:
                 if ed._filepath == fp:
-                    # If it is, raise the window and get out
+                    # If it is not visible, show it
+                    if not ed.isVisible():
+                        ed.show()
+                    # raise the window and get out
                     ed.activateWindow()
                     ed.raise_()
                     return
@@ -191,9 +196,9 @@ class MainWindow(QtGui.QMainWindow):
             te.openfile(fp)
             te.show()
 
-        if efdir is None:
-            # Opening from Main Window. Remember directory.
-            self._fdir = te._fdir
+            if efdir is None:
+                # Opening from Main Window. Remember directory.
+                self._fdir = te._fdir
 
     def newRobot(self):
         te = TextEditor(self)
@@ -239,11 +244,66 @@ class MainWindow(QtGui.QMainWindow):
         self.singleStep()
         self.pauseBattle(paused)
 
+    def settings(self):
+        self.sui = Settings()
+        self.sui.show()
+
     def help(self):
         QtGui.QDesktopServices().openUrl(QtCore.QUrl(conf.help_url))
 
     def about(self):
         AboutDialog().exec_()
+
+    def setup_settings(self):
+        QtCore.QCoreApplication.setOrganizationName('pybotwar.googlecode.com')
+        QtCore.QCoreApplication.setOrganizationDomain('pybotwar.googlecode.com')
+        QtCore.QCoreApplication.setApplicationName('pybotwar')
+        settings = QtCore.QSettings()
+        self.settings = settings
+
+        d = settings.value('pybotwar/robotdir', '').toString()
+        d = str(d)
+        if d and d not in conf.robot_dirs:
+            conf.robot_dirs.insert(0, d)
+
+        self._fdir = d
+
+
+class Settings(QtGui.QDialog):
+    def __init__(self):
+        QtGui.QDialog.__init__(self)
+        uifile = 'settings.ui'
+        uipath = os.path.join(uidir, uifile)
+        uic.loadUi(uipath, self)
+
+        settings = QtCore.QSettings()
+        self.settings = settings
+        d = settings.value('pybotwar/robotdir', self.robotdir.text()).toString()
+
+        self.robotdir.setText(d)
+
+    def browse(self):
+        d = QtGui.QFileDialog.getExistingDirectory(
+                self,
+                'Set Robot dir',
+                self.robotdir.text())
+        self.robotdir.setText(d)
+
+    def accept(self):
+        d = self.robotdir.text()
+        settings = QtCore.QSettings()
+        settings.setValue('pybotwar/robotdir', d)
+        if d and d not in conf.robot_dirs:
+            conf.robot_dirs.insert(0, str(d))
+
+        stats.dbclose(restart=True)
+        stats.dbcheck()
+        stats.dbopen()
+
+        QtGui.QDialog.accept(self)
+
+    def reject(self):
+        QtGui.QDialog.reject(self)
 
 
 class NotImplementedYet(QtGui.QDialog):

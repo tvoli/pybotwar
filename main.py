@@ -52,9 +52,15 @@ if __name__ == '__main__':
     parser.add_option("-Q", "--pyqt-graphics", dest="pyqtgraphics",
                     action="store_true", default=False,
                     help="enable PyQt interface")
+    parser.add_option("-P", "--pygsear-graphics", dest="pygseargraphics",
+                    action="store_true", default=False,
+                    help="enable Pygsear interface")
     parser.add_option("-D", "--upgrade-db", dest="upgrade_db",
                     action="store_true", default=False,
                     help="upgrade database (WARNING! Deletes database!)")
+    parser.add_option("-S", "--reset-qt-settings", dest="qtreset",
+                    action="store_true", default=False,
+                    help="reset Qt settings")
 
     (options, args) = parser.parse_args()
 
@@ -63,14 +69,26 @@ if __name__ == '__main__':
     nbattles = options.nbattles
     nographics = options.nographics
     pyqtgraphics = options.pyqtgraphics
+    pygseargraphics = options.pygseargraphics
     upgrade_db = options.upgrade_db
+    qtreset = options.qtreset
 
+    gmodes = nographics + pyqtgraphics + pygseargraphics
 
-    if nographics:
+    if gmodes > 1:
+        print 'must select ONE of -g, -Q, or -P'
+        import sys
+        sys.exit(0)
+
+    elif nographics:
         viewselect.select_view_module('none')
-    elif not pyqtgraphics:
+    elif pyqtgraphics:
+        viewselect.select_view_module('pyqt')
+    elif pygseargraphics:
         viewselect.select_view_module('pygame')
     else:
+        # default view type is PyQt
+        pyqtgraphics = True
         viewselect.select_view_module('pyqt')
 
 view = viewselect.get_view_module()
@@ -91,20 +109,25 @@ def dbcheck():
         sys.exit(0)
 
 
+def reset_qt_settings():
+    from PyQt4 import QtCore
+    QtCore.QCoreApplication.setOrganizationName('pybotwar.googlecode.com')
+    QtCore.QCoreApplication.setOrganizationDomain('pybotwar.googlecode.com')
+    QtCore.QCoreApplication.setApplicationName('pybotwar')
+    settings = QtCore.QSettings()
+    settings.clear()
+    print 'Qt settings cleared.'
+
 
 def runmain():
+    if qtreset:
+        reset_qt_settings()
+
     if upgrade_db:
         stats.dbremove()
         stats.initialize()
 
     dbcheck()
-
-    global testmode
-    if testmode:
-        if not os.path.exists(conf.logdir):
-            print 'Log directory does not exist:', conf.logdir
-            print 'test mode disabled'
-            testmode = False
 
     stats.dbopen()
 

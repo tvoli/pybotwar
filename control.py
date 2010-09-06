@@ -109,7 +109,11 @@ def build_robot(modname, robotname, testmode, rbox):
 
     if testmode:
         logfilename = '%s.log' % robotname
-        logfilepath = os.path.join(conf.logdir, logfilename)
+        robotsdir = conf.robot_dirs[0]
+        logdir = os.path.join(robotsdir, conf.logdir)
+        if not os.path.exists(logdir):
+            os.mkdir(logdir)
+        logfilepath = os.path.join(logdir, logfilename)
         logfile = open(logfilepath, 'a')
     else:
         logfile = None
@@ -142,6 +146,21 @@ def build_robot(modname, robotname, testmode, rbox):
 
 
 if __name__ == '__main__':
+    try:
+        from PyQt4 import QtCore
+        QtCore.QCoreApplication.setOrganizationName('pybotwar.googlecode.com')
+        QtCore.QCoreApplication.setOrganizationDomain('pybotwar.googlecode.com')
+        QtCore.QCoreApplication.setApplicationName('pybotwar')
+        settings = QtCore.QSettings()
+        settings.sync()
+
+        d = settings.value('pybotwar/robotdir', '').toString()
+        if d and d not in conf.robot_dirs:
+            conf.robot_dirs.insert(0, str(d))
+
+    except ImportError:
+        pass
+
     import sys
     for d in conf.robot_dirs:
         sys.path.append(d)

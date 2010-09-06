@@ -5,6 +5,36 @@ import conf
 
 
 dbversion = 2
+dbversion_reset = dbversion
+
+
+def fullpath():
+    try:
+        from PyQt4 import QtCore
+        QtCore.QCoreApplication.setOrganizationName('pybotwar.googlecode.com')
+        QtCore.QCoreApplication.setOrganizationDomain('pybotwar.googlecode.com')
+        QtCore.QCoreApplication.setApplicationName('pybotwar')
+        settings = QtCore.QSettings()
+        settings.sync()
+
+        d = settings.value('pybotwar/robotdir', '').toString()
+        if d and d not in conf.robot_dirs:
+            conf.robot_dirs.insert(0, str(d))
+
+    except ImportError:
+        d = ''
+
+    if '~' in conf.dbfile:
+        fname = os.path.expanduser(conf.dbfile)
+    else:
+        fdir = conf.robot_dirs[0]
+        fname = os.path.join(fdir, conf.dbfile)
+
+    head, tail = os.path.split(fname)
+    if not os.path.exists(head):
+        fname = '/:::NONEXISTANT:::'
+
+    return fname
 
 
 def dbopen():
@@ -13,10 +43,12 @@ def dbopen():
         return
 
     global conn
-    fname = os.path.expanduser(conf.dbfile)
+    fname = fullpath()
+
     try:
         conn = sqlite3.connect(fname)
     except sqlite3.OperationalError:
+        print 'Cannot find dbfile. Working in :memory:'
         conn = sqlite3.connect(':memory:')
         dbversion = ':memory:'
 
@@ -24,12 +56,19 @@ def dbopen():
     global c
     c = conn.cursor()
 
-def dbclose():
-    if dbversion != ':memory:':
+    if dbversion == ':memory:':
+        dbcheck()
+
+
+def dbclose(restart=False):
+    global dbversion
+    if restart or dbversion != ':memory:':
         conn.close()
+    if restart:
+        dbversion = dbversion_reset
 
 def dbcheck():
-    fname = os.path.expanduser(conf.dbfile)
+    fname = fullpath()
     if not os.path.exists(fname):
         initialize()
         print 'stats database initialized'
@@ -64,7 +103,7 @@ def dbcheckver():
     return retval
 
 def dbremove():
-    fname = os.path.expanduser(conf.dbfile)
+    fname = fullpath()
     if os.path.exists(fname):
         os.remove(fname)
 

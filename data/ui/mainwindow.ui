@@ -162,7 +162,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>26</height>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -178,6 +178,7 @@
      <string>Settings</string>
     </property>
     <addaction name="actionConfigure"/>
+    <addaction name="actionSet_robots_dir"/>
    </widget>
    <widget class="QMenu" name="menuBattle">
     <property name="title">
@@ -288,6 +289,11 @@
   <action name="actionPybotwar_help">
    <property name="text">
     <string>pybotwar help</string>
+   </property>
+  </action>
+  <action name="actionSet_robots_dir">
+   <property name="text">
+    <string>Set robots dir</string>
    </property>
   </action>
  </widget>
@@ -485,6 +491,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionSet_robots_dir</sender>
+   <signal>activated()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>settings()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>279</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>pauseBattle(bool)</slot>
@@ -498,5 +520,6 @@
   <slot>startBattle()</slot>
   <slot>help()</slot>
   <slot>about()</slot>
+  <slot>settings()</slot>
  </slots>
 </ui>

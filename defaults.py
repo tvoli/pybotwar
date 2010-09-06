@@ -17,11 +17,11 @@ r6 = 'robot06'
 r7 = 'robot07'
 robots = [r2, r4, r5, r6, r7]
 
-logdir = 'robots/logs'
+logdir = 'logs' # relative to robot_dirs[0]
 
 template = 'robots/template.py'
 
-lineups = 'robots/lineups'
+lineups = 'lineups' # relative to robot_dirs[0]
 
 
 # Game
@@ -73,7 +73,7 @@ bullet_density = .2
 
 
 # Statistics
-dbfile = 'stats.db'
+dbfile = 'stats.db' # relative to robot_dirs[0]
 
 
 # Other
