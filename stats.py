@@ -56,9 +56,6 @@ def dbopen():
     global c
     c = conn.cursor()
 
-    if dbversion == ':memory:':
-        dbcheck()
-
 
 def dbclose(restart=False):
     global dbversion
@@ -69,7 +66,7 @@ def dbclose(restart=False):
 
 def dbcheck():
     fname = fullpath()
-    if not os.path.exists(fname):
+    if fname != '/:::NONEXISTANT:::' and not os.path.exists(fname):
         initialize()
         print 'stats database initialized'
 
