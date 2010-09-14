@@ -9,6 +9,12 @@ class TheRobot(Robot):
         self._moveto_choices = [70, 70, -70, -70]
 
     def respond(self):
+        tick = self.sensors['TICK']
+        if tick == 100:
+            self.start_logging()
+        elif tick == 200:
+            self.stop_logging()
+
         self.scan_and_fire()
 
         # Move away if damaged

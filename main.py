@@ -166,8 +166,10 @@ def runmain():
 
     # Clean up log directory if not in test mode
     if not testmode and os.path.exists(conf.logdir):
-        for f in os.listdir(conf.logdir):
-            fpath = os.path.join(conf.logdir, f)
+        robotsdir = conf.robot_dirs[0]
+        logdir = os.path.join(robotsdir, conf.logdir)
+        for f in os.listdir(logdir):
+            fpath = os.path.join(logdir, f)
             os.remove(fpath)
 
 

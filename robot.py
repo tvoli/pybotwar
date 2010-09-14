@@ -44,6 +44,7 @@ class Robot(object):
         self._turretangle = 0
 
         self.logfile = None
+        self._log = None
 
     def initialize(self):
         '''Set up the robot before it starts running.
@@ -175,10 +176,26 @@ class Robot(object):
             self.logfile.write('\n')
             self.logfile.flush()
 
+    def start_logging(self):
+        self._log = True
+
+    def stop_logging(self):
+        self._log = False
+
     @property
     def response(self):
         if self._err:
             return 'ERROR'
+
+        if self._log is None:
+            pass
+        elif self._log:
+            self._log = None
+            return 'LOG'
+        else:
+            self._log = None
+            return 'NOLOG'
+
         if self._finished:
             return 'END'
         else:

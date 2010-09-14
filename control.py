@@ -69,7 +69,14 @@ def loop(r, i):
     else:
         _overtime_count = 0
 
-    return response or r.response
+    rresponse = r.response
+
+    if rresponse == 'LOG':
+        start_logging(r)
+    elif rresponse == 'NOLOG':
+        stop_logging(r)
+
+    return response or rresponse
 
 def get_response(r, sensors):
     try:
@@ -105,16 +112,28 @@ def communicate(r):
             break
 
 
+def robot_logfile(robotname):
+    logfilename = '%s.log' % robotname
+    robotsdir = conf.robot_dirs[0]
+    logdir = os.path.join(robotsdir, conf.logdir)
+    if not os.path.exists(logdir):
+        os.mkdir(logdir)
+    logfilepath = os.path.join(logdir, logfilename)
+    logfile = open(logfilepath, 'a')
+    return logfile
+
+def start_logging(robot):
+    logfile = robot_logfile(robot.name)
+    robot.logfile = logfile
+
+def stop_logging(robot):
+    robot.logfile = None
+
+
 def build_robot(modname, robotname, testmode, rbox):
 
     if testmode:
-        logfilename = '%s.log' % robotname
-        robotsdir = conf.robot_dirs[0]
-        logdir = os.path.join(robotsdir, conf.logdir)
-        if not os.path.exists(logdir):
-            os.mkdir(logdir)
-        logfilepath = os.path.join(logdir, logfilename)
-        logfile = open(logfilepath, 'a')
+        logfile = robot_logfile(robotname)
     else:
         logfile = None
 
