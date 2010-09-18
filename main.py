@@ -31,6 +31,17 @@ except ImportError:
 
 import viewselect
 
+
+def setup_logging(level='info'):
+    import logging
+    import logging.handlers
+    logger = logging.getLogger('PybotwarLogger')
+    logger.setLevel(logging.INFO)
+    handler = logging.handlers.RotatingFileHandler(
+              'appdebug.log', maxBytes=1000000, backupCount=3)
+    logger.addHandler(handler)
+
+
 if __name__ == '__main__':
     import sys
     import os
@@ -61,6 +72,9 @@ if __name__ == '__main__':
     parser.add_option("-S", "--reset-qt-settings", dest="qtreset",
                     action="store_true", default=False,
                     help="reset Qt settings")
+    parser.add_option("-B", "--app-debug", dest="appdebug",
+                    action="store_true", default=False,
+                    help="enable app debug log")
 
     (options, args) = parser.parse_args()
 
@@ -72,8 +86,12 @@ if __name__ == '__main__':
     pygseargraphics = options.pygseargraphics
     upgrade_db = options.upgrade_db
     qtreset = options.qtreset
+    appdebug = options.appdebug
 
     gmodes = nographics + pyqtgraphics + pygseargraphics
+
+    if appdebug:
+        setup_logging()
 
     if gmodes > 1:
         print 'must select ONE of -g, -Q, or -P'

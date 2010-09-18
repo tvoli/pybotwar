@@ -21,6 +21,9 @@ from subprocess import PIPE
 import time
 import random
 
+import logging
+logger = logging.getLogger('PybotwarLogger')
+
 import viewselect
 view = viewselect.get_view_module()
 
@@ -96,6 +99,21 @@ class Game(object):
             if robotname not in self.procs:
                 continue
 
+            proc = procs[robotname]
+
+            if model._enable_debug is None:
+                pass
+            elif model._enable_debug:
+                line = 'DEBUG\n'
+                proc.stdin.write(line)
+                model._enable_debug = None
+                continue
+            else:
+                line = 'NODEBUG\n'
+                proc.stdin.write(line)
+                model._enable_debug = None
+                continue
+
             health = model.health
             body = model.body
             pos = body.position
@@ -110,8 +128,6 @@ class Game(object):
             pinged = int(model._pinged == rnd - 1)
             line = 'TICK:%s|HEALTH:%s|POS:%s|TUR:%s|PING:%s|GYRO:%s|HEAT:%s|LOADING:%s|PINGED:%s\n' % (rnd, health, possens, tur, ping, gyro, heat, loading, pinged)
             #print robotname, line
-
-            proc = procs[robotname]
 
             if not model.alive:
                 model._kills = nrobots - len(procs)
@@ -224,6 +240,15 @@ class Game(object):
             print '%s seconds (%s real)' % (rnd/60, int(time.time())-self.t0)
         self.rnd += 1
 
+    def enable_debug(self):
+        items = self.models.items()
+        for robotname, model in items:
+            model._enable_debug = True
+
+    def disable_debug(self):
+        items = self.models.items()
+        for robotname, model in items:
+            model._enable_debug = False
 
     def finish(self):
         print 'FINISHING'

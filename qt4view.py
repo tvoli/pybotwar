@@ -20,6 +20,10 @@ import os
 import sys
 import math
 pi = math.pi
+
+import logging
+logger = logging.getLogger('PybotwarLogger')
+
 from PyQt4 import QtCore, QtGui, QtSvg, uic
 from editor import TextEditor
 from combatants import CombatantsEditor
@@ -267,6 +271,12 @@ class MainWindow(QtGui.QMainWindow):
             conf.robot_dirs.insert(0, d)
 
         self._fdir = d
+
+    def enable_debug(self):
+        if self.ui.actionEnableDebug.isChecked():
+            self.game.enable_debug()
+        else:
+            self.game.disable_debug()
 
 
 class Settings(QtGui.QDialog):

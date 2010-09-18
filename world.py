@@ -40,6 +40,8 @@ class Robot(object):
         self.kind = kind
         self.name = name
 
+        self._enable_debug = None
+
         self._pingtype = 'w'
         self._pingangle = 0
         self._pingdist = 0

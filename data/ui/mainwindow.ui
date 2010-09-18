@@ -204,11 +204,18 @@
     <addaction name="separator"/>
     <addaction name="actionAbout_pybotwar"/>
    </widget>
+   <widget class="QMenu" name="menuDebug">
+    <property name="title">
+     <string>Debug</string>
+    </property>
+    <addaction name="actionEnableDebug"/>
+   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuBattle"/>
    <addaction name="menuTournament"/>
    <addaction name="menuSettings"/>
    <addaction name="menuHelp"/>
+   <addaction name="menuDebug"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionQuit">
@@ -294,6 +301,14 @@
   <action name="actionSet_robots_dir">
    <property name="text">
     <string>Set robots dir</string>
+   </property>
+  </action>
+  <action name="actionEnableDebug">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Enable</string>
    </property>
   </action>
  </widget>
@@ -507,6 +522,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionEnableDebug</sender>
+   <signal>activated()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>enable_debug()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>279</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>pauseBattle(bool)</slot>
@@ -521,5 +552,6 @@
   <slot>help()</slot>
   <slot>about()</slot>
   <slot>settings()</slot>
+  <slot>enable_debug()</slot>
  </slots>
 </ui>

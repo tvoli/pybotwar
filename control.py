@@ -93,6 +93,12 @@ def communicate(r):
         line = sys.stdin.readline().strip()
         if line == 'FINISH':
             break
+        elif line == 'DEBUG':
+            start_logging(r)
+            continue
+        elif line == 'NODEBUG':
+            stop_logging(r)
+            continue
 
         o = loop(r, line)
         if o is not None:
