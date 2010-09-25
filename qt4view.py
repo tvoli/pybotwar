@@ -63,8 +63,8 @@ class MainWindow(QtGui.QMainWindow):
 
         self.start_game()
 
-        self.singleStep()
         self.debug_robot = None
+        self.singleStep()
 
         self.ticktimer = self.startTimer(17)
 
@@ -126,10 +126,14 @@ class MainWindow(QtGui.QMainWindow):
     def singleStep(self):
         self.pauseBattle(True)
         self.game.tick()
+        if self.debug_robot is not None:
+            self.update_debug_robot()
 
     def timerEvent(self, ev):
         if not self.paused:
             self.game.tick()
+            if self.debug_robot is not None:
+                self.update_debug_robot()
             if not self.game.rnd%60:
                 self.ui.countdown.display(self.ui.countdown.value()-1)
 
@@ -290,9 +294,36 @@ class MainWindow(QtGui.QMainWindow):
             self.debug_robot = None
 
     def choose_robot_debug(self):
+        if self.debug_robot is not None:
+            self.debug_robot_window.destroy()
         rname = self.ag.checkedAction().text()
-        self.debug_robot = rname
+        self.debug_robot = str(rname)
+        self.debug_robot_window = RDebug(rname)
+        self.debug_robot_window.show()
 
+    def update_debug_robot(self):
+        game = self.game
+        model = game.models[self.debug_robot]
+        body = model.body
+        window = self.debug_robot_window
+
+        tick = str(game.rnd)
+        window.tick.setText(tick)
+
+        pos = body.position
+        x, y = int(pos.x), int(pos.y)
+        window.posx.setValue(x)
+        window.posy.setValue(y)
+
+
+
+class RDebug(QtGui.QDialog):
+    def __init__(self, rname):
+        QtGui.QDialog.__init__(self)
+        uifile = 'debug.ui'
+        uipath = os.path.join(uidir, uifile)
+        uic.loadUi(uipath, self)
+        self.rname.setText(rname)
 
 class Settings(QtGui.QDialog):
     def __init__(self):
