@@ -64,6 +64,7 @@ class MainWindow(QtGui.QMainWindow):
         self.start_game()
 
         self.singleStep()
+        self.debug_robot = None
 
         self.ticktimer = self.startTimer(17)
 
@@ -275,8 +276,22 @@ class MainWindow(QtGui.QMainWindow):
     def enable_debug(self):
         if self.ui.actionEnableDebug.isChecked():
             self.game.enable_debug()
+            self.ag = QtGui.QActionGroup(self.ui.menuDebug)
+            self.ag.triggered.connect(self.choose_robot_debug)
+            items = self.game.models.items()
+            for robotname, model in items:
+                ac = QtGui.QAction(robotname, self.ag)
+                ac.setCheckable(True)
+                self.ui.menuDebug.addAction(ac)
         else:
             self.game.disable_debug()
+            for ac in self.ag.actions():
+                self.ui.menuDebug.removeAction(ac)
+            self.debug_robot = None
+
+    def choose_robot_debug(self):
+        rname = self.ag.checkedAction().text()
+        self.debug_robot = rname
 
 
 class Settings(QtGui.QDialog):

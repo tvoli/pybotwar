@@ -209,6 +209,7 @@
      <string>Debug</string>
     </property>
     <addaction name="actionEnableDebug"/>
+    <addaction name="separator"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuBattle"/>
