@@ -3,3 +3,4 @@ syntax:glob
 conf.py
 stats.db
 logs
+*.log
