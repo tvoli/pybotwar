@@ -315,6 +315,27 @@ class MainWindow(QtGui.QMainWindow):
         window.posx.setValue(x)
         window.posy.setValue(y)
 
+        tur = str(model.get_turretangle())
+        window.turret.setText(tur)
+
+        pingtype = str(model._pingtype)
+        pingangle = str(model._pingangle)
+        pingdistance = str(model._pingdist)
+        window.pingtype.setText(pingtype)
+        window.pingangle.setText(pingangle)
+        window.pingdistance.setText(pingdistance)
+
+        gyro = str(model.gyro())
+        window.gyro.setText(gyro)
+
+        heat = int(model._cannonheat)
+        window.cannonheat.setValue(heat)
+
+        loading = str(model._cannonreload)
+        window.cannonloading.setText(loading)
+
+        pinged = str(model._pinged == game.rnd - 1)
+        window.pinged.setText(pinged)
 
 
 class RDebug(QtGui.QDialog):
