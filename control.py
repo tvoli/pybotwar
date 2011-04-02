@@ -122,10 +122,13 @@ def robot_logfile(robotname):
     logfilename = '%s.log' % robotname
     robotsdir = conf.robot_dirs[0]
     logdir = os.path.join(robotsdir, conf.logdir)
-    if not os.path.exists(logdir):
-        os.mkdir(logdir)
-    logfilepath = os.path.join(logdir, logfilename)
-    logfile = open(logfilepath, 'a')
+    try:
+        if not os.path.exists(logdir):
+            os.mkdir(logdir)
+        logfilepath = os.path.join(logdir, logfilename)
+        logfile = open(logfilepath, 'a')
+    except (IOError, OSError):
+        logfile = None
     return logfile
 
 def start_logging(robot):
