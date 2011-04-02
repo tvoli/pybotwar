@@ -11,6 +11,11 @@ dbversion_reset = dbversion
 def fullpath():
     try:
         from PyQt4 import QtCore
+        useQtSettings = True
+    except ImportError:
+        useQtSettings = False
+
+    if useQtSettings:
         QtCore.QCoreApplication.setOrganizationName('pybotwar.googlecode.com')
         QtCore.QCoreApplication.setOrganizationDomain('pybotwar.googlecode.com')
         QtCore.QCoreApplication.setApplicationName('pybotwar')
@@ -18,18 +23,18 @@ def fullpath():
         settings.sync()
 
         d = settings.value('pybotwar/robotdir', '').toString()
-        if d and d not in conf.robot_dirs:
+        if d and conf.robot_dirs and d != conf.robot_dirs[0]:
             conf.robot_dirs.insert(0, str(d))
 
-    except ImportError:
-        d = ''
-
-    if '~' in conf.dbfile:
+    if conf.dbfile.startswith('~'):
         fname = os.path.expanduser(conf.dbfile)
+    elif not conf.robot_dirs:
+        fname = conf.dbfile
     else:
         fdir = conf.robot_dirs[0]
         fname = os.path.join(fdir, conf.dbfile)
 
+    fname = os.path.abspath(fname)
     head, tail = os.path.split(fname)
     if not os.path.exists(head):
         fname = '/:::NONEXISTANT:::'
@@ -211,8 +216,11 @@ def update(name, win, opponents, kills, damage_caused):
                     :kills,
                     :damage_caused)
         '''
-    c.execute(q, locals())
-    conn.commit()
+    try:
+        c.execute(q, locals())
+        conn.commit()
+    except sqlite3.OperationalError:
+        conn.rollback()
 
 
 
