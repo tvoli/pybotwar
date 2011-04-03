@@ -2,6 +2,7 @@ import sqlite3
 import os
 import hashlib
 import conf
+import util
 
 
 dbversion = 2
@@ -9,29 +10,14 @@ dbversion_reset = dbversion
 
 
 def fullpath():
-    try:
-        from PyQt4 import QtCore
-        useQtSettings = True
-    except ImportError:
-        useQtSettings = False
-
-    if useQtSettings:
-        QtCore.QCoreApplication.setOrganizationName('pybotwar.googlecode.com')
-        QtCore.QCoreApplication.setOrganizationDomain('pybotwar.googlecode.com')
-        QtCore.QCoreApplication.setApplicationName('pybotwar')
-        settings = QtCore.QSettings()
-        settings.sync()
-
-        d = settings.value('pybotwar/robotdir', '').toString()
-        if d and conf.robot_dirs and d != conf.robot_dirs[0]:
-            conf.robot_dirs.insert(0, str(d))
+    rdirs = util.get_robot_dirs()
 
     if conf.dbfile.startswith('~'):
         fname = os.path.expanduser(conf.dbfile)
-    elif not conf.robot_dirs:
+    elif not rdirs:
         fname = conf.dbfile
     else:
-        fdir = conf.robot_dirs[0]
+        fdir = rdirs[0]
         fname = os.path.join(fdir, conf.dbfile)
 
     fname = os.path.abspath(fname)
@@ -60,6 +46,9 @@ def dbopen():
     conn.row_factory = sqlite3.Row
     global c
     c = conn.cursor()
+
+    if dbversion == ':memory:':
+        initialize()
 
 
 def dbclose(restart=False):
@@ -159,7 +148,8 @@ CREATE TABLE tournament_stats (
 
 def fingerprint(name):
     fname = '%s.py' % name
-    for d in conf.robot_dirs:
+    rdirs = util.get_robot_dirs()
+    for d in rdirs:
         pth = os.path.join(d, fname)
         if os.path.exists(pth):
             break

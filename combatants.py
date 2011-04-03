@@ -25,6 +25,7 @@ import glob
 from PyQt4 import QtCore, QtGui, uic
 from PyQt4.Qt import QFrame, QWidget, QHBoxLayout, QPainter
 
+import util
 import conf
 
 uidir = 'data/ui'
@@ -46,7 +47,8 @@ class CombatantsEditor(QtGui.QMainWindow):
         available = self.ui.availablerobots
         selected = self.ui.selectedrobots
         robotpaths = set()
-        for d in conf.robot_dirs:
+        rdirs = util.get_robot_dirs()
+        for d in rdirs:
             g = '%s/*.py' % d
             found = glob.glob(g)
             if conf.template in found:

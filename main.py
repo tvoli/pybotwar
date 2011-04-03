@@ -29,6 +29,7 @@ except ImportError:
 
     raise SystemExit
 
+import util
 import viewselect
 
 
@@ -183,12 +184,17 @@ def runmain():
 
 
     # Clean up log directory if not in test mode
-    if not testmode and os.path.exists(conf.logdir):
-        robotsdir = conf.robot_dirs[0]
-        logdir = os.path.join(robotsdir, conf.logdir)
+    rdirs = util.get_robot_dirs()
+    robotsdir = rdirs[0]
+    logdir = os.path.join(robotsdir, conf.logdir)
+
+    if not testmode and os.path.exists(logdir):
         for f in os.listdir(logdir):
             fpath = os.path.join(logdir, f)
-            os.remove(fpath)
+            try:
+                os.remove(fpath)
+            except OSError:
+                pass
 
 
 if __name__ == '__main__':

@@ -28,6 +28,7 @@ from PyQt4 import QtCore, QtGui, QtSvg, uic
 from editor import TextEditor
 from combatants import CombatantsEditor
 
+import util
 import stats
 import conf
 
@@ -183,7 +184,8 @@ class MainWindow(QtGui.QMainWindow):
         if efdir is not None:
             fdir = efdir
         elif self._fdir is None:
-            fdir = QtCore.QString(os.path.abspath(conf.robot_dirs[0]))
+            rdirs = util.get_robot_dirs()
+            fdir = QtCore.QString(os.path.abspath(rdirs[0]))
         else:
             fdir = self._fdir
 
@@ -264,17 +266,8 @@ class MainWindow(QtGui.QMainWindow):
         AboutDialog().exec_()
 
     def setup_settings(self):
-        QtCore.QCoreApplication.setOrganizationName('pybotwar.googlecode.com')
-        QtCore.QCoreApplication.setOrganizationDomain('pybotwar.googlecode.com')
-        QtCore.QCoreApplication.setApplicationName('pybotwar')
-        settings = QtCore.QSettings()
-        self.settings = settings
-
-        d = settings.value('pybotwar/robotdir', '').toString()
-        d = str(d)
-        if d and d not in conf.robot_dirs:
-            conf.robot_dirs.insert(0, d)
-
+        rdirs = util.get_robot_dirs()
+        d = rdirs[0]
         self._fdir = d
 
     def enable_debug(self):

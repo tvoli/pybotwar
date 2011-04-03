@@ -20,6 +20,7 @@ import os
 from threading import Thread
 from time import sleep
 
+import util
 from util import defaultNonedict
 
 import conf
@@ -120,7 +121,8 @@ def communicate(r):
 
 def robot_logfile(robotname):
     logfilename = '%s.log' % robotname
-    robotsdir = conf.robot_dirs[0]
+    rdirs = util.get_robot_dirs()
+    robotsdir = rdirs[0]
     logdir = os.path.join(robotsdir, conf.logdir)
     try:
         if not os.path.exists(logdir):
@@ -174,23 +176,9 @@ def build_robot(modname, robotname, testmode, rbox):
 
 
 if __name__ == '__main__':
-    try:
-        from PyQt4 import QtCore
-        QtCore.QCoreApplication.setOrganizationName('pybotwar.googlecode.com')
-        QtCore.QCoreApplication.setOrganizationDomain('pybotwar.googlecode.com')
-        QtCore.QCoreApplication.setApplicationName('pybotwar')
-        settings = QtCore.QSettings()
-        settings.sync()
-
-        d = settings.value('pybotwar/robotdir', '').toString()
-        if d and d not in conf.robot_dirs:
-            conf.robot_dirs.insert(0, str(d))
-
-    except ImportError:
-        pass
-
+    rdirs = util.get_robot_dirs()
     import sys
-    for d in conf.robot_dirs:
+    for d in rdirs:
         sys.path.append(d)
 
     if len(sys.argv) != 4:

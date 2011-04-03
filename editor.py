@@ -24,6 +24,7 @@ import sys
 from PyQt4 import QtCore, QtGui, uic
 from PyQt4.Qt import QFrame, QWidget, QHBoxLayout, QPainter
 
+import util
 import conf
 
 import highlightedtextedit
@@ -139,7 +140,12 @@ class TextEditor(QtGui.QMainWindow):
             msgbox = QtGui.QMessageBox.information(self, title, msg)
 
     def saveAs(self):
-        fdir = QtCore.QString(os.path.abspath(conf.robot_dirs[0]))
+        if self._fdir is None:
+            rdirs = util.get_robot_dirs()
+            fdir = QtCore.QString(os.path.abspath(rdirs[0]))
+            self._fdir = fdir
+        else:
+            fdir = self._fdir
         filepath = QtGui.QFileDialog.getSaveFileName(self, 'Save Robot As', fdir)
         filepath = str(filepath)
         if filepath:
