@@ -47,6 +47,8 @@ if __name__ == '__main__':
     import sys
     import os
 
+    os.chdir(os.path.split(os.path.abspath(__file__))[0])
+
     from optparse import OptionParser
     parser = OptionParser()
     parser.add_option("-T", "--testmode", dest="testmode",
