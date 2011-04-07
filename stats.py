@@ -5,7 +5,7 @@ import conf
 import util
 
 
-dbversion = 2
+dbversion = 3
 dbversion_reset = dbversion
 
 
@@ -36,10 +36,17 @@ def dbopen():
     global conn
     fname = fullpath()
 
+    if not os.path.exists(fname):
+        newdb = True
+    else:
+        newdb = False
+
     try:
         conn = sqlite3.connect(fname)
+        if newdb:
+            print 'New stats database file started'
     except sqlite3.OperationalError:
-        print 'Cannot find dbfile. Working in :memory:'
+        print 'Cannot open database file. Working in :memory:'
         conn = sqlite3.connect(':memory:')
         dbversion = ':memory:'
 
@@ -47,7 +54,7 @@ def dbopen():
     global c
     c = conn.cursor()
 
-    if dbversion == ':memory:':
+    if dbversion == ':memory:' or newdb:
         initialize()
 
 
@@ -58,17 +65,40 @@ def dbclose(restart=False):
     if restart:
         dbversion = dbversion_reset
 
+def trywrite():
+    dbopen()
+    q = '''
+    UPDATE trywrite SET tw=1;
+    '''
+    try:
+        c.execute(q)
+    except (sqlite3.OperationalError, sqlite3.ProgrammingError):
+        return False
+
+    return True
+
 def dbcheck():
     fname = fullpath()
+    print 'Checking', fname
     if fname != '/:::NONEXISTANT:::' and not os.path.exists(fname):
-        initialize()
-        print 'stats database initialized'
+        dbopen()
 
     if not dbcheckver():
         print 'ERROR: Database version mismatch.'
         return False
-    else:
-        return True
+
+    if not trywrite():
+        print 'Cannot write to database. Working in :memory:'
+        global dbversion
+        global conn
+        global c
+        conn = sqlite3.connect(':memory:')
+        conn.row_factory = sqlite3.Row
+        c = conn.cursor()
+        dbversion = ':memory:'
+        initialize()
+
+    return True
 
 def dbcheckver():
     dbopen()
@@ -96,6 +126,7 @@ def dbcheckver():
 def dbremove():
     fname = fullpath()
     if os.path.exists(fname):
+        print 'Removing', fname
         os.remove(fname)
 
 def initialize():
@@ -128,6 +159,10 @@ CREATE TABLE tournament_stats (
     damage_caused integer
 );
 
+CREATE TABLE trywrite (
+    tw integer
+);
+
     '''
 
     dbopen()
@@ -140,6 +175,8 @@ CREATE TABLE tournament_stats (
     n = dbversion
     c.execute(q, locals())
     conn.commit()
+
+    print 'Stats database initialized'
 
     if dbversion != ':memory:':
         dbclose()
@@ -264,8 +301,11 @@ def tournament_update(tournament, kind, name, win, opponents, kills, damage_caus
                     :kills,
                     :damage_caused)
         '''
-    c.execute(q, locals())
-    conn.commit()
+    try:
+        c.execute(q, locals())
+        conn.commit()
+    except sqlite3.OperationalError:
+        conn.rollback()
 
 def tournament_results(tournament):
     q = '''
@@ -284,7 +324,6 @@ def tournament_results(tournament):
 
 
 def top10():
-    dbopen()
     q = '''
     SELECT
         program_name,
@@ -306,9 +345,15 @@ def top10():
     results = c.fetchall()
 
     print 'Top 10 List:'
+    if dbversion == ':memory:':
+        fname = dbversion
+    else:
+        fname = fullpath()
+    print '(%s)' % fname
     for n, line in enumerate(results[:10]):
         print n+1, '::', line[0], ':', line[3], 'wins', ':', line[5], 'defeated', ':', line[6], 'dmg caused'
 
 
 if __name__ == '__main__':
+    dbopen()
     top10()

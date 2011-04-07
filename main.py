@@ -184,6 +184,7 @@ def runmain():
     stats.dbclose()
 
     if not tournament:
+        stats.dbopen()
         stats.top10()
 
 
