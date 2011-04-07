@@ -367,7 +367,12 @@ class Settings(QtGui.QDialog):
             conf.robot_dirs.insert(0, str(d))
 
         stats.dbclose(restart=True)
-        stats.dbcheck()
+        if not stats.dbcheck():
+            QtGui.QMessageBox.warning(self, 'DB Version Mismatch', 'Database version mismatch.\n\nUpgrade database with -D switch.')
+            conf.robot_dirs.pop(0)
+            settings.remove('pybotwar/robotdir')
+            stats.dbclose(restart=True)
+            stats.dbcheck()
         stats.dbopen()
 
         QtGui.QDialog.accept(self)
