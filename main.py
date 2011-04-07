@@ -145,8 +145,10 @@ def runmain():
         reset_qt_settings()
 
     if upgrade_db:
+        print 'Upgrading Database'
         stats.dbremove()
         stats.initialize()
+        return
 
     dbcheck()
 
