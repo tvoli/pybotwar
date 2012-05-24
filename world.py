@@ -101,7 +101,7 @@ class Robot(object):
         jointDef.maxMotorTorque = conf.turret_maxMotorTorque
         jointDef.motorSpeed = 0.0
         jointDef.enableMotor = True
-        self.turretjoint = w.CreateJoint(jointDef).getAsType()
+        self.turretjoint = w.CreateJoint(jointDef)
         self._turretangletarget = 0
 
         v = wld.v.addrobot(pos, ang)
