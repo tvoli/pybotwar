@@ -350,8 +350,20 @@ def top10():
     else:
         fname = fullpath()
     print '(%s)' % fname
-    for n, line in enumerate(results[:10]):
-        print n+1, '::', line[0], ':', line[3], 'wins', ':', line[5], 'defeated', ':', line[6], 'dmg caused'
+
+    er = list(enumerate(results[:10]))
+    len_name = max(len(l[0]) for n, l in er)
+    len_wins = max(len(str(l[3])) for n, l in er)
+    len_def = max(len(str(l[5])) for n, l in er)
+    len_dmg = max(len(str(l[6])) for n, l in er)
+
+    for n, line in er:
+        print '{0:2} :: {1:{len_name}} : {2:{len_wins}} wins : {3:{len_def}} defeated : {4:{len_dmg}} dmg caused'.format(
+            n+1, line[0], line[3], line[5], line[6],
+            len_name = len_name,
+            len_wins = len_wins,
+            len_def = len_def,
+            len_dmg = len_dmg)
 
 
 if __name__ == '__main__':
