@@ -129,8 +129,10 @@ class MainWindow(QtGui.QMainWindow):
             self.game.tick()
             if self.debug_robot is not None:
                 self.update_debug_robot()
-            if not self.game.rnd%60:
-                self.ui.countdown.display(self.ui.countdown.value()-1)
+
+        if not self.game.rnd % 60:
+            remaining = conf.maxtime - (self.game.rnd / 60)
+            self.ui.countdown.display(remaining)
 
         if self.game.rnd > 60 * conf.maxtime:
             self.closeEvent()

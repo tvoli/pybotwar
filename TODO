@@ -16,5 +16,4 @@ qt4view
     allow external editor
     db statistics
     tournaments
-    timer not updated correctly when using STEP
     robot debug health indicator not updated properly
