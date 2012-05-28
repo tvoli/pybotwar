@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>322</width>
-    <height>606</height>
+    <height>478</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -120,6 +120,19 @@
        </property>
       </widget>
      </item>
+     <item row="4" column="1">
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <item>
+        <widget class="QLineEdit" name="pingtype"/>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="pingangle"/>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="pingdistance"/>
+       </item>
+      </layout>
+     </item>
      <item row="5" column="0">
       <widget class="QLabel" name="label_6">
        <property name="text">
@@ -170,29 +183,78 @@
      <item row="8" column="1">
       <widget class="QLineEdit" name="pinged"/>
      </item>
-     <item row="4" column="1">
-      <layout class="QHBoxLayout" name="horizontalLayout_2">
-       <item>
-        <widget class="QLineEdit" name="pingtype"/>
-       </item>
-       <item>
-        <widget class="QLineEdit" name="pingangle"/>
-       </item>
-       <item>
-        <widget class="QLineEdit" name="pingdistance"/>
-       </item>
-      </layout>
-     </item>
     </layout>
    </item>
    <item>
-    <widget class="QFrame" name="frame">
+    <widget class="QFrame" name="commands">
      <property name="frameShape">
       <enum>QFrame::StyledPanel</enum>
      </property>
      <property name="frameShadow">
       <enum>QFrame::Raised</enum>
      </property>
+     <layout class="QFormLayout" name="formLayout_2">
+      <item row="0" column="0">
+       <widget class="QLabel" name="label_10">
+        <property name="text">
+         <string>FORCE</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLineEdit" name="c_force"/>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="label_11">
+        <property name="text">
+         <string>TORQUE</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QLineEdit" name="c_torque"/>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="label_12">
+        <property name="text">
+         <string>FIRE</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QLineEdit" name="c_fire"/>
+      </item>
+      <item row="3" column="0">
+       <widget class="QLabel" name="label_13">
+        <property name="text">
+         <string>PING</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1">
+       <widget class="QLineEdit" name="c_ping"/>
+      </item>
+      <item row="4" column="0">
+       <widget class="QLabel" name="label_14">
+        <property name="text">
+         <string>TURRET</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="1">
+       <widget class="QLineEdit" name="c_turret"/>
+      </item>
+      <item row="5" column="0">
+       <widget class="QLabel" name="label_15">
+        <property name="text">
+         <string>INACTIVE</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="1">
+       <widget class="QLineEdit" name="c_inactive"/>
+      </item>
+     </layout>
     </widget>
    </item>
   </layout>

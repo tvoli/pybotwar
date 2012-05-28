@@ -327,7 +327,7 @@ class MainWindow(QtGui.QMainWindow):
         tick = str(game.rnd)
         window.tick.setText(tick)
 
-        health = int(model.health)
+        health = max(int(model.health), 0)
         window.health.setValue(health)
 
         pos = body.position
@@ -357,6 +357,18 @@ class MainWindow(QtGui.QMainWindow):
         pinged = str(model._pinged == game.rnd - 1)
         window.pinged.setText(pinged)
 
+        for kind in [
+                'FORCE',
+                'TORQUE',
+                'FIRE',
+                'PING',
+                'TURRET',
+                'INACTIVE',
+                ]:
+            attr = 'c_%s' % kind
+            attr = attr.lower()
+            val = str(model._commands.get(kind, ''))
+            getattr(window, attr).setText(val)
 
 class RDebug(QtGui.QDialog):
     def __init__(self, rname):

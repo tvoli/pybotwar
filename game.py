@@ -138,6 +138,7 @@ class Game(object):
                 proc.stdout.close()
                 proc.kill()
                 time.sleep(0.1)
+                model._commands = {'INACTIVE':'DEAD'}
                 continue
 
             proc.stdin.write(line)
@@ -196,6 +197,8 @@ class Game(object):
             #print 'KV', kind, val
             #print 'R', robot, 'R', result, 'R'
             #print 'R', robotname, 'T', '%s -> %.3f' % (model._turretangletarget, model.turretjoint.GetJointAngle())
+
+            model._commands = commands or {'INACTIVE':result}
 
             for kind, val in commands.items():
                 if kind == 'FORCE':
