@@ -16,11 +16,13 @@ Changes in pybotwar-0.8:
     - PyBox2D-2.0.2b2 is now the expected version
     - PyQt4 view mode is now the default
         - (text mode and pygame/pygsear still available)
-    - Added "robots dir" setting to make it easier to run pybotwar
+    - can now start tournaments (and multiple battles) from pyqt
+    - added "robots dir" setting to make it easier to run pybotwar
         from an installed copy, rather than from the unpacked folder
         - logs, lineups, and db all go in robots dir
+    - added debug window showing sensor values and commands
     - automatically adds .py to robot filename if needed
-    - falls back to :memory: database if unable to open file
+    - falls back to :memory: database if unable to open db file
     - log messages in testmode when using qt4 view
     - made POSition sensor scale same as PING sensor
     - fixed editor backspace between left edge and start of text
