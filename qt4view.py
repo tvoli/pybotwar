@@ -300,6 +300,9 @@ class MainWindow(QtGui.QMainWindow):
         tick = str(game.rnd)
         window.tick.setText(tick)
 
+        health = int(model.health)
+        window.health.setValue(health)
+
         pos = body.position
         x, y = int(pos.x), int(pos.y)
         window.posx.setValue(x)

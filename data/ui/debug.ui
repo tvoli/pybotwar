@@ -63,7 +63,7 @@
       </widget>
      </item>
      <item row="1" column="1">
-      <widget class="QProgressBar" name="progressBar_2">
+      <widget class="QProgressBar" name="health">
        <property name="value">
         <number>100</number>
        </property>
