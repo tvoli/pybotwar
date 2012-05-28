@@ -6,12 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>569</width>
-    <height>357</height>
+    <width>635</width>
+    <height>383</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Choose Combatants</string>
+   <string>TITLE HERE</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -104,6 +104,9 @@
      </layout>
     </item>
     <item>
+     <layout class="QVBoxLayout" name="additional"/>
+    </item>
+    <item>
      <layout class="QHBoxLayout" name="horizontalLayout_2">
       <item>
        <spacer name="horizontalSpacer">
@@ -135,7 +138,7 @@
       <item>
        <widget class="QPushButton" name="startbutton">
         <property name="text">
-         <string>Start Battle</string>
+         <string>TITLE HERE</string>
         </property>
        </widget>
       </item>
@@ -215,7 +218,7 @@
    <sender>savebutton</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
-   <slot>savebattle()</slot>
+   <slot>save()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>427</x>
@@ -231,7 +234,7 @@
    <sender>startbutton</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
-   <slot>startbattle()</slot>
+   <slot>start()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>519</x>
@@ -279,7 +282,7 @@
    <sender>loadbutton</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
-   <slot>loadbattle()</slot>
+   <slot>load()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>283</x>
@@ -296,8 +299,8 @@
   <slot>addrobot()</slot>
   <slot>removerobot()</slot>
   <slot>removeall()</slot>
-  <slot>savebattle()</slot>
-  <slot>startbattle()</slot>
-  <slot>loadbattle()</slot>
+  <slot>save()</slot>
+  <slot>start()</slot>
+  <slot>load()</slot>
  </slots>
 </ui>

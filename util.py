@@ -1,5 +1,7 @@
 import os
 
+from PyQt4 import QtCore, QtSvg
+
 def makeconf():
     'create an empty conf file'
 
@@ -53,3 +55,27 @@ def get_robot_dirs():
             conf.robot_dirs.insert(0, str(d))
 
     return conf.robot_dirs
+    
+    
+class SvgRenderer(object):
+    'factory for svg renderer objects'
+
+    def __init__(self, app):
+        self.app = app
+
+    def getrend(self, filepath=None):
+        '''return a handle to the shared SVG renderer
+            for the given svg file.
+
+        If no filepath is given, return the renderer for
+            the default svg file.
+
+        '''
+        if filepath is None:
+            datadir = 'data'
+            filename = 'robot.svg'
+            filepath = os.path.join(datadir, 'images', filename)
+        fp = QtCore.QString(filepath)
+        rend = QtSvg.QSvgRenderer(fp, self.app)
+        return rend
+

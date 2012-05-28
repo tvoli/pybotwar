@@ -26,19 +26,13 @@ logger = logging.getLogger('PybotwarLogger')
 
 from PyQt4 import QtCore, QtGui, QtSvg, uic
 from editor import TextEditor
-from combatants import CombatantsEditor
+from combatants import BattleEditor, TournamentEditor
 
 import util
 import stats
+from about import AboutDialog
 import conf
 
-
-def getrend(app):
-    filename = 'robot.svg'
-    filepath = os.path.join('data/images', filename)
-    fp = QtCore.QString(filepath)
-    rend = QtSvg.QSvgRenderer(fp, app)
-    return rend
 
 uidir = 'data/ui'
 uifile = 'mainwindow.ui'
@@ -218,11 +212,12 @@ class MainWindow(QtGui.QMainWindow):
         te.show()
 
     def newBattle(self):
-        self.com = CombatantsEditor(self)
+        self.com = BattleEditor(self)
         self.com.show()
 
     def newTournament(self):
-        self.notImplementedYet()
+        self.tournament = TournamentEditor(self)
+        self.tournament.show()
 
     def deleteLayoutItems(self, layout):
         if layout is not None:
@@ -263,7 +258,7 @@ class MainWindow(QtGui.QMainWindow):
         QtGui.QDesktopServices().openUrl(QtCore.QUrl(conf.help_url))
 
     def about(self):
-        AboutDialog().exec_()
+        AboutDialog(self.app).exec_()
 
     def setup_settings(self):
         rdirs = util.get_robot_dirs()
@@ -393,14 +388,6 @@ class NotImplementedYet(QtGui.QDialog):
 
     def reject(self):
         QtGui.QDialog.reject(self)
-
-
-class AboutDialog(QtGui.QDialog):
-    def __init__(self):
-        QtGui.QDialog.__init__(self)
-        uifile = 'about.ui'
-        uipath = os.path.join(uidir, uifile)
-        uic.loadUi(uipath, self)
 
 
 class Scene(QtGui.QGraphicsScene):
@@ -654,7 +641,8 @@ class Explosion(GraphicsItem):
 
 class Arena(object):
     def setrend(self):
-        self.rend = getrend(self.app)
+        svgrf = util.SvgRenderer(self.app)
+        self.rend = svgrf.getrend()
 
     def addrobot(self, pos, ang):
         v = Robot(pos, ang, self.rend)
@@ -687,7 +675,8 @@ class Arena(object):
 
 class Splash(QtGui.QSplashScreen):
     def __init__(self, app):
-        rend = getrend(app)
+        svgrf = util.SvgRenderer(app)
+        rend = svgrf.getrend()
         img = QtGui.QPixmap(500, 250)
         img.fill(QtCore.Qt.transparent)
         self.img = img
@@ -712,4 +701,7 @@ def run(testmode):
 
 
 if __name__ == "__main__":
-    run()
+    import viewselect
+    viewselect.select_view_module('pyqt')
+    run(False)
+    

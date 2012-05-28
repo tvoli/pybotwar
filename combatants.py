@@ -39,6 +39,7 @@ class CombatantsEditor(QtGui.QMainWindow):
         CEClass, _ = uic.loadUiType(uipath)
         self.ui = CEClass()
         self.ui.setupUi(self)
+        self.setWindowTitle('Start Battle')
         self.show_selected()
         self.show_available()
         self.setup_lineups_dir()
@@ -93,36 +94,42 @@ class CombatantsEditor(QtGui.QMainWindow):
             self.removerobot()
 
     def setup_lineups_dir(self):
-        pfdir = self.parent._fdir
-        fdir = os.path.join(pfdir, conf.lineups)
-        if not os.path.exists(fdir):
-            os.mkdir(fdir)
-        self._fdir = fdir
+        rdirs = util.get_robot_dirs()
+        rdir = str(QtCore.QString(os.path.abspath(rdirs[0])))
+        ldir = os.path.join(rdir, conf.lineups)
+        if not os.path.exists(ldir):
+            os.mkdir(ldir)
+        self._fdir = ldir
 
-    def savebattle(self):
+    def save(self):
         robots = self.getselected()
+
         filepath = QtGui.QFileDialog.getSaveFileName(self, 'Save Battle Lineup As', self._fdir)
         if not filepath:
             return
 
-        lineup = file(filepath, 'w')
+        f = file(filepath, 'w')
         for name in robots:
-            lineup.write(name)
-            lineup.write('\n')
-        lineup.close()
+            f.write(name)
+            f.write('\n')
 
-    def loadbattle(self):
+        return f
+
+    def load(self):
         available = self.ui.availablerobots
         fdir = QtCore.QString(os.path.abspath(conf.lineups))
         fp = QtGui.QFileDialog.getOpenFileName(self, 'Open Battle Lineup', self._fdir)
         if fp:
             self.removeall()
-            lineup = file(fp)
+            f = file(fp)
 
             items = []
             not_available = []
-            for line in lineup:
+            for line in f:
                 name = line.strip()
+                if name.startswith('NBATTLES'):
+                    self.set_nbattles(name)
+                    continue
                 found = available.findItems(name, QtCore.Qt.MatchExactly)
                 if not found:
                     not_available.append(name)
@@ -131,13 +138,16 @@ class CombatantsEditor(QtGui.QMainWindow):
                     items.append(item)
 
             if not_available:
-                text = 'Robot code not found:\n'
-                lines = '\n'.join(not_available)
-                warn = QtGui.QMessageBox.warning(self, 'Not Found', text+lines)
+                self.robots_not_found(not_available)
             else:
                 for item in items:
                     available.setItemSelected(item, True)
                     self.addrobot()
+
+    def robots_not_found(self, not_available):
+        text = 'Robot code not found:\n'
+        lines = '\n'.join(not_available)
+        warn = QtGui.QMessageBox.warning(self, 'Not Found', text+lines)
 
     def getselected(self):
         selected = self.ui.selectedrobots
@@ -148,10 +158,50 @@ class CombatantsEditor(QtGui.QMainWindow):
             robots.append(name)
         return robots
 
-    def startbattle(self):
+    def start(self):
         robots = self.getselected()
         conf.robots = robots
         self.parent.restart()
         self.parent.paused = True
         self.close()
         self.parent.startBattle()
+
+
+class BattleEditor(CombatantsEditor):
+    def __init__(self, parent):
+        CombatantsEditor.__init__(self, parent)
+        self.setWindowTitle('Start Battle')
+        self.ui.startbutton.setText('Start Battle')
+
+    def save(self):
+        f = CombatantsEditor.save(self)
+        if f:
+            f.close()
+
+    def set_nbattles(self, line):
+        pass
+
+class TournamentEditor(CombatantsEditor):
+    def __init__(self, parent):
+        CombatantsEditor.__init__(self, parent)
+        self.setWindowTitle('Start Tournament')
+        self.ui.startbutton.setText('Start Tournament')
+
+        nbattles_layout = QtGui.QHBoxLayout()
+        nbattles_layout.insertStretch(0, 0)
+        nbattles_layout.addWidget(QtGui.QLabel('Number of battles'))
+        self.nbattles = QtGui.QSpinBox(self)
+        self.nbattles.setMinimum(1)
+        nbattles_layout.addWidget(self.nbattles)
+        self.ui.additional.addLayout(nbattles_layout)
+
+    def save(self):
+        f = CombatantsEditor.save(self)
+        if f:
+            f.write('NBATTLES %s\n' % self.nbattles.value())
+            f.close()
+
+    def set_nbattles(self, line):
+        _, n = line.split()
+        self.nbattles.setValue(int(n))
+        
