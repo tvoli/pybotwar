@@ -28,7 +28,7 @@
     </spacer>
    </item>
    <item>
-    <widget class="QLabel" name="label">
+    <widget class="QLabel" name="splasharea">
      <property name="text">
       <string/>
      </property>
@@ -54,14 +54,14 @@
     </spacer>
    </item>
    <item>
-    <widget class="QLabel" name="label_2">
+    <widget class="QLabel" name="progtitle">
      <property name="font">
       <font>
        <pointsize>16</pointsize>
       </font>
      </property>
      <property name="text">
-      <string>pybotwar 0.7</string>
+      <string>pybotwar</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
