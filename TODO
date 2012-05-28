@@ -14,3 +14,6 @@ may be pinging own bullets?
 
 qt4view
     allow external editor
+    db statistics
+    tournaments
+    timer not updated correctly when using STEP
