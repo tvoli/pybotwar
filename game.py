@@ -252,6 +252,10 @@ class Game(object):
 
     def finish(self):
         print 'FINISHING'
+        if hasattr(self, '_FINISHED'):
+            print 'ALREADY FINISHED'
+            return
+        self._FINISHED = True
 
         models = self.models
         testmode = self.testmode
@@ -302,6 +306,7 @@ class Game(object):
                                 model._damage_caused)
 
             if tournament is not None:
-                stats.tournament_update(tournament, model.kind, model.name, win,
-                                                nrobots-1, model._kills,
-                                                model._damage_caused)
+                stats.tournament_update(tournament,
+                                            model.kind, model.name, win,
+                                            nrobots-1, model._kills,
+                                            model._damage_caused)

@@ -67,7 +67,7 @@
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_2">
          <item>
-          <layout class="QVBoxLayout" name="verticalLayout">
+          <layout class="QVBoxLayout" name="rightsidelayout">
            <item>
             <widget class="QLabel" name="label">
              <property name="maximumSize">
@@ -149,6 +149,59 @@
            </item>
           </layout>
          </item>
+         <item>
+          <widget class="QFrame" name="nbattles_frame">
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>75</height>
+            </size>
+           </property>
+           <property name="frameShape">
+            <enum>QFrame::StyledPanel</enum>
+           </property>
+           <property name="frameShadow">
+            <enum>QFrame::Raised</enum>
+           </property>
+           <widget class="QLabel" name="label_3">
+            <property name="geometry">
+             <rect>
+              <x>10</x>
+              <y>30</y>
+              <width>161</width>
+              <height>20</height>
+             </rect>
+            </property>
+            <property name="font">
+             <font>
+              <pointsize>16</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>Battles:</string>
+            </property>
+           </widget>
+           <widget class="QLCDNumber" name="nbattles">
+            <property name="geometry">
+             <rect>
+              <x>190</x>
+              <y>10</y>
+              <width>81</width>
+              <height>51</height>
+             </rect>
+            </property>
+            <property name="frameShape">
+             <enum>QFrame::NoFrame</enum>
+            </property>
+            <property name="numDigits">
+             <number>2</number>
+            </property>
+            <property name="segmentStyle">
+             <enum>QLCDNumber::Flat</enum>
+            </property>
+           </widget>
+          </widget>
+         </item>
         </layout>
        </widget>
       </item>
@@ -162,7 +215,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>20</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">

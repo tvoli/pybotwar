@@ -45,10 +45,12 @@ class MainWindow(QtGui.QMainWindow):
         self.app = app
         self.testmode = testmode
         self.paused = False
+        self._tournament = None
 
         QtGui.QMainWindow.__init__(self)
         self.ui = MWClass()
         self.ui.setupUi(self)
+        self.ui.nbattles_frame.hide()
 
         self.scene = Scene()
         view = self.ui.arenaview
@@ -130,15 +132,29 @@ class MainWindow(QtGui.QMainWindow):
             if self.debug_robot is not None:
                 self.update_debug_robot()
 
-        if not self.game.rnd % 60:
-            remaining = conf.maxtime - (self.game.rnd / 60)
-            self.ui.countdown.display(remaining)
+            if not self.game.rnd % 60:
+                remaining = conf.maxtime - (self.game.rnd / 60)
+                self.ui.countdown.display(remaining)
 
-        if self.game.rnd > 60 * conf.maxtime:
-            self.closeEvent()
+            if (self.game.rnd > 60 * conf.maxtime or
+                    len(self.game.procs) <= 1):
+                self.battle_over()
 
-        if len(self.game.procs) <= 1:
-            self.closeEvent()
+    def battle_over(self):
+        self.pauseBattle(True)
+        self.game.finish()
+        if self._tournament:
+            if self._tournament_battles >= 1:
+                self._tournament_battles -= 1
+
+            if self._tournament_battles:
+                self.ui.nbattles.display(self._tournament_battles)
+                self.restart()
+                self.paused = True
+                self.startBattle()
+            else:
+                self.ui.nbattles_frame.hide()
+                self._tournament = None
 
     def test(self):
         self.scene.r.set_rotation(self.rot)
@@ -220,6 +236,17 @@ class MainWindow(QtGui.QMainWindow):
     def newTournament(self):
         self.tournament = TournamentEditor(self)
         self.tournament.show()
+
+    def run_tournament(self, nbattles):
+        import datetime
+        dt = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        self._tournament = dt
+        self._tournament_battles = nbattles
+        self.ui.nbattles.display(nbattles)
+        self.ui.nbattles_frame.show()
+        self.restart()
+        self.paused = True
+        self.startBattle()
 
     def deleteLayoutItems(self, layout):
         if layout is not None:

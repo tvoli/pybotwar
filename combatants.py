@@ -158,14 +158,6 @@ class CombatantsEditor(QtGui.QMainWindow):
             robots.append(name)
         return robots
 
-    def start(self):
-        robots = self.getselected()
-        conf.robots = robots
-        self.parent.restart()
-        self.parent.paused = True
-        self.close()
-        self.parent.startBattle()
-
 
 class BattleEditor(CombatantsEditor):
     def __init__(self, parent):
@@ -180,6 +172,15 @@ class BattleEditor(CombatantsEditor):
 
     def set_nbattles(self, line):
         pass
+
+    def start(self):
+        robots = self.getselected()
+        conf.robots = robots
+        self.parent.restart()
+        self.parent.paused = True
+        self.close()
+        self.parent.startBattle()
+
 
 class TournamentEditor(CombatantsEditor):
     def __init__(self, parent):
@@ -204,4 +205,10 @@ class TournamentEditor(CombatantsEditor):
     def set_nbattles(self, line):
         _, n = line.split()
         self.nbattles.setValue(int(n))
-        
+
+    def start(self):
+        robots = self.getselected()
+        conf.robots = robots
+        self.parent.run_tournament(self.nbattles.value())
+        self.close()
+
