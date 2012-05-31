@@ -144,6 +144,8 @@ class MainWindow(QtGui.QMainWindow):
     def battle_over(self):
         self.pauseBattle(True)
         self.game.finish()
+        self.sw = StatsWindow()
+        self.sw.show()
         if self._tournament:
             if self._tournament_battles >= 1:
                 self._tournament_battles -= 1
@@ -732,6 +734,67 @@ class Splash(QtGui.QSplashScreen):
         self.setMask(img.mask())
 
 
+class StatsWindow(QtGui.QDialog):
+    def __init__(self):
+        QtGui.QDialog.__init__(self)
+        self.setWindowTitle('Robot Stats')
+        layout = QtGui.QVBoxLayout()
+        self.setLayout(layout)
+
+        cur_stats = stats.get_stats()
+        l = len(cur_stats)
+        w = len(cur_stats[0]) - 1
+
+        headers = [
+            'fingerprint',
+            'matches',
+            'wins',
+            'win pct',
+            'opponents',
+            'kills',
+            'kill pct',
+            'damage caused']
+
+        tbl = QtGui.QTableWidget(l, w)
+        hheader = tbl.horizontalHeader()
+        self.tbl = tbl
+        hheader.sectionClicked.connect(self.onHeaderClick)
+
+        columnitems = {}
+        self.columnitems = columnitems
+        for cn, header in enumerate(headers):
+            item = QtGui.QTableWidgetItem(header)
+            tbl.setHorizontalHeaderItem(cn, item)
+            columnitems[item] = cn
+            
+        for rn, row in enumerate(cur_stats):
+            for cn, i in enumerate(row):
+                item = QtGui.QTableWidgetItem()
+
+                try:
+                    int(str(i))
+                    item.setData(0, i)
+                except ValueError:
+                    try:
+                        float(str(i))
+                        i = round(i, 3)
+                        item.setData(0, i)
+                        label = QtGui.QLabel('%.3f' % i)
+                        label.setStyleSheet("QLabel { background-color : white; color: black}")
+                        tbl.setCellWidget(rn, cn-1, label)
+                    except ValueError:
+                        item = QtGui.QTableWidgetItem(i)
+                        item.setData(0, i)
+
+                if cn == 0:
+                    tbl.setVerticalHeaderItem(rn, item)
+                else:
+                    tbl.setItem(rn, cn-1, item)
+
+        layout.addWidget(tbl)
+
+    def onHeaderClick(self, col):
+        self.tbl.sortItems(col, QtCore.Qt.DescendingOrder)
 
 def run(testmode):
     app = QtGui.QApplication(sys.argv)

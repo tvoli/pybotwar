@@ -377,12 +377,37 @@ def top10():
     len_dmg = max(len(str(l[6])) for n, l in er)
 
     for n, line in er:
-        print '{0:2} :: {1:{len_name}} : {2:{len_wins}} wins : {3:{len_def}} defeated : {4:{len_dmg}} dmg caused'.format(
-            n+1, line[0], line[3], line[5], line[6],
+        wpct = round(float(line[3]) / line[2], 3)
+        opct = round(float(line[5]) / line[4], 3)
+        print '{0:2} :: {1:{len_name}} : {2:{len_wins}} wins ({5:.3f}) : {3:{len_def}} defeated ({6:.3f}) : {4:{len_dmg}} dmg caused'.format(
+            n+1, line[0], line[3], line[5], line[6], wpct, opct,
             len_name = len_name,
             len_wins = len_wins,
             len_def = len_def,
             len_dmg = len_dmg)
+
+def get_stats(sort='wpct'):
+    q = '''
+    SELECT
+        program_name,
+        fingerprint,
+        matches,
+        wins,
+        CAST(wins AS REAL)/matches AS wpct,
+        opponents,
+        kills,
+        CAST(kills AS REAL)/opponents opct,
+        damage_caused
+
+    FROM stats
+    ORDER BY %s DESC
+    ''' % sort
+
+    c.execute(q, locals())
+    results = c.fetchall()
+
+    return results
+
 
 
 if __name__ == '__main__':
