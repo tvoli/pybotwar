@@ -13,6 +13,6 @@ may be pinging own bullets?
 
 
 qt4view
+    settings dialog for all available settings
     allow external editor
     db statistics
-    tournaments
