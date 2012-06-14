@@ -42,6 +42,8 @@ graphical_display = True
 
 
 # Physics
+pybox2d_version = '2.0.2b2'
+
 ## robot
 maxforce = 5
 maxtorque = 15

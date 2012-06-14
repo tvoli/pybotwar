@@ -33,6 +33,9 @@ except ImportError:
 import util
 import viewselect
 
+import pkg_resources
+pkg_resources.require('Box2D==%s'%conf.pybox2d_version)
+
 
 def setup_logging(level='info'):
     import logging
