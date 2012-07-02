@@ -10,7 +10,7 @@ debug mode (show sensors and actions)
 other game types (race, find/collect objects, maze)
 document how to write robot programs
 may be pinging own bullets?
-
+robots continue to target dead robots when remove_dead_robots=False
 
 qt4view
     settings dialog for all available settings
