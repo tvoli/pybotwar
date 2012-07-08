@@ -66,6 +66,8 @@ unloaded_fire_reload_penalty = 0 # ticks
 
 ## turret
 turret_maxMotorTorque = 10.0
+turret_maxMotorSpeed = 1 # radian / second
+turret_gain = 0.5
 
 
 ## bullet

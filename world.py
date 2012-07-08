@@ -18,6 +18,7 @@
 
 
 import random
+from math import copysign
 
 import Box2D as box2d
 pi = 3.1415927410125732
@@ -130,8 +131,12 @@ class Robot(object):
     def turretcontrol(self):
         joint = self.turretjoint
         angleError = joint.GetJointAngle() - self._turretangletarget
-        gain = 0.5
-        joint.SetMotorSpeed(-gain * angleError)
+        desired_speed = -conf.turret_gain * angleError
+        target_speed = copysign(min(abs(desired_speed),
+                                    conf.turret_maxMotorSpeed),
+                                desired_speed)
+        joint.SetMotorSpeed(target_speed)
+
 
 
 class Bullet(object):
