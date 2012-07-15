@@ -4,6 +4,7 @@ class TheRobot(Robot):
     def initialize(self):
         # Will be called once, immediately after robot is created
         # Must finish in less than 1 second
+        pass
 
 
 
@@ -14,4 +15,4 @@ class TheRobot(Robot):
         # sensors are available as the self.sensors dictionary
         #
         # use robot.Robot class methods to control
-
+        pass
