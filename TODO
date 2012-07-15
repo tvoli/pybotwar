@@ -11,6 +11,7 @@ other game types (race, find/collect objects, maze)
 document how to write robot programs
 may be pinging own bullets?
 robots continue to target dead robots when remove_dead_robots=False
+after tournament show only tournament results, not top10
 
 qt4view
     settings dialog for all available settings

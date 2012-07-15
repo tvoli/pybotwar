@@ -26,6 +26,8 @@ from util import defaultNonedict
 
 import conf
 
+util.setup_conf()
+
 
 _overtime_count = 0
 
@@ -122,9 +124,7 @@ def communicate(r):
 
 def robot_logfile(robotname):
     logfilename = '%s.log' % robotname
-    rdirs = util.get_robot_dirs()
-    robotsdir = rdirs[0]
-    logdir = os.path.join(robotsdir, conf.logdir)
+    logdir = os.path.join(conf.base_dir, conf.logdir)
     try:
         if not os.path.exists(logdir):
             os.mkdir(logdir)
@@ -132,6 +132,7 @@ def robot_logfile(robotname):
         logfile = open(logfilepath, 'a')
     except (IOError, OSError):
         logfile = None
+    logfile.write('Begin logging for %s.\n' % robotname)
     return logfile
 
 def start_logging(robot):
@@ -142,7 +143,7 @@ def stop_logging(robot):
     robot.logfile = None
 
 
-def build_robot(modname, robotname, testmode, rbox):
+def build_robot(modname, rfile, robotname, testmode, rbox):
 
     if testmode:
         logfile = robot_logfile(robotname)
@@ -150,7 +151,8 @@ def build_robot(modname, robotname, testmode, rbox):
         logfile = None
 
     try:
-        mod = __import__(modname)
+        import imp
+        mod = imp.load_source(modname, rfile)
         r = mod.TheRobot(robotname)
 
         r.logfile = logfile
@@ -177,22 +179,20 @@ def build_robot(modname, robotname, testmode, rbox):
 
 
 if __name__ == '__main__':
-    rdirs = util.get_robot_dirs()
     import sys
-    for d in rdirs:
-        sys.path.append(d)
 
-    if len(sys.argv) != 4:
+    if len(sys.argv) != 5:
         raise SystemExit
     else:
         modname = sys.argv[1]
-        robotname = sys.argv[2]
-        testmode = bool(int(sys.argv[3]))
+        rfile = sys.argv[2]
+        robotname = sys.argv[3]
+        testmode = bool(int(sys.argv[4]))
 
         timeout = conf.init_timeout
 
         rbox = [] # Store the robot here to pass it back from the thread
-        user_thread = Thread(target=build_robot, args=(modname, robotname, testmode, rbox))
+        user_thread = Thread(target=build_robot, args=(modname, rfile, robotname, testmode, rbox))
         user_thread.start()
 
         user_thread.join(timeout)

@@ -21,6 +21,7 @@ import subprocess
 from subprocess import PIPE
 import time
 import random
+import os
 
 import logging
 logger = logging.getLogger('PybotwarLogger')
@@ -32,6 +33,7 @@ import world
 from world import box2d
 
 import stats
+import util
 import conf
 
 
@@ -53,6 +55,10 @@ class Game(object):
 
     def run(self):
         self.load_robots()
+        if not self.nrobots:
+            self.finish()
+            return
+
         while ((self.testmode and not self.tournament)
                     or len(self.procs) > 1) and not self.w.v.quit:
             if self.rnd > 60 * conf.maxtime:
@@ -60,28 +66,41 @@ class Game(object):
             self.tick()
         self.finish()
 
+    def robot_module_file(self, robot):
+        for d in util.get_robot_dirs():
+            fname = '%s.py' % robot
+            fpath = os.path.join(d, fname)
+            if os.path.exists(fpath):
+                return os.path.abspath(fpath)
+        return None
+
     def load_robots(self):
         robots = conf.robots
         for robot in robots:
             robotname = robot
             while robotname in self.w.robots:
                 robotname += '_'
-            print 'STARTING', robotname,
+            rfile = self.robot_module_file(robot)
+            if rfile is None:
+                continue
+            print 'STARTING', robotname, rfile
             proc = subprocess.Popen([conf.subproc_python,
                                         conf.subproc_main,
-                                        robot, robotname,
+                                        robot, rfile, robotname,
                                         str(int(self.testmode))],
                                         stdin=PIPE, stdout=PIPE)
             result = proc.stdout.readline().strip()
 
-            if result in ['ERROR', 'END']:
-                print 'ERROR!'
-            else:
+            if result == 'START':
                 print 'STARTED'
                 model = self.w.makerobot(robot, robotname)
                 self.models[robotname] = model
                 self.procs[robotname] = proc
                 self.timeouts[robotname] = 0
+            elif result in ['ERROR', 'END']:
+                print 'ERROR!'
+            else:
+                print 'FAIL'
 
         self.nrobots = len(self.models)
         self.t0 = int(time.time())

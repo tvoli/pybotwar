@@ -28,6 +28,7 @@ logger = logging.getLogger('PybotwarLogger')
 from PyQt4 import QtCore, QtGui, QtSvg, uic
 from editor import TextEditor
 from combatants import BattleEditor, TournamentEditor
+from settings import Settings
 
 import util
 import stats
@@ -190,17 +191,14 @@ class MainWindow(QtGui.QMainWindow):
         self.niy.show()
 
     def configure(self):
-        cd = TextEditor(self)
-        self.editors.append(cd)
-        cd.openfile('conf.py')
-        cd.show()
+        self.sui = Settings()
+        self.sui.show()
 
     def loadRobot(self, efdir=None):
         if efdir is not None:
             fdir = efdir
         elif self._fdir is None:
-            rdirs = util.get_robot_dirs()
-            fdir = QtCore.QString(os.path.abspath(rdirs[0]))
+            fdir = QtCore.QString(os.path.abspath(conf.base_dir))
         else:
             fdir = self._fdir
 
@@ -282,10 +280,6 @@ class MainWindow(QtGui.QMainWindow):
         self.singleStep()
         self.pauseBattle(paused)
 
-    def settings(self):
-        self.sui = Settings()
-        self.sui.show()
-
     def help(self):
         QtGui.QDesktopServices().openUrl(QtCore.QUrl(conf.help_url))
 
@@ -293,9 +287,7 @@ class MainWindow(QtGui.QMainWindow):
         AboutDialog(self.app).exec_()
 
     def setup_settings(self):
-        rdirs = util.get_robot_dirs()
-        d = rdirs[0]
-        self._fdir = d
+        self._fdir = conf.base_dir
 
     def enable_debug(self):
         if self.ui.actionEnableDebug.isChecked():
@@ -380,47 +372,6 @@ class RDebug(QtGui.QDialog):
         uipath = os.path.join(uidir, uifile)
         uic.loadUi(uipath, self)
         self.rname.setText(rname)
-
-class Settings(QtGui.QDialog):
-    def __init__(self):
-        QtGui.QDialog.__init__(self)
-        uifile = 'settings.ui'
-        uipath = os.path.join(uidir, uifile)
-        uic.loadUi(uipath, self)
-
-        settings = QtCore.QSettings()
-        self.settings = settings
-        d = settings.value('pybotwar/robotdir', self.robotdir.text()).toString()
-
-        self.robotdir.setText(d)
-
-    def browse(self):
-        d = QtGui.QFileDialog.getExistingDirectory(
-                self,
-                'Set Robot dir',
-                self.robotdir.text())
-        self.robotdir.setText(d)
-
-    def accept(self):
-        d = self.robotdir.text()
-        settings = QtCore.QSettings()
-        settings.setValue('pybotwar/robotdir', d)
-        if d and d not in conf.robot_dirs:
-            conf.robot_dirs.insert(0, str(d))
-
-        stats.dbclose(restart=True)
-        if not stats.dbcheck():
-            QtGui.QMessageBox.warning(self, 'DB Version Mismatch', 'Database version mismatch.\n\nUpgrade database with -D switch.')
-            conf.robot_dirs.pop(0)
-            settings.remove('pybotwar/robotdir')
-            stats.dbclose(restart=True)
-            stats.dbcheck()
-        stats.dbopen()
-
-        QtGui.QDialog.accept(self)
-
-    def reject(self):
-        QtGui.QDialog.reject(self)
 
 
 class NotImplementedYet(QtGui.QDialog):
@@ -645,24 +596,31 @@ class Explosion(GraphicsItem):
         self.pos = tl(pos)
         self.ang = 0
         self.scale = 1
-        self.cx, self.cy = 45, 45
+        sizes = conf.explosion_radii
+
+        maxsize = 15. * sizes[2]
+        c = maxsize
+        self.cx, self.cy = c, c
 
         GraphicsItem.__init__(self)
 
-        self.item0 = scene.addEllipse(0, 0, 90, 90)
+        s = 15. * sizes[2]
+        self.item0 = scene.addEllipse(c-s, c-s, 2*s, 2*s)
         self.item0.setParentItem(self)
         color = QtGui.QColor(250, 200, 0)
         brush = QtGui.QBrush(color)
         self.item0.setBrush(brush)
 
-        self.item1 = scene.addEllipse(15, 15, 60, 60)
+        s = 15. * sizes[1]
+        self.item1 = scene.addEllipse(c-s, c-s, 2*s, 2*s)
         self.item1.setParentItem(self)
         color = QtGui.QColor(200, 100, 100)
         brush = QtGui.QBrush(color)
         self.item1.setBrush(brush)
         self.item1.setParentItem(self.item0)
 
-        self.item2 = scene.addEllipse(30, 30, 30, 30)
+        s = 15. * sizes[0]
+        self.item2 = scene.addEllipse(c-s, c-s, 2*s, 2*s)
         self.item2.setParentItem(self)
         color = QtGui.QColor(200, 50, 50)
         brush = QtGui.QBrush(color)

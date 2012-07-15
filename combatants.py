@@ -51,8 +51,7 @@ class CombatantsEditor(QtGui.QMainWindow):
         for d in rdirs:
             g = '%s/*.py' % d
             found = glob.glob(g)
-            if conf.template in found:
-                found.remove(conf.template)
+            found = [f for f in found if conf.template not in f]
             robotpaths.update(found)
 
         for robotpath in robotpaths:
@@ -61,11 +60,19 @@ class CombatantsEditor(QtGui.QMainWindow):
             if not available.findItems(robotname, QtCore.Qt.MatchExactly):
                 item = QtGui.QListWidgetItem(robotname, available)
 
+    def is_available(self, robotname):
+        for d in util.get_robot_dirs():
+            fname = '%s.py' % robotname
+            fpath = os.path.join(d, fname)
+            if os.path.exists(fpath):
+                return True
+        return False
 
     def show_selected(self):
         selected = self.ui.selectedrobots
         for robotname in conf.robots:
-            item = QtGui.QListWidgetItem(robotname, selected)
+            if self.is_available(robotname):
+                item = QtGui.QListWidgetItem(robotname, selected)
 
     def addrobot(self):
         available = self.ui.availablerobots
@@ -93,9 +100,7 @@ class CombatantsEditor(QtGui.QMainWindow):
             self.removerobot()
 
     def setup_lineups_dir(self):
-        rdirs = util.get_robot_dirs()
-        rdir = str(QtCore.QString(os.path.abspath(rdirs[0])))
-        ldir = os.path.join(rdir, conf.lineups)
+        ldir = os.path.join(conf.base_dir, conf.lineups)
         if not os.path.exists(ldir):
             os.mkdir(ldir)
         self._fdir = ldir
@@ -157,6 +162,11 @@ class CombatantsEditor(QtGui.QMainWindow):
             robots.append(name)
         return robots
 
+    def save_to_settings(self, robots):
+        if conf.use_qt_settings:
+            import settings
+            settings.save_robots(robots)
+
 
 class BattleEditor(CombatantsEditor):
     def __init__(self, parent):
@@ -175,6 +185,7 @@ class BattleEditor(CombatantsEditor):
     def start(self):
         robots = self.getselected()
         conf.robots = robots
+        self.save_to_settings(robots)
         self.parent.restart()
         self.parent.paused = True
         self.close()
@@ -208,6 +219,7 @@ class TournamentEditor(CombatantsEditor):
     def start(self):
         robots = self.getselected()
         conf.robots = robots
+        self.save_to_settings(robots)
         self.parent.run_tournament(self.nbattles.value())
         self.close()
 

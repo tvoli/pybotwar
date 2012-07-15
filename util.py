@@ -19,7 +19,6 @@
 
 import os
 
-from PyQt4 import QtCore, QtSvg
 
 def makeconf():
     'create an empty conf file'
@@ -56,25 +55,30 @@ class defaultNonedict(defaultdict):
 
 def get_robot_dirs():
     import conf
-    try:
-        from PyQt4 import QtCore
-        useQtSettings = True
-    except ImportError:
-        useQtSettings = False
 
-    if useQtSettings:
-        QtCore.QCoreApplication.setOrganizationName('pybotwar.googlecode.com')
-        QtCore.QCoreApplication.setOrganizationDomain('pybotwar.googlecode.com')
-        QtCore.QCoreApplication.setApplicationName('pybotwar')
-        settings = QtCore.QSettings()
-        settings.sync()
+    base = conf.base_dir
+    dirs = [base]
 
-        d = settings.value('pybotwar/robotdir', '').toString()
-        if d and conf.robot_dirs and d != conf.robot_dirs[0]:
-            conf.robot_dirs.insert(0, str(d))
-
-    return conf.robot_dirs
+    for d in conf.more_robot_dirs:
+        if os.path.isabs(d):
+            dirs.append(d)
+        else:
+            dirs.append(os.path.join(base, d))
     
+    return dirs
+
+
+def setup_qt_settings():
+    import settings
+    settings.setup_qt_settings()
+    settings.load_robots()
+
+
+def setup_conf():
+    import conf
+    if conf.use_qt_settings:
+        setup_qt_settings()
+
     
 class SvgRenderer(object):
     'factory for svg renderer objects'
@@ -90,6 +94,9 @@ class SvgRenderer(object):
             the default svg file.
 
         '''
+
+        from PyQt4 import QtCore, QtSvg
+
         if filepath is None:
             datadir = 'data'
             filename = 'robot.svg'

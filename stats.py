@@ -29,15 +29,10 @@ dbversion_reset = dbversion
 
 
 def fullpath():
-    rdirs = util.get_robot_dirs()
-
     if conf.dbfile.startswith('~'):
         fname = os.path.expanduser(conf.dbfile)
-    elif not rdirs:
-        fname = conf.dbfile
     else:
-        fdir = rdirs[0]
-        fname = os.path.join(fdir, conf.dbfile)
+        fname = os.path.join(conf.base_dir, conf.dbfile)
 
     fname = os.path.abspath(fname)
     head, tail = os.path.split(fname)
@@ -55,10 +50,7 @@ def dbopen():
     global conn
     fname = fullpath()
 
-    if not os.path.exists(fname):
-        newdb = True
-    else:
-        newdb = False
+    newdb = not os.path.exists(fname)
 
     try:
         conn = sqlite3.connect(fname)

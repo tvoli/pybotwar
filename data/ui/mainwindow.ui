@@ -231,7 +231,6 @@
      <string>Settings</string>
     </property>
     <addaction name="actionConfigure"/>
-    <addaction name="actionSet_robots_dir"/>
    </widget>
    <widget class="QMenu" name="menuBattle">
     <property name="title">
@@ -557,22 +556,6 @@
     <hint type="destinationlabel">
      <x>438</x>
      <y>392</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>actionSet_robots_dir</sender>
-   <signal>activated()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>settings()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>399</x>
-     <y>279</y>
     </hint>
    </hints>
   </connection>

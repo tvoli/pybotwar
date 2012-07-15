@@ -30,12 +30,41 @@ except ImportError:
 
     raise SystemExit
 
+
 import util
+try:
+    util.setup_conf()
+except ImportError:
+    print 'Trying to use Qt settings per conf.py'
+    print 'but unable to import PyQt4 modules.'
+    print
+    print 'Check PyQt4 installation, or change conf.py'
+    print 'to have use_qt_settings = False'
+
+    raise SystemExit
+
+
 import viewselect
 
-import pkg_resources
-pkg_resources.require('Box2D==%s'%conf.pybox2d_version)
+pybox2d_error = False
+try:
+    import pkg_resources
+    pkg_resources.require('Box2D==%s'%conf.pybox2d_version)
+except ImportError:
+    pass
 
+try:
+    import Box2D
+except ImportError:
+    pybox2d_error = True
+else:
+    if not Box2D.__version__ == conf.pybox2d_version:
+        pybox2d_error = True
+
+if pybox2d_error:
+    print 'Unable to import PyBox2D'
+    print 'requires version', conf.pybox2d_version
+    raise SystemExit
 
 def setup_logging(level='info'):
     import logging
@@ -121,7 +150,6 @@ view = viewselect.get_view_module()
 from game import Game
 
 import world
-from world import box2d
 
 import stats
 
@@ -193,9 +221,7 @@ def runmain():
 
 
     # Clean up log directory if not in test mode
-    rdirs = util.get_robot_dirs()
-    robotsdir = rdirs[0]
-    logdir = os.path.join(robotsdir, conf.logdir)
+    logdir = os.path.join(conf.base_dir, conf.logdir)
 
     if not testmode and os.path.exists(logdir):
         for f in os.listdir(logdir):

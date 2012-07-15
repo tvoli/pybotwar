@@ -1,3 +1,7 @@
+# Settings
+use_qt_settings = True
+
+
 # Robot subprocess
 subproc_python = '/usr/bin/python'
 subproc_main = 'control.py'
@@ -7,7 +11,10 @@ tick_timeout = 0.015
 
 
 # Robot selection
-robot_dirs = ['robots', 'robots/examples'] # In this order, in case of dup name
+base_dir = 'robots' # user robot files generally stored here
+more_robot_dirs = ['examples']  # In order, in case of dup name
+                                # bare names are relative to base_dir
+                                # absolute paths also acceptable
 r1 = 'robot01'
 r2 = 'robot02'
 r3 = 'robot03'
@@ -19,7 +26,7 @@ robots = [r2, r4, r5, r6, r7]
 
 logdir = 'logs' # relative to robot_dirs[0]
 
-template = 'robots/template.py'
+template = 'template.py'
 
 lineups = 'lineups' # relative to robot_dirs[0]
 

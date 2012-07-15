@@ -55,17 +55,18 @@ class TextEditor(QtGui.QMainWindow):
             ev.ignore()
 
     def openfile(self, filepath=None):
+        title = ''
         if filepath is None:
-            filepath = conf.template
+            filepath = os.path.join(conf.base_dir, conf.template)
+            title = 'Untitled'
+            self._fdir = conf.base_dir
         else:
             self._filepath = filepath
 
         filestring = file(filepath).read()
         self.editor.edit.code = filestring
 
-        if filepath is None or filepath==conf.template:
-            title = 'Untitled'
-        else:
+        if not title:
             fdir, title = os.path.split(str(filepath))
             self._fdir = fdir
         self.setWindowTitle(title)
@@ -140,11 +141,8 @@ class TextEditor(QtGui.QMainWindow):
 
     def saveAs(self):
         if self._fdir is None:
-            rdirs = util.get_robot_dirs()
-            fdir = QtCore.QString(os.path.abspath(rdirs[0]))
-            self._fdir = fdir
-        else:
-            fdir = self._fdir
+            self._fdir = conf.base_dir
+        fdir = self._fdir
         filepath = QtGui.QFileDialog.getSaveFileName(self, 'Save Robot As', fdir)
         filepath = str(filepath)
         if filepath:
