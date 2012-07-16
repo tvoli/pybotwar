@@ -135,10 +135,10 @@ class Explosion(Circle):
 
     def paint(self):
         image = self.image
-        x, y = self.radius, self.radius
+        x, y = int(self.radius), int(self.radius)
         r3 = zip(conf.explosion_radii, (RED, ORANGE, YELLOW))
         for r, color in r3:
-            rt = m * r
+            rt = int(m * r)
             pygame.draw.circle(image, color, (x, y), rt, 2)
 
 
