@@ -179,14 +179,22 @@ def runmain():
     if upgrade_db:
         print 'Upgrading Database'
         stats.dbremove()
-        stats.initialize()
+        stats.dbopen()
         return
 
     dbcheck()
 
     stats.dbopen()
 
-    if tournament:
+    global tournament
+    if not pyqtgraphics and not tournament:
+        tournament = True
+        nbattles = 1
+
+    if tournament and pyqtgraphics:
+        print 'When using PyQt interface, run tournaments from GUI.'
+
+    elif tournament:
         import datetime
         dt = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         print 'Beginning tournament with %s battles.' % nbattles

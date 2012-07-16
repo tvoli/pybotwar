@@ -63,6 +63,8 @@ class MainWindow(QtGui.QMainWindow):
         self.start_game()
 
         self.debug_robot = None
+
+        self.run_tournament(1)
         self.singleStep()
 
         self.ticktimer = self.startTimer(17)
@@ -79,7 +81,7 @@ class MainWindow(QtGui.QMainWindow):
     def start_game(self):
         import game
 
-        self.game = game.Game(self.testmode)
+        self.game = game.Game(self.testmode, self._tournament)
         self.game.w.v.scene = self.scene
         self.game.w.v.app = self.app
         self.game.w.v.rinfo = self.ui.rinfo
@@ -92,7 +94,7 @@ class MainWindow(QtGui.QMainWindow):
         self.killTimer(self.ticktimer)
 
         if len(self.game.procs) > 0:
-            self.game.finish()
+            self.game.finish(False)
             stats.dbclose()
 
         doquit = True
@@ -145,7 +147,7 @@ class MainWindow(QtGui.QMainWindow):
     def battle_over(self):
         self.pauseBattle(True)
         self.game.finish()
-        self.sw = StatsWindow()
+        self.sw = StatsWindow(self._tournament)
         self.sw.show()
         if self._tournament:
             if self._tournament_battles >= 1:
@@ -260,12 +262,16 @@ class MainWindow(QtGui.QMainWindow):
                     self.deleteLayoutItems(item.layout())
 
     def restart(self):
+        if self._tournament is None:
+            self.run_tournament(1)
+            return
+
         rinfo = self.ui.rinfo
 
         for name, robot in self.game.w.robots.items():
             robot.v.kill()
 
-        self.game.finish()
+        self.game.finish(False)
         import world
         world.Robot.nrobots = 0
         Robot.nrobots = 0
@@ -693,13 +699,13 @@ class Splash(QtGui.QSplashScreen):
 
 
 class StatsWindow(QtGui.QDialog):
-    def __init__(self):
+    def __init__(self, dt):
         QtGui.QDialog.__init__(self)
-        self.setWindowTitle('Robot Stats')
+        self.setWindowTitle('Results')
         layout = QtGui.QVBoxLayout()
         self.setLayout(layout)
 
-        cur_stats = stats.get_stats()
+        cur_stats = stats.get_tournament_stats(dt, sort='wpct DESC, opct DESC')
         l = len(cur_stats)
         w = len(cur_stats[0]) - 1
 

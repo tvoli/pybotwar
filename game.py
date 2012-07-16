@@ -273,7 +273,7 @@ class Game(object):
         for robotname, model in items:
             model._enable_debug = False
 
-    def finish(self):
+    def finish(self, update_stats=True):
         print 'FINISHING'
         if hasattr(self, '_FINISHED'):
             print 'ALREADY FINISHED'
@@ -324,11 +324,11 @@ class Game(object):
             else:
                 win = 0
 
-            if not testmode:
+            if update_stats and not testmode:
                 stats.update(model.kind, win, nrobots-1, model._kills,
                                 model._damage_caused)
 
-            if tournament is not None:
+            if update_stats and tournament is not None:
                 stats.tournament_update(tournament,
                                             model.kind, model.name, win,
                                             nrobots-1, model._kills,

@@ -24,7 +24,7 @@ import conf
 import util
 
 
-dbversion = 3
+dbversion = 4
 dbversion_reset = dbversion
 
 
@@ -149,7 +149,7 @@ CREATE TABLE dbversion (
     n integer
 );
 
-CREATE TABLE stats (
+CREATE TABLE robot_stats (
     program_name text,
     fingerprint text,
     matches integer,
@@ -208,10 +208,10 @@ def fingerprint(name):
 
     return m.hexdigest()
 
-def exists(name, fp):
+def robot_exists(name, fp):
     q = '''\
     SELECT *
-    FROM stats
+    FROM robot_stats
     WHERE program_name=:name AND
             fingerprint=:fp
     '''
@@ -219,12 +219,36 @@ def exists(name, fp):
     r = c.fetchall()
     return bool(r)
 
+def add_robot(name, fp):
+    q = '''\
+    INSERT INTO robot_stats
+        (program_name,
+            fingerprint,
+            matches,
+            wins,
+            opponents,
+            kills,
+            damage_caused)
+        VALUES
+            (:name,
+                :fp,
+                0,
+                0,
+                0,
+                0,
+                0)
+    '''
+    try:
+        c.execute(q, locals())
+        conn.commit()
+    except sqlite3.OperationalError:
+        conn.rollback()
+
 def update(name, win, opponents, kills, damage_caused):
     fp = fingerprint(name)
-    win = int(win) # turn True/False in to 1/0
-    if exists(name, fp):
+    if robot_exists(name, fp):
         q = '''\
-        UPDATE stats
+        UPDATE robot_stats
         SET matches = matches + 1,
             wins = wins + :win,
             opponents = opponents + :opponents,
@@ -234,35 +258,19 @@ def update(name, win, opponents, kills, damage_caused):
             program_name = :name AND
             fingerprint = :fp
         '''
+        win = int(win) # turn True/False in to 1/0
+        try:
+            c.execute(q, locals())
+            conn.commit()
+        except sqlite3.OperationalError:
+            conn.rollback()
 
     else:
-        q = '''\
-        INSERT INTO stats
-            (program_name,
-                fingerprint,
-                matches,
-                wins,
-                opponents,
-                kills,
-                damage_caused)
-            VALUES
-                (:name,
-                    :fp,
-                    1,
-                    :win,
-                    :opponents,
-                    :kills,
-                    :damage_caused)
-        '''
-    try:
-        c.execute(q, locals())
-        conn.commit()
-    except sqlite3.OperationalError:
-        conn.rollback()
+        add_robot(name, fp)
+        update(name, win, opponents, kills, damage_caused)
 
 
-
-def tournament_exists(tournament, name, fp):
+def tournament_robot_exists(tournament, name, fp):
     q = '''\
     SELECT *
     FROM tournament_stats
@@ -274,10 +282,38 @@ def tournament_exists(tournament, name, fp):
     r = c.fetchall()
     return bool(r)
 
-def tournament_update(tournament, kind, name, win, opponents, kills, damage_caused):
+def add_tournament_robot(tournament, name, fp):
+    q = '''\
+    INSERT INTO tournament_stats
+        (tournament,
+            program_name,
+            fingerprint,
+            matches,
+            wins,
+            opponents,
+            kills,
+            damage_caused)
+        VALUES
+            (:tournament,
+                :name,
+                :fp,
+                0,
+                0,
+                0,
+                0,
+                0)
+    '''
+    try:
+        c.execute(q, locals())
+        conn.commit()
+    except sqlite3.OperationalError:
+        conn.rollback()
+
+def tournament_update(tournament, kind, name, win, opponents, kills,
+                                                        damage_caused):
     fp = fingerprint(kind)
     win = int(win) # turn True/False in to 1/0
-    if tournament_exists(tournament, name, fp):
+    if tournament_robot_exists(tournament, name, fp):
         q = '''\
         UPDATE tournament_stats
         SET matches = matches + 1,
@@ -290,33 +326,15 @@ def tournament_update(tournament, kind, name, win, opponents, kills, damage_caus
             program_name = :name AND
             fingerprint = :fp
         '''
+        try:
+            c.execute(q, locals())
+            conn.commit()
+        except sqlite3.OperationalError:
+            conn.rollback()
 
     else:
-        q = '''\
-        INSERT INTO tournament_stats
-            (tournament,
-                program_name,
-                fingerprint,
-                matches,
-                wins,
-                opponents,
-                kills,
-                damage_caused)
-            VALUES
-                (:tournament,
-                    :name,
-                    :fp,
-                    1,
-                    :win,
-                    :opponents,
-                    :kills,
-                    :damage_caused)
-        '''
-    try:
-        c.execute(q, locals())
-        conn.commit()
-    except sqlite3.OperationalError:
-        conn.rollback()
+        add_tournament_robot(tournament, name, fp)
+        tournament_update(tournament, kind, name, win, opponents, kills, damage_caused)
 
 def tournament_results(tournament):
     q = '''
@@ -345,7 +363,7 @@ def top10():
         kills,
         damage_caused
 
-    FROM stats
+    FROM robot_stats
     ORDER BY
         wins DESC,
         kills DESC
@@ -378,7 +396,7 @@ def top10():
             len_def = len_def,
             len_dmg = len_dmg)
 
-def get_stats(sort='wpct'):
+def get_robot_stats(sort='wpct'):
     q = '''
     SELECT
         program_name,
@@ -391,7 +409,7 @@ def get_stats(sort='wpct'):
         CAST(kills AS REAL)/opponents opct,
         damage_caused
 
-    FROM stats
+    FROM robot_stats
     ORDER BY %s DESC
     ''' % sort
 
@@ -400,6 +418,28 @@ def get_stats(sort='wpct'):
 
     return results
 
+def get_tournament_stats(dt, sort='wpct DESC'):
+    q = '''
+    SELECT
+        program_name,
+        fingerprint,
+        matches,
+        wins,
+        CAST(wins AS REAL)/matches AS wpct,
+        opponents,
+        kills,
+        CAST(kills AS REAL)/opponents opct,
+        damage_caused
+
+    FROM tournament_stats
+    WHERE tournament=:dt
+    ORDER BY %s
+    ''' % sort
+
+    c.execute(q, locals())
+    results = c.fetchall()
+
+    return results
 
 
 if __name__ == '__main__':

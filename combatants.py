@@ -189,7 +189,7 @@ class BattleEditor(CombatantsEditor):
         self.parent.restart()
         self.parent.paused = True
         self.close()
-        self.parent.startBattle()
+        self.parent.run_tournament(1)
 
 
 class TournamentEditor(CombatantsEditor):
