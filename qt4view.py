@@ -161,7 +161,7 @@ class MainWindow(QtGui.QMainWindow):
                 self.sw = StatsWindow('Tournament Results')
                 self.sw.tournament_results(self._tournament)
                 self._tournament = None
-        self.sw.show()
+                self.sw.show()
 
     def test(self):
         self.scene.r.set_rotation(self.rot)
@@ -728,9 +728,18 @@ class StatsWindow(QtGui.QDialog):
             self.columnitems[item] = cn
 
     def fill_table(self, rows):
+        self._name_map = {}
         for rn, row in enumerate(rows):
+            nm = ''
+            fp = ''
             for cn, i in enumerate(row):
                 item = QtGui.QTableWidgetItem()
+
+                if cn == 0:
+                    nm = i
+                elif cn == 1:
+                    fp = i
+                    self._name_map[fp] = nm
 
                 try:
                     int(str(i))
@@ -777,7 +786,21 @@ class StatsWindow(QtGui.QDialog):
         self.fill_table(results)
 
     def onHeaderClick(self, col):
+        '''sort columns by clicked column value.
+
+        Sorting of row headers depends on column 0 being unique.
+            Works for standard_headers...
+        '''
         self.tbl.sortItems(col, QtCore.Qt.DescendingOrder)
+        for rn in range(self.tbl.rowCount()):
+            fpi = self.tbl.item(rn, 0)
+            fp = str(fpi.text())
+            nm = self._name_map[fp]
+            item = QtGui.QTableWidgetItem(nm)
+            item.setData(0, nm)
+            self.tbl.setVerticalHeaderItem(rn, item)
+            
+            
 
 def run(testmode):
     app = QtGui.QApplication(sys.argv)

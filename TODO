@@ -7,6 +7,7 @@ additional components:
     touch sensor
 
 debug mode (show sensors and actions)
+    show log
 other game types (race, find/collect objects, maze)
 document how to write robot programs
 may be pinging own bullets?
@@ -16,4 +17,4 @@ record health remaining for winning robot?
 qt4view
     allow external editor
     db statistics
-    table headers not sorted with data in stats window
+    tournament -> stats ... to show results so far
