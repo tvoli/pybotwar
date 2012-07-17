@@ -147,8 +147,6 @@ class MainWindow(QtGui.QMainWindow):
     def battle_over(self):
         self.pauseBattle(True)
         self.game.finish()
-        self.sw = StatsWindow(self._tournament)
-        self.sw.show()
         if self._tournament:
             if self._tournament_battles >= 1:
                 self._tournament_battles -= 1
@@ -160,7 +158,10 @@ class MainWindow(QtGui.QMainWindow):
                 self.startBattle()
             else:
                 self.ui.nbattles_frame.hide()
+                self.sw = StatsWindow('Tournament Results')
+                self.sw.tournament_results(self._tournament)
                 self._tournament = None
+        self.sw.show()
 
     def test(self):
         self.scene.r.set_rotation(self.rot)
@@ -370,6 +371,11 @@ class MainWindow(QtGui.QMainWindow):
             attr = attr.lower()
             val = str(model._commands.get(kind, ''))
             getattr(window, attr).setText(val)
+
+    def show_robot_stats(self):
+        self.sw = StatsWindow('Robot Stats')
+        self.sw.robot_stats()
+        self.sw.show()
 
 class RDebug(QtGui.QDialog):
     def __init__(self, rname):
@@ -699,39 +705,30 @@ class Splash(QtGui.QSplashScreen):
 
 
 class StatsWindow(QtGui.QDialog):
-    def __init__(self, dt):
+    def __init__(self, title):
         QtGui.QDialog.__init__(self)
-        self.setWindowTitle('Results')
-        layout = QtGui.QVBoxLayout()
-        self.setLayout(layout)
+        self.setWindowTitle(title)
+        self.vlayout = QtGui.QVBoxLayout()
+        self.setLayout(self.vlayout)
+        self.setGeometry(50, 50, 900, 400)
 
-        cur_stats = stats.get_tournament_stats(dt, sort='wpct DESC, opct DESC')
-        l = len(cur_stats)
-        w = len(cur_stats[0]) - 1
-
-        headers = [
-            'fingerprint',
-            'matches',
-            'wins',
-            'win pct',
-            'opponents',
-            'kills',
-            'kill pct',
-            'damage caused']
-
-        tbl = QtGui.QTableWidget(l, w)
-        hheader = tbl.horizontalHeader()
-        self.tbl = tbl
+    def setup_table(self, data):
+        l = len(data)
+        w = len(data[0]) - 1
+        self.tbl = QtGui.QTableWidget(l, w)
+        hheader = self.tbl.horizontalHeader()
         hheader.sectionClicked.connect(self.onHeaderClick)
+        self.vlayout.addWidget(self.tbl)
 
-        columnitems = {}
-        self.columnitems = columnitems
+    def setup_headers(self, headers):
+        self.columnitems = {}
         for cn, header in enumerate(headers):
             item = QtGui.QTableWidgetItem(header)
-            tbl.setHorizontalHeaderItem(cn, item)
-            columnitems[item] = cn
-            
-        for rn, row in enumerate(cur_stats):
+            self.tbl.setHorizontalHeaderItem(cn, item)
+            self.columnitems[item] = cn
+
+    def fill_table(self, rows):
+        for rn, row in enumerate(rows):
             for cn, i in enumerate(row):
                 item = QtGui.QTableWidgetItem()
 
@@ -745,17 +742,39 @@ class StatsWindow(QtGui.QDialog):
                         item.setData(0, i)
                         label = QtGui.QLabel('%.3f' % i)
                         label.setStyleSheet("QLabel { background-color : white; color: black}")
-                        tbl.setCellWidget(rn, cn-1, label)
+                        self.tbl.setCellWidget(rn, cn-1, label)
                     except ValueError:
                         item = QtGui.QTableWidgetItem(i)
                         item.setData(0, i)
 
                 if cn == 0:
-                    tbl.setVerticalHeaderItem(rn, item)
+                    self.tbl.setVerticalHeaderItem(rn, item)
                 else:
-                    tbl.setItem(rn, cn-1, item)
+                    self.tbl.setItem(rn, cn-1, item)
 
-        layout.addWidget(tbl)
+    def standard_headers(self):
+        headers = [
+            'fingerprint',
+            'matches',
+            'wins',
+            'win pct',
+            'opponents',
+            'kills',
+            'kill pct',
+            'damage caused']
+        self.setup_headers(headers)
+
+    def tournament_results(self, dt):
+        results = stats.get_tournament_stats(dt, sort='wpct DESC, opct DESC')
+        self.setup_table(results)
+        self.standard_headers()
+        self.fill_table(results)
+
+    def robot_stats(self):
+        results = stats.get_robot_stats(sort='wpct DESC, opct DESC')
+        self.setup_table(results)
+        self.standard_headers()
+        self.fill_table(results)
 
     def onHeaderClick(self, col):
         self.tbl.sortItems(col, QtCore.Qt.DescendingOrder)

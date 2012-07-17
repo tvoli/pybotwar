@@ -16,3 +16,4 @@ record health remaining for winning robot?
 qt4view
     allow external editor
     db statistics
+    table headers not sorted with data in stats window

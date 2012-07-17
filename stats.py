@@ -396,7 +396,7 @@ def top10():
             len_def = len_def,
             len_dmg = len_dmg)
 
-def get_robot_stats(sort='wpct'):
+def get_robot_stats(sort='wpct DESC'):
     q = '''
     SELECT
         program_name,
@@ -410,7 +410,7 @@ def get_robot_stats(sort='wpct'):
         damage_caused
 
     FROM robot_stats
-    ORDER BY %s DESC
+    ORDER BY %s
     ''' % sort
 
     c.execute(q, locals())

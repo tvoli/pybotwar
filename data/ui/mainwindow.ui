@@ -224,6 +224,7 @@
     </property>
     <addaction name="actionNew_robot"/>
     <addaction name="actionLoad_robot"/>
+    <addaction name="actionRobot_stats"/>
     <addaction name="actionQuit"/>
    </widget>
    <widget class="QMenu" name="menuSettings">
@@ -362,6 +363,11 @@
    </property>
    <property name="text">
     <string>Enable</string>
+   </property>
+  </action>
+  <action name="actionRobot_stats">
+   <property name="text">
+    <string>Robot stats</string>
    </property>
   </action>
  </widget>
@@ -575,6 +581,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionRobot_stats</sender>
+   <signal>activated()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>show_robot_stats()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>279</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>pauseBattle(bool)</slot>
@@ -590,5 +612,6 @@
   <slot>about()</slot>
   <slot>settings()</slot>
   <slot>enable_debug()</slot>
+  <slot>show_robot_stats()</slot>
  </slots>
 </ui>
