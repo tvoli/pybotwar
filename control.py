@@ -133,6 +133,7 @@ def robot_logfile(robotname):
     except (IOError, OSError):
         logfile = None
     logfile.write('Begin logging for %s.\n' % robotname)
+    logfile.flush()
     return logfile
 
 def start_logging(robot):

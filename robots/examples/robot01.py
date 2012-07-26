@@ -13,6 +13,11 @@ class TheRobot(Robot):
     def respond(self):
         self.controller()
 
+        # Log state every 20 ticks
+        tick = self.sensors['TICK']
+        if not tick % 20:
+            self.log(tick, self._state)
+
     def controller(self):
         self.shoot()
 

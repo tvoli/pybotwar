@@ -312,13 +312,22 @@ class MainWindow(QtGui.QMainWindow):
                 self.ui.menuDebug.removeAction(ac)
             self.debug_robot = None
 
+        self.singleStep()
+
     def choose_robot_debug(self):
         if self.debug_robot is not None:
             self.debug_robot_window.destroy()
+            self.debug_robot_logfile.close()
         rname = self.ag.checkedAction().text()
         self.debug_robot = str(rname)
         self.debug_robot_window = RDebug(rname)
         self.debug_robot_window.show()
+        logfilename = '%s.log' % rname
+        logdir = os.path.join(conf.base_dir, conf.logdir)
+        logfilepath = os.path.join(logdir, logfilename)
+        logfile = open(logfilepath)
+        self.debug_robot_logfile = logfile
+        self.singleStep()
 
     def update_debug_robot(self):
         game = self.game
@@ -371,6 +380,15 @@ class MainWindow(QtGui.QMainWindow):
             attr = attr.lower()
             val = str(model._commands.get(kind, ''))
             getattr(window, attr).setText(val)
+
+        while True:
+            where = self.debug_robot_logfile.tell()
+            line = self.debug_robot_logfile.readline()
+            if not line:
+                self.debug_robot_logfile.seek(where)
+                break
+            else:
+                window.logarea.append(line.strip())
 
     def show_robot_stats(self):
         self.sw = StatsWindow('Robot Stats')
