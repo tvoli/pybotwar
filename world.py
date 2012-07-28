@@ -53,8 +53,9 @@ class Robot(object):
         self._cannonheat = 0
         self._cannonreload = 0
 
-        self._kills = 0 # number of robots killed while this one is still alive
+        self._outlasted = 0 # number of robots killed while this one is still alive
         self._damage_caused = 0
+        self._kills = 0 # number of robots this one delivered the final damage to
 
         bodyDef = box2d.b2BodyDef()
         bodyDef.position = pos
@@ -545,12 +546,16 @@ class CL(box2d.b2ContactListener):
                     print 'Robot', actor2.name, 'coll for', dmg,
 
             if dmg:
+                before = actor2.health
                 actor2.health -= dmg
-                if shooter is not None:
+                if shooter is not None and before > 0:
                     shooter._damage_caused += dmg
                 actor2.i.health.step(dmg)
                 if actor2.health <= 0:
                     actor2.alive = False
+                    if shooter is not None and before > 0:
+                        shooter._kills += 1
+                        print '!', shooter.name,
                     if conf.remove_dead_robots:
                         if actor2 not in self.w.to_destroy:
                             self.w.to_destroy.append(actor2)
@@ -584,12 +589,16 @@ class CL(box2d.b2ContactListener):
                     print 'Robot', actor1.name, 'coll for', dmg,
 
             if dmg:
+                before = actor1.health
                 actor1.health -= dmg
-                if shooter is not None:
+                if shooter is not None and before > 0:
                     shooter._damage_caused += dmg
                 actor1.i.health.step(dmg)
                 if actor1.health <= 0:
                     actor1.alive = False
+                    if shooter is not None and before > 0:
+                        shooter._kills += 1
+                        print '!', shooter.name,
                     if conf.remove_dead_robots:
                         if actor1 not in self.w.to_destroy:
                             self.w.to_destroy.append(actor1)

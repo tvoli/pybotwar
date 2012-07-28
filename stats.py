@@ -24,7 +24,7 @@ import conf
 import util
 
 
-dbversion = 4
+dbversion = 5
 dbversion_reset = dbversion
 
 
@@ -155,8 +155,9 @@ CREATE TABLE robot_stats (
     matches integer,
     wins integer,
     opponents integer,
-    kills integer,
-    damage_caused integer
+    outlasted integer,
+    damage_caused integer,
+    kills integer
 );
 
 CREATE TABLE tournament_stats (
@@ -166,8 +167,9 @@ CREATE TABLE tournament_stats (
     matches integer,
     wins integer,
     opponents integer,
-    kills integer,
-    damage_caused integer
+    outlasted integer,
+    damage_caused integer,
+    kills integer
 );
 
 CREATE TABLE trywrite (
@@ -227,11 +229,13 @@ def add_robot(name, fp):
             matches,
             wins,
             opponents,
-            kills,
-            damage_caused)
+            outlasted,
+            damage_caused,
+            kills)
         VALUES
             (:name,
                 :fp,
+                0,
                 0,
                 0,
                 0,
@@ -244,7 +248,7 @@ def add_robot(name, fp):
     except sqlite3.OperationalError:
         conn.rollback()
 
-def update(name, win, opponents, kills, damage_caused):
+def update(name, win, opponents, outlasted, damage_caused, kills):
     fp = fingerprint(name)
     if robot_exists(name, fp):
         q = '''\
@@ -252,8 +256,9 @@ def update(name, win, opponents, kills, damage_caused):
         SET matches = matches + 1,
             wins = wins + :win,
             opponents = opponents + :opponents,
-            kills = kills + :kills,
-            damage_caused = damage_caused + :damage_caused
+            outlasted = outlasted + :outlasted,
+            damage_caused = damage_caused + :damage_caused,
+            kills = kills + :kills
         WHERE
             program_name = :name AND
             fingerprint = :fp
@@ -267,7 +272,7 @@ def update(name, win, opponents, kills, damage_caused):
 
     else:
         add_robot(name, fp)
-        update(name, win, opponents, kills, damage_caused)
+        update(name, win, opponents, outlasted, damage_caused, kills)
 
 
 def tournament_robot_exists(tournament, name, fp):
@@ -291,12 +296,14 @@ def add_tournament_robot(tournament, name, fp):
             matches,
             wins,
             opponents,
-            kills,
-            damage_caused)
+            outlasted,
+            damage_caused,
+            kills)
         VALUES
             (:tournament,
                 :name,
                 :fp,
+                0,
                 0,
                 0,
                 0,
@@ -309,8 +316,8 @@ def add_tournament_robot(tournament, name, fp):
     except sqlite3.OperationalError:
         conn.rollback()
 
-def tournament_update(tournament, kind, name, win, opponents, kills,
-                                                        damage_caused):
+def tournament_update(tournament, kind, name, win, opponents, outlasted,
+                                                    damage_caused, kills):
     fp = fingerprint(kind)
     win = int(win) # turn True/False in to 1/0
     if tournament_robot_exists(tournament, name, fp):
@@ -319,8 +326,9 @@ def tournament_update(tournament, kind, name, win, opponents, kills,
         SET matches = matches + 1,
             wins = wins + :win,
             opponents = opponents + :opponents,
-            kills = kills + :kills,
-            damage_caused = damage_caused + :damage_caused
+            outlasted = outlasted + :outlasted,
+            damage_caused = damage_caused + :damage_caused,
+            kills = kills + :kills
         WHERE
             tournament = :tournament AND
             program_name = :name AND
@@ -334,7 +342,7 @@ def tournament_update(tournament, kind, name, win, opponents, kills,
 
     else:
         add_tournament_robot(tournament, name, fp)
-        tournament_update(tournament, kind, name, win, opponents, kills, damage_caused)
+        tournament_update(tournament, kind, name, win, opponents, outlasted, damage_caused, kills)
 
 def tournament_results(tournament):
     q = '''
@@ -343,7 +351,7 @@ def tournament_results(tournament):
     WHERE tournament = :tournament
     ORDER BY
         wins DESC,
-        kills DESC
+        outlasted DESC
 
     '''
 
@@ -360,13 +368,14 @@ def top10():
         matches,
         wins,
         opponents,
-        kills,
-        damage_caused
+        outlasted,
+        damage_caused,
+        kills
 
     FROM robot_stats
     ORDER BY
         wins DESC,
-        kills DESC
+        outlasted DESC
 
     '''
 
@@ -405,10 +414,12 @@ def get_robot_stats(sort='wpct DESC'):
         wins,
         CAST(wins AS REAL)/matches AS wpct,
         opponents,
-        kills,
-        CAST(kills AS REAL)/opponents AS opct,
+        outlasted,
+        CAST(outlasted AS REAL)/opponents AS opct,
         damage_caused,
-        CAST(damage_caused AS REAL)/matches AS dmg_per_match
+        CAST(damage_caused AS REAL)/matches AS dmg_per_match,
+        CAST(damage_caused AS REAL)/opponents AS dmg_per_opponent,
+        kills
 
     FROM robot_stats
     ORDER BY %s
@@ -428,10 +439,12 @@ def get_tournament_stats(dt, sort='wpct DESC'):
         wins,
         CAST(wins AS REAL)/matches AS wpct,
         opponents,
-        kills,
-        CAST(kills AS REAL)/opponents AS opct,
+        outlasted,
+        CAST(outlasted AS REAL)/opponents AS opct,
         damage_caused,
-        CAST(damage_caused AS REAL)/matches AS dmg_per_match
+        CAST(damage_caused AS REAL)/matches AS dmg_per_match,
+        CAST(damage_caused AS REAL)/opponents AS dmg_per_opponent,
+        kills
 
     FROM tournament_stats
     WHERE tournament=:dt

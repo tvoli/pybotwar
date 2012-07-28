@@ -212,7 +212,7 @@ def runmain():
         print nbattles, 'battles between', len(results), 'robots'
         print
         for line in results:
-            print line[1], ':', line[4], 'wins', ':', line[6], 'defeated', ':', line[7], 'dmg caused'
+            print line[1], ':', line[4], 'wins', ':', line[6], 'outlasted', ':', line[7], 'dmg caused', ':', line[8], 'kills'
 
     elif pyqtgraphics:
         import qt4view

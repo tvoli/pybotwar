@@ -150,7 +150,7 @@ class Game(object):
             #print robotname, line
 
             if not model.alive:
-                model._kills = nrobots - len(procs)
+                model._outlasted = nrobots - len(procs)
                 del procs[robotname]
                 print 'DEAD robot', robotname, 'health is 0'
                 proc.stdin.flush()
@@ -291,7 +291,7 @@ class Game(object):
             model = alive[0]
             print 'WINNER:', model.name
             winner = model
-            model._kills = nrobots-1
+            model._outlasted = nrobots-1
         elif not testmode:
             winner = None
             if self.rnd >= conf.maxtime*60:
@@ -317,7 +317,7 @@ class Game(object):
                 del procs[robotname]
 
             if winner is None and model.alive:
-                model._kills = nrobots - len(alive)
+                model._outlasted = nrobots - len(alive)
 
             if model == winner:
                 win = 1
@@ -325,11 +325,12 @@ class Game(object):
                 win = 0
 
             if update_stats and not testmode:
-                stats.update(model.kind, win, nrobots-1, model._kills,
-                                model._damage_caused)
+                stats.update(model.kind, win, nrobots-1, model._outlasted,
+                                model._damage_caused, model._kills)
 
             if update_stats and tournament is not None:
                 stats.tournament_update(tournament,
                                             model.kind, model.name, win,
-                                            nrobots-1, model._kills,
-                                            model._damage_caused)
+                                            nrobots-1, model._outlasted,
+                                            model._damage_caused,
+                                            model._kills)

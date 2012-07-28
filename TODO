@@ -22,7 +22,4 @@ qt4view
     tournament results chooser to see stats of old tournaments
 
 stats
-    damage / opponent
     record health remaining for winning robot?
-    kills -> outlasted?
-    track actual kills?

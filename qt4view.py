@@ -791,10 +791,12 @@ class StatsWindow(QtGui.QDialog):
             'wins',
             'win pct',
             'opponents',
-            'kills',
-            'kill pct',
+            'outlasted',
+            'outlasted pct',
             'damage caused',
-            'damage per match']
+            'damage/match',
+            'damage/opponent',
+            'kills']
         self.setup_headers(headers)
 
     def tournament_results(self, dt):
