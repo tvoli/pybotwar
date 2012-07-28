@@ -406,8 +406,9 @@ def get_robot_stats(sort='wpct DESC'):
         CAST(wins AS REAL)/matches AS wpct,
         opponents,
         kills,
-        CAST(kills AS REAL)/opponents opct,
-        damage_caused
+        CAST(kills AS REAL)/opponents AS opct,
+        damage_caused,
+        CAST(damage_caused AS REAL)/matches AS dmg_per_match
 
     FROM robot_stats
     ORDER BY %s
@@ -428,8 +429,9 @@ def get_tournament_stats(dt, sort='wpct DESC'):
         CAST(wins AS REAL)/matches AS wpct,
         opponents,
         kills,
-        CAST(kills AS REAL)/opponents opct,
-        damage_caused
+        CAST(kills AS REAL)/opponents AS opct,
+        damage_caused,
+        CAST(damage_caused AS REAL)/matches AS dmg_per_match
 
     FROM tournament_stats
     WHERE tournament=:dt

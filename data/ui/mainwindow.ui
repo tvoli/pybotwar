@@ -224,7 +224,6 @@
     </property>
     <addaction name="actionNew_robot"/>
     <addaction name="actionLoad_robot"/>
-    <addaction name="actionRobot_stats"/>
     <addaction name="actionQuit"/>
    </widget>
    <widget class="QMenu" name="menuSettings">
@@ -248,6 +247,8 @@
      <string>Tournament</string>
     </property>
     <addaction name="actionNew_tournament"/>
+    <addaction name="actionCurrent_stats"/>
+    <addaction name="actionAlltime_stats"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
@@ -368,6 +369,16 @@
   <action name="actionRobot_stats">
    <property name="text">
     <string>Robot stats</string>
+   </property>
+  </action>
+  <action name="actionCurrent_stats">
+   <property name="text">
+    <string>Current stats</string>
+   </property>
+  </action>
+  <action name="actionAlltime_stats">
+   <property name="text">
+    <string>All-time stats</string>
    </property>
   </action>
  </widget>
@@ -582,10 +593,26 @@
    </hints>
   </connection>
   <connection>
-   <sender>actionRobot_stats</sender>
+   <sender>actionAlltime_stats</sender>
    <signal>activated()</signal>
    <receiver>MainWindow</receiver>
    <slot>show_robot_stats()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>279</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionCurrent_stats</sender>
+   <signal>activated()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>show_current_stats()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>-1</x>
@@ -613,5 +640,6 @@
   <slot>settings()</slot>
   <slot>enable_debug()</slot>
   <slot>show_robot_stats()</slot>
+  <slot>show_current_stats()</slot>
  </slots>
 </ui>

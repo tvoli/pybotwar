@@ -6,15 +6,17 @@ additional components:
     proximity sensor
     touch sensor
 
-debug mode (show sensors and actions)
-    show log
 other game types (race, find/collect objects, maze)
 document how to write robot programs
 may be pinging own bullets?
 robots continue to target dead robots when remove_dead_robots=False
-record health remaining for winning robot?
 
 qt4view
     allow external editor
-    db statistics
-    tournament -> stats ... to show results so far
+    tournament results chooser to see stats of old tournaments
+
+stats
+    damage / opponent
+    record health remaining for winning robot?
+    kills -> outlasted?
+    track actual kills?

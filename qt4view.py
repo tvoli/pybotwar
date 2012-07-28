@@ -395,6 +395,11 @@ class MainWindow(QtGui.QMainWindow):
         self.sw.robot_stats()
         self.sw.show()
 
+    def show_current_stats(self):
+        self.sw = StatsWindow('Tournament Stats')
+        self.sw.tournament_results(self._tournament)
+        self.sw.show()
+
 class RDebug(QtGui.QDialog):
     def __init__(self, rname):
         QtGui.QDialog.__init__(self)
@@ -788,14 +793,18 @@ class StatsWindow(QtGui.QDialog):
             'opponents',
             'kills',
             'kill pct',
-            'damage caused']
+            'damage caused',
+            'damage per match']
         self.setup_headers(headers)
 
     def tournament_results(self, dt):
         results = stats.get_tournament_stats(dt, sort='wpct DESC, opct DESC')
-        self.setup_table(results)
-        self.standard_headers()
-        self.fill_table(results)
+        if results:
+            self.setup_table(results)
+            self.standard_headers()
+            self.fill_table(results)
+        else:
+            self.nothing_yet()
 
     def robot_stats(self):
         results = stats.get_robot_stats(sort='wpct DESC, opct DESC')
@@ -817,7 +826,10 @@ class StatsWindow(QtGui.QDialog):
             item = QtGui.QTableWidgetItem(nm)
             item.setData(0, nm)
             self.tbl.setVerticalHeaderItem(rn, item)
-            
+
+    def nothing_yet(self):
+        lbl = QtGui.QLabel('Nothing yet')
+        self.vlayout.addWidget(lbl)
             
 
 def run(testmode):
