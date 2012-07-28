@@ -187,6 +187,7 @@ def runmain():
     stats.dbopen()
 
     global tournament
+    global nbattles
     if not pyqtgraphics and not tournament:
         tournament = True
         nbattles = 1
