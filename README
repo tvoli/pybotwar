@@ -53,6 +53,10 @@ pybox2d:
     http://pybox2d.googlecode.com/
         (tested with pybox2d-2.0.2b2)
 
+pyqt4 (optional, but strongly recommended):
+    http://www.riverbankcomputing.co.uk/software/pyqt/
+        (tested with pyqt-4.8.1)
+
 pygame (optional):
     http://pygame.org/
         (tested with pygame-1.9.1)
@@ -60,10 +64,6 @@ pygame (optional):
 pygsear (optional -- required if using pygame):
     http://www.nongnu.org/pygsear/
         (tested with pygsear-0.53.2)
-
-pyqt4 (optional):
-    http://www.riverbankcomputing.co.uk/software/pyqt/
-        (tested with pyqt-4.8.1)
 
 
 RUNNING
