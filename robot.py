@@ -28,24 +28,24 @@ import conf
 
 class Robot(object):
     def __init__(self, name):
-        self.name = name
+        self._p__name = name
 
-        self._overtime_count = 0
+        self._p__overtime_count = 0
 
         self.sensors = defaultNonedict()
 
-        self._steps = []
+        self._p__steps = []
 
-        self._err = False
-        self._finished = False
+        self._p__err = False
+        self._p__finished = False
         self.force(0)
         self.torque(0)
-        self._fire = '_'
-        self._ping = 0
-        self._turret_speed = 0
+        self._p__fire = '_'
+        self._p__ping = 0
+        self._p__turret_speed = 0
 
-        self.logfile = None
-        self._log = None
+        self._p__logfile = None
+        self._p__log = None
 
     def initialize(self):
         '''Set up the robot before it starts running.
@@ -74,8 +74,8 @@ class Robot(object):
         self.force(0)
         self.torque(0)
 
-        if self._steps:
-            nextstep = self._steps[0]
+        if self._p__steps:
+            nextstep = self._p__steps[0]
             steps = nextstep[0]
             f = nextstep[1]
             p = nextstep[2]
@@ -87,7 +87,7 @@ class Robot(object):
                 nextstep[0] -= 1
             else:
                 # 1 right now. Don't decrease to zero. Remove this one.
-                self._steps.pop(0)
+                self._p__steps.pop(0)
 
             #self.log(f)
             #self.log(p)
@@ -101,7 +101,7 @@ class Robot(object):
 
         '''
 
-        self._steps.append([steps, f, p])
+        self._p__steps.append([steps, f, p])
 
     def forseconds(self, seconds, f, *p):
         'Converts seconds to steps, then calls forsteps()'
@@ -121,20 +121,20 @@ class Robot(object):
     def err(self):
         'Put the robot in to an error state.'
 
-        self._err = True
+        self._p__err = True
 
     def finished(self):
         'Signal that the robot code is finished and exit.'
 
-        self._finished = True
+        self._p__finished = True
 
     def force(self, n):
         'Between -100 and 100, percent of max fwd/bk force'
-        self._force = int(n)
+        self._p__force = int(n)
 
     def torque(self, n):
         'between -100 and 100, percent of max rt/lt torque'
-        self._torque = int(n)
+        self._p__torque = int(n)
 
     def fire(self, dist=None):
         '''Launch a shell from the cannon.
@@ -148,13 +148,13 @@ class Robot(object):
         '''
 
         if dist is None:
-            self._fire = 'X'
+            self._p__fire = 'X'
         else:
-            self._fire = int(dist)
+            self._p__fire = int(dist)
 
     def ping(self):
         'Send out a sonar/radar pulse'
-        self._ping = 1
+        self._p__ping = 1
 
     def turret(self, speed):
         '''Set the speed of the turret. Positive values turn the
@@ -167,48 +167,48 @@ class Robot(object):
             to the requested speed (or to stop, if speed = 0).
         '''
         
-        self._turret_speed = int(speed)
+        self._p__turret_speed = int(speed)
 
     def log(self, *msgs):
         'Write a message to the log file.'
 
-        if self.logfile is not None:
+        if self._p__logfile is not None:
             msgstrs = map(str, msgs)
             m = ', '.join(msgstrs)
-            msg = '%s: %s' % (self.name, m)
-            self.logfile.write(msg)
-            self.logfile.write('\n')
-            self.logfile.flush()
+            msg = '%s: %s' % (self._p__name, m)
+            self._p__logfile.write(msg)
+            self._p__logfile.write('\n')
+            self._p__logfile.flush()
 
     def start_logging(self):
-        self._log = True
+        self._p__log = True
 
     def stop_logging(self):
-        self._log = False
+        self._p__log = False
 
     @property
     def response(self):
-        if self._err:
+        if self._p__err:
             return 'ERROR'
 
-        if self._log is None:
+        if self._p__log is None:
             pass
         elif self._log:
-            self._log = None
+            self._p__log = None
             return 'LOG'
         else:
-            self._log = None
+            self._p__log = None
             return 'NOLOG'
 
-        if self._finished:
+        if self._p__finished:
             return 'END'
         else:
-            r = 'FORCE:%s|TORQUE:%s|FIRE:%s|PING:%s|TURRET:%s' % (self._force,
-                                                    self._torque,
-                                                    self._fire, self._ping,
-                                                    self._turret_speed)
-            self._fire = '_'
-            self._ping = 0
+            r = 'FORCE:%s|TORQUE:%s|FIRE:%s|PING:%s|TURRET:%s' % (self._p__force,
+                                                self._p__torque,
+                                                self._p__fire, self._p__ping,
+                                                self._p__turret_speed)
+            self._p__fire = '_'
+            self._p__ping = 0
 
             return r
 

@@ -139,11 +139,11 @@ def robot_logfile(robotname):
     return logfile
 
 def start_logging(robot):
-    logfile = robot_logfile(robot.name)
-    robot.logfile = logfile
+    logfile = robot_logfile(robot._p__name)
+    robot._p__logfile = logfile
 
 def stop_logging(robot):
-    robot.logfile = None
+    robot._p__logfile = None
 
 
 def build_robot(modname, rfile, robotname, testmode, rbox):
@@ -158,7 +158,7 @@ def build_robot(modname, rfile, robotname, testmode, rbox):
         mod = imp.load_source(modname, rfile)
         r = mod.TheRobot(robotname)
 
-        r.logfile = logfile
+        r._p__logfile = logfile
 
         r.initialize()
 
