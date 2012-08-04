@@ -7,6 +7,7 @@ additional components:
     touch sensor
 
 make sensor values available in initialize?
+make main.py take a list of robot names on the command line
 supertournament -- all possible combinations of a set of robots
     - ie, taken 2 at a time, 3 at a time, 4 at a time, etc.
 
