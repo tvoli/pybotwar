@@ -6,6 +6,11 @@ additional components:
     proximity sensor
     touch sensor
 
+make sure all variables used by Robot class are very unlikely to be used accidentally
+make sensor values available in initialize?
+supertournament -- all possible combinations of a set of robots
+    - ie, taken 2 at a time, 3 at a time, 4 at a time, etc.
+
 other game types (race, find/collect objects, maze)
 document how to write robot programs
 may be pinging own bullets?
@@ -23,3 +28,4 @@ qt4view
 
 stats
     record health remaining for winning robot?
+    save code of each robot in the database?

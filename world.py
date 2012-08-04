@@ -18,7 +18,6 @@
 
 
 import random
-from math import copysign
 
 import Box2D as box2d
 pi = 3.1415927410125732
@@ -91,7 +90,7 @@ class Robot(object):
 
         shapeDef = box2d.b2PolygonDef()
         shapeDef.SetAsBox(.1, .1)
-        shapeDef.density = 1
+        shapeDef.density = conf.turret_density
         shapeDef.friction = 0
         shapeDef.restitution = 0
         shapeDef.filter.groupIndex = -self.n
@@ -105,7 +104,7 @@ class Robot(object):
         jointDef.motorSpeed = 0.0
         jointDef.enableMotor = True
         self.turretjoint = w.CreateJoint(jointDef)
-        self._turretangletarget = 0
+        self._turret_torque = 0
 
         v = wld.v.addrobot(pos, ang)
         self.v = v
@@ -113,30 +112,38 @@ class Robot(object):
         i = wld.v.addrobotinfo(self.n, name)
         self.i = i
 
-    def gyro(self):
-        'return robot angle wrt world in degrees.'
-        radians = self.body.angle
-        degrees = int(round((180 / pi) * radians))
+    def _to_degrees_normalized(self, radians):
+        '''Given angle in radians, return the same angle in degrees,
+            normalized using _degree_normalize()
+        '''
+        degrees = (180 / pi) * radians
+        return self._degree_normalize(degrees)
+
+    def _degree_normalize(self, degrees):
+        '''Given degrees, return the same angle normalized
+            between -180 <= degrees <= degrees
+        '''
+        degrees = int(round(degrees)) % 360
+        if degrees > 180:
+            degrees -= 360
         return degrees
 
-    def set_turretangle(self, angle):
-        'Angle comes in degrees. Convert to radians and set.'
-        radians = (pi / 180.) * angle
-        self._turretangletarget = radians
+    def gyro(self):
+        '''return robot angle wrt world in degrees.
+
+        returned value is between -180 <= degrees < =180
+
+        '''
+        radians = self.body.angle
+        return self._to_degrees_normalized(radians)
 
     def get_turretangle(self):
         'return turret angle in degrees.'
-        degrees = int(round((180 / pi) * self.turretjoint.GetJointAngle()))
-        return degrees
+        radians = self.turretjoint.GetJointAngle()
+        return self._to_degrees_normalized(radians)
 
-    def turretcontrol(self):
-        joint = self.turretjoint
-        angleError = joint.GetJointAngle() - self._turretangletarget
-        desired_speed = -conf.turret_gain * angleError
-        target_speed = copysign(min(abs(desired_speed),
-                                    conf.turret_maxMotorSpeed),
-                                desired_speed)
-        joint.SetMotorSpeed(target_speed)
+    def turretcontrol(self, target_speed):
+        self.turretjoint.SetMotorSpeed(target_speed)
 
 
 
@@ -376,7 +383,7 @@ class World(object):
     def showit(self):
         for name, robot in self.robots.items():
             r = robot.body
-            robot.turretcontrol()
+            #robot.turretcontrol()
             #vel = r.linearVelocity.Length()
             #pos = r.position.Length()
             pos2 = r.position

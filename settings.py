@@ -65,9 +65,9 @@ ss = dict(
                 unloaded_fire_reload_penalty = 'i',
 
                 ## turret
+                turret_density = 'f+',
                 turret_maxMotorTorque = 'f+',
                 turret_maxMotorSpeed = 'f+',
-                turret_gain = 'f+',
 
                 ## bullet
                 bulletspeed = 'f+',

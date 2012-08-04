@@ -89,7 +89,10 @@ class Game(object):
                                         robot, rfile, robotname,
                                         str(int(self.testmode))],
                                         stdin=PIPE, stdout=PIPE)
-            result = proc.stdout.readline().strip()
+            try:
+                result = proc.stdout.readline().strip()
+            except IOError:
+                result = 'FAIL'
 
             if result == 'START':
                 print 'STARTED'
@@ -100,7 +103,7 @@ class Game(object):
             elif result in ['ERROR', 'END']:
                 print 'ERROR!'
             else:
-                print 'FAIL'
+                print 'FAIL', result
 
         self.nrobots = len(self.models)
         self.t0 = int(time.time())
@@ -254,8 +257,10 @@ class Game(object):
                             model._pingangle = angle
                             model._pingdist = int(dist)
                 elif kind == 'TURRET':
-                    model.set_turretangle(val)
-
+                    val = min(val, 100)
+                    val = max(-100, val)
+                    torque = conf.turret_maxMotorSpeed * val/100.0
+                    model.turretcontrol(torque)
 
         w.step()
 

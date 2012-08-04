@@ -1,9 +1,23 @@
 from robot import Robot
 
 class TheRobot(Robot):
+    '''Strategy:
+        Drive around the edge of the arena,
+        Shoot whatever gets in the way.
+    '''
+
     def respond(self):
         self.ping()
+        self.turret_forward()
         self.ping_react()
+
+    def turret_forward(self):
+        'keep the turret pointed straight ahead.'
+
+        tur = self.sensors['TUR']
+        if tur:
+            gain = 10
+            self.turret(-gain * tur)
 
     def ping_react(self):
         kind, angle, dist = self.sensors['PING']
@@ -13,12 +27,12 @@ class TheRobot(Robot):
 
             if dist < 2:
                 self.force(-30)
-                self.torque(50)
+                self.torque(90)
             else:
                 self.force(60)
                 self.torque(0)
 
-        elif kind in 'rb':
+        elif kind in 'r':
             # Pinged a robot or a bullet
 
             self.fire()
@@ -27,4 +41,4 @@ class TheRobot(Robot):
                 self.force(-10)
             else:
                 self.force(10)
-                self.torque(30)
+                self.torque(0)

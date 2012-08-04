@@ -97,6 +97,8 @@ def communicate(r):
         line = sys.stdin.readline().strip()
         if line == 'FINISH':
             break
+        elif not line:
+            break
         elif line == 'DEBUG':
             start_logging(r)
             continue

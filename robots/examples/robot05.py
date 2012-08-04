@@ -1,6 +1,12 @@
 from robot import Robot
 
 class TheRobot(Robot):
+    '''Strategy:
+        Drive around real fast,
+        Don't run in to anything,
+        Shoot stuff that gets in the way.
+    '''
+
     def initialize(self):
         self._spinning = False
 
@@ -11,15 +17,26 @@ class TheRobot(Robot):
         self.ping()
         self.ping_react()
 
+        self.turret_forward()
+
+    def turret_forward(self):
+        'keep the turret pointed straight ahead.'
+
+        tur = self.sensors['TUR']
+        if tur:
+            gain = 10
+            self.turret(-gain * tur)
+
     def spin(self, n=None):
         # Spin for n ticks, then stop
+
+        self.force(0)
+        self.torque(100)
+
         if n is not None:
             self._spinning = True
             self._spin_n = n
         else:
-            self.force(0)
-            self.torque(100)
-
             self._spin_n -= 1
             if self._spin_n <= 0:
                 self._spinning = False
@@ -48,4 +65,4 @@ class TheRobot(Robot):
                 self.force(-10)
             else:
                 self.force(10)
-                self.torque(30)
+                self.torque(10)

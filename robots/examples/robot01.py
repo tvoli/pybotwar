@@ -3,6 +3,11 @@ from robot import Robot
 
 
 class TheRobot(Robot):
+    '''Strategy:
+        Drive around in sort of a circle,
+        Shoot randomly.
+    '''
+    
     def initialize(self):
         self._state = 'FORWARD'
         self._fwdfor_ticks = None

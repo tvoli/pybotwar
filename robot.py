@@ -42,7 +42,7 @@ class Robot(object):
         self.torque(0)
         self._fire = '_'
         self._ping = 0
-        self._turretangle = 0
+        self._turret_speed = 0
 
         self.logfile = None
         self._log = None
@@ -156,15 +156,18 @@ class Robot(object):
         'Send out a sonar/radar pulse'
         self._ping = 1
 
-    def turret(self, angle):
-        '''Turn the turret to the given angle.
+    def turret(self, speed):
+        '''Set the speed of the turret. Positive values turn the
+            turret clockwise, negative values counter-clockwise.
 
-        It takes time for the turret to turn. Check the actual turret
-            angle with the TUR sensor:  self.sensors['TUR']
+        Values between -100 < speed < 100 are allowed.
 
+        The turret does have inertia, so the speed is a requested
+            speed and the turret will take some time to come up
+            to the requested speed (or to stop, if speed = 0).
         '''
-
-        self._turretangle = angle
+        
+        self._turret_speed = int(speed)
 
     def log(self, *msgs):
         'Write a message to the log file.'
@@ -203,7 +206,7 @@ class Robot(object):
             r = 'FORCE:%s|TORQUE:%s|FIRE:%s|PING:%s|TURRET:%s' % (self._force,
                                                     self._torque,
                                                     self._fire, self._ping,
-                                                    self._turretangle)
+                                                    self._turret_speed)
             self._fire = '_'
             self._ping = 0
 
