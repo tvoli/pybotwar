@@ -75,6 +75,19 @@ def setup_logging(level='info'):
               'appdebug.log', maxBytes=1000000, backupCount=3)
     logger.addHandler(handler)
 
+def run_supertournament():
+    robots = conf.robots
+    n = len(robots)
+    import datetime
+    dt = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    from itertools import combinations
+    combos = []
+    for n in range(2, n+1):
+        combos.extend(combinations(robots, n))
+    cmd = 'python main.py -t "%s" -g -n 5 --robots %s'
+    for combo in combos:
+        rstr = ' '.join(combo)
+        os.system(cmd % (dt, rstr))
 
 if __name__ == '__main__':
     import sys
@@ -93,6 +106,9 @@ if __name__ == '__main__':
     parser.add_argument('-n', '--battles', dest='nbattles',
                     action='store', type=int, default=5,
                     help='number of battles in tournament')
+    parser.add_argument('--supertournament', dest='supertournament',
+                    action='store_true', default=False,
+                    help='run a supertournament')
     parser.add_argument('-g', '--no-graphics', dest='nographics',
                     action='store_true', default=False,
                     help='non graphics mode')
@@ -120,6 +136,7 @@ if __name__ == '__main__':
     testmode = options.testmode
     tournament = options.tournament
     nbattles = options.nbattles
+    supertournament = options.supertournament
     nographics = options.nographics
     pyqtgraphics = options.pyqtgraphics
     pygseargraphics = options.pygseargraphics
@@ -138,6 +155,15 @@ if __name__ == '__main__':
 
     if gmodes > 1:
         print 'must select ONE of -g, -Q, or -P'
+        import sys
+        sys.exit(0)
+
+    if tournament and supertournament:
+        print 'must select one of --tournament or --supertournament'
+        import sys
+        sys.exit(0)
+    elif supertournament:
+        run_supertournament()
         import sys
         sys.exit(0)
 
