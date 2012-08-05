@@ -88,7 +88,7 @@ if __name__ == '__main__':
                     action='store_true', default=False,
                     help='run in test mode')
     parser.add_argument('-t', '--tournament', dest='tournament',
-                    action='store_true', default=False,
+                    nargs='?', const=True, default=False,
                     help='run a tournament')
     parser.add_argument('-n', '--battles', dest='nbattles',
                     action='store', type=int, default=5,
@@ -203,8 +203,11 @@ def runmain():
         print 'When using PyQt interface, run tournaments from GUI.'
 
     elif tournament:
-        import datetime
-        dt = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        if tournament is True:
+            import datetime
+            dt = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        else:
+            dt = tournament
         print 'Beginning tournament with %s battles.' % nbattles
         for battle in range(nbattles):
             print 'Battle', battle+1
