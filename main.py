@@ -111,6 +111,9 @@ if __name__ == '__main__':
     parser.add_argument('-B', '--app-debug', dest='appdebug',
                     action='store_true', default=False,
                     help='enable app debug log')
+    parser.add_argument('--robots', dest='robots', nargs='+',
+                    metavar='ROBOT',
+                    help='list of robots to load')
 
     options = parser.parse_args()
 
@@ -123,6 +126,10 @@ if __name__ == '__main__':
     upgrade_db = options.upgrade_db
     qtreset = options.qtreset
     appdebug = options.appdebug
+    robots = options.robots
+
+    if robots is not None:
+        conf.robots = robots
 
     gmodes = nographics + pyqtgraphics + pygseargraphics
 
