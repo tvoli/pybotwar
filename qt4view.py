@@ -142,7 +142,8 @@ class MainWindow(QtGui.QMainWindow):
 
             if (self.game.rnd > 60 * conf.maxtime or
                     len(self.game.procs) <= 1):
-                self.battle_over()
+                if not self.testmode:
+                    self.battle_over()
 
     def battle_over(self):
         self.pauseBattle(True)
