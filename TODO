@@ -8,12 +8,9 @@ additional components:
 
 make sensor values available in initialize?
 make main.py take a list of robot names on the command line
-supertournament -- all possible combinations of a set of robots
-    - ie, taken 2 at a time, 3 at a time, 4 at a time, etc.
 
 other game types (race, find/collect objects, maze)
 document how to write robot programs
-may be pinging own bullets?
 robots continue to target dead robots when remove_dead_robots=False
 disconnect PING from turret?
     - ie, have ping() take an angle parameter, instead of using the
@@ -24,6 +21,8 @@ disconnect PING from turret?
 qt4view
     allow external editor
     tournament results chooser to see stats of old tournaments
+    start supertournaments
+    run tournaments/supertournaments in background
 
 stats
     record health remaining for winning robot?

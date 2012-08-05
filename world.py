@@ -363,9 +363,13 @@ class World(object):
             hitbody = shape.GetBody()
             kind = hitbody.userData['kind']
             if kind == 'robot':
-                actor = hitbody.userData['actor']
-                if actor._pinged != rnd - 1:
-                    actor._pinged = rnd
+                hitrobot = hitbody.userData['actor']
+                if hitrobot._pinged != rnd - 1:
+                    hitrobot._pinged = rnd
+            elif kind == 'bullet':
+                shooter = hitbody.userData['shooter']
+                if shooter == robot:
+                    kind = 'B'
             return kind, angle, dist
         else:
             # Not sure why shape returns None here. Seems to be when the

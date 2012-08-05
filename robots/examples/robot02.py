@@ -32,7 +32,7 @@ class TheRobot(Robot):
                 self.force(60)
                 self.torque(0)
 
-        elif kind in 'r':
+        elif kind in 'rb':
             # Pinged a robot or a bullet
 
             self.fire()
