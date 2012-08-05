@@ -82,37 +82,37 @@ if __name__ == '__main__':
 
     os.chdir(os.path.split(os.path.abspath(__file__))[0])
 
-    from optparse import OptionParser
-    parser = OptionParser()
-    parser.add_option("-T", "--testmode", dest="testmode",
+    from argparse import ArgumentParser
+    parser = ArgumentParser()
+    parser.add_argument("-T", "--testmode", dest="testmode",
                     action="store_true", default=False,
                     help="run in test mode")
-    parser.add_option("-t", "--tournament", dest="tournament",
+    parser.add_argument("-t", "--tournament", dest="tournament",
                     action="store_true", default=False,
                     help="run a tournament")
-    parser.add_option("-n", "--battles", dest="nbattles",
-                    action="store", type='int', default=5,
+    parser.add_argument("-n", "--battles", dest="nbattles",
+                    action="store", type=int, default=5,
                     help="number of battles in tournament")
-    parser.add_option("-g", "--no-graphics", dest="nographics",
+    parser.add_argument("-g", "--no-graphics", dest="nographics",
                     action="store_true", default=False,
                     help="non graphics mode")
-    parser.add_option("-Q", "--pyqt-graphics", dest="pyqtgraphics",
+    parser.add_argument("-Q", "--pyqt-graphics", dest="pyqtgraphics",
                     action="store_true", default=False,
                     help="enable PyQt interface")
-    parser.add_option("-P", "--pygsear-graphics", dest="pygseargraphics",
+    parser.add_argument("-P", "--pygsear-graphics", dest="pygseargraphics",
                     action="store_true", default=False,
                     help="enable Pygsear interface")
-    parser.add_option("-D", "--upgrade-db", dest="upgrade_db",
+    parser.add_argument("-D", "--upgrade-db", dest="upgrade_db",
                     action="store_true", default=False,
                     help="upgrade database (WARNING! Deletes database!)")
-    parser.add_option("-S", "--reset-qt-settings", dest="qtreset",
+    parser.add_argument("-S", "--reset-qt-settings", dest="qtreset",
                     action="store_true", default=False,
                     help="reset Qt settings")
-    parser.add_option("-B", "--app-debug", dest="appdebug",
+    parser.add_argument("-B", "--app-debug", dest="appdebug",
                     action="store_true", default=False,
                     help="enable app debug log")
 
-    (options, args) = parser.parse_args()
+    options = parser.parse_args()
 
     testmode = options.testmode
     tournament = options.tournament
