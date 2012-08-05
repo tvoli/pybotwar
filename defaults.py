@@ -22,7 +22,8 @@ r4 = 'robot04'
 r5 = 'robot05'
 r6 = 'robot06'
 r7 = 'robot07'
-robots = [r2, r4, r5, r6, r7]
+r9 = 'robot09'
+robots = [r2, r3, r4, r5, r6, r7, r9]
 
 logdir = 'logs' # relative to robot_dirs[0]
 
