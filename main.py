@@ -84,33 +84,33 @@ if __name__ == '__main__':
 
     from argparse import ArgumentParser
     parser = ArgumentParser()
-    parser.add_argument("-T", "--testmode", dest="testmode",
-                    action="store_true", default=False,
-                    help="run in test mode")
-    parser.add_argument("-t", "--tournament", dest="tournament",
-                    action="store_true", default=False,
-                    help="run a tournament")
-    parser.add_argument("-n", "--battles", dest="nbattles",
-                    action="store", type=int, default=5,
-                    help="number of battles in tournament")
-    parser.add_argument("-g", "--no-graphics", dest="nographics",
-                    action="store_true", default=False,
-                    help="non graphics mode")
-    parser.add_argument("-Q", "--pyqt-graphics", dest="pyqtgraphics",
-                    action="store_true", default=False,
-                    help="enable PyQt interface")
-    parser.add_argument("-P", "--pygsear-graphics", dest="pygseargraphics",
-                    action="store_true", default=False,
-                    help="enable Pygsear interface")
-    parser.add_argument("-D", "--upgrade-db", dest="upgrade_db",
-                    action="store_true", default=False,
-                    help="upgrade database (WARNING! Deletes database!)")
-    parser.add_argument("-S", "--reset-qt-settings", dest="qtreset",
-                    action="store_true", default=False,
-                    help="reset Qt settings")
-    parser.add_argument("-B", "--app-debug", dest="appdebug",
-                    action="store_true", default=False,
-                    help="enable app debug log")
+    parser.add_argument('-T', '--testmode', dest='testmode',
+                    action='store_true', default=False,
+                    help='run in test mode')
+    parser.add_argument('-t', '--tournament', dest='tournament',
+                    action='store_true', default=False,
+                    help='run a tournament')
+    parser.add_argument('-n', '--battles', dest='nbattles',
+                    action='store', type=int, default=5,
+                    help='number of battles in tournament')
+    parser.add_argument('-g', '--no-graphics', dest='nographics',
+                    action='store_true', default=False,
+                    help='non graphics mode')
+    parser.add_argument('-Q', '--pyqt-graphics', dest='pyqtgraphics',
+                    action='store_true', default=False,
+                    help='enable PyQt interface')
+    parser.add_argument('-P', '--pygsear-graphics', dest='pygseargraphics',
+                    action='store_true', default=False,
+                    help='enable Pygsear interface')
+    parser.add_argument('-D', '--upgrade-db', dest='upgrade_db',
+                    action='store_true', default=False,
+                    help='upgrade database (WARNING! Deletes database!)')
+    parser.add_argument('-S', '--reset-qt-settings', dest='qtreset',
+                    action='store_true', default=False,
+                    help='reset Qt settings')
+    parser.add_argument('-B', '--app-debug', dest='appdebug',
+                    action='store_true', default=False,
+                    help='enable app debug log')
 
     options = parser.parse_args()
 
