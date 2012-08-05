@@ -75,7 +75,7 @@ def setup_logging(level='info'):
               'appdebug.log', maxBytes=1000000, backupCount=3)
     logger.addHandler(handler)
 
-def run_supertournament():
+def run_supertournament(nbattles):
     robots = conf.robots
     n = len(robots)
     import datetime
@@ -84,10 +84,12 @@ def run_supertournament():
     combos = []
     for n in range(2, n+1):
         combos.extend(combinations(robots, n))
-    cmd = 'python main.py -t "%s" -g -n 5 --robots %s'
+    cmd = 'python main.py -t "%s" -g -n %s --robots %s'
     for combo in combos:
         rstr = ' '.join(combo)
-        os.system(cmd % (dt, rstr))
+        cmdstr = cmd % (dt, nbattles, rstr)
+        print cmdstr
+        os.system(cmdstr)
 
 if __name__ == '__main__':
     import sys
@@ -163,7 +165,7 @@ if __name__ == '__main__':
         import sys
         sys.exit(0)
     elif supertournament:
-        run_supertournament()
+        run_supertournament(nbattles)
         import sys
         sys.exit(0)
 
