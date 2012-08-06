@@ -101,6 +101,7 @@ class CombatantsEditor(QtGui.QMainWindow):
 
     def setup_lineups_dir(self):
         ldir = os.path.join(conf.base_dir, conf.lineups)
+        ldir = os.path.abspath(ldir)
         if not os.path.exists(ldir):
             os.mkdir(ldir)
         self._fdir = ldir
