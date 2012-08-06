@@ -248,6 +248,7 @@
     </property>
     <addaction name="actionNew_tournament"/>
     <addaction name="actionCurrent_stats"/>
+    <addaction name="actionPrevious_tournaments"/>
     <addaction name="actionAlltime_stats"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
@@ -379,6 +380,11 @@
   <action name="actionAlltime_stats">
    <property name="text">
     <string>All-time stats</string>
+   </property>
+  </action>
+  <action name="actionPrevious_tournaments">
+   <property name="text">
+    <string>Previous tournaments</string>
    </property>
   </action>
  </widget>
@@ -624,6 +630,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionPrevious_tournaments</sender>
+   <signal>activated()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>previous_tournaments()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>279</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>pauseBattle(bool)</slot>
@@ -641,5 +663,6 @@
   <slot>enable_debug()</slot>
   <slot>show_robot_stats()</slot>
   <slot>show_current_stats()</slot>
+  <slot>previous_tournaments()</slot>
  </slots>
 </ui>

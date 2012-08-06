@@ -7,7 +7,6 @@ additional components:
     touch sensor
 
 make sensor values available in initialize?
-make main.py take a list of robot names on the command line
 
 other game types (race, find/collect objects, maze)
 document how to write robot programs
@@ -20,7 +19,6 @@ disconnect PING from turret?
 
 qt4view
     allow external editor
-    tournament results chooser to see stats of old tournaments
     start supertournaments
     run tournaments/supertournaments in background
 

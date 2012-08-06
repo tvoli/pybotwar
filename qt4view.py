@@ -401,6 +401,11 @@ class MainWindow(QtGui.QMainWindow):
         self.sw.tournament_results(self._tournament)
         self.sw.show()
 
+    def previous_tournaments(self):
+        self.pt = TournamentStatsChooser()
+        self.pt.show()
+        
+
 class RDebug(QtGui.QDialog):
     def __init__(self, rname):
         QtGui.QDialog.__init__(self)
@@ -726,6 +731,60 @@ class Splash(QtGui.QSplashScreen):
         painter.end()
         QtGui.QSplashScreen.__init__(self, img)
         self.setMask(img.mask())
+
+class TournamentStatsChooser(QtGui.QDialog):
+    def __init__(self):
+        QtGui.QDialog.__init__(self)
+        self.setWindowTitle('Choose Tournament')
+        self.vlayout = QtGui.QVBoxLayout()
+        self.setLayout(self.vlayout)
+        l, d = self.get_data()
+        self.tournaments = l
+        self.setup_table(l)
+        self.fill_table(l, d)
+        self.setGeometry(50, 50, 800, 400)
+
+    def setup_table(self, data):
+        l = len(data)
+        w = 3
+        self.tbl = QtGui.QTableWidget(l, w)
+        self.tbl.cellClicked.connect(self.cellClicked)
+        self.tbl.setSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Expanding)
+        #hheader = self.tbl.horizontalHeader()
+        #hheader.sectionClicked.connect(self.onHeaderClick)
+        self.vlayout.addWidget(self.tbl)
+
+    def get_data(self):
+        l, d = stats.tournaments()
+        return l, d
+
+    def fill_table(self, l, d):
+        for cn, header in enumerate(('Tournament', 'Robots', 'Matches')):
+            item = QtGui.QTableWidgetItem(header)
+            self.tbl.setHorizontalHeaderItem(cn, item)
+        for rn, t in enumerate(l):
+            robots = ', '.join(d[t]['robots'])
+            complete = d[t]['complete']
+            item = QtGui.QTableWidgetItem()
+            item.setData(0, t)
+            self.tbl.setItem(rn, 0, item)
+            item = QtGui.QTableWidgetItem()
+            item.setData(0, robots)
+            self.tbl.setItem(rn, 1, item)
+            item = QtGui.QTableWidgetItem()
+            if complete:
+                item.setData(0, d[t]['matches'])
+            else:
+                item.setData(0, 'incomplete')
+            self.tbl.setItem(rn, 2, item)
+
+        self.tbl.resizeColumnsToContents()
+
+    def cellClicked(self, rn, cn):
+        tournament = self.tournaments[rn]
+        self.sw = StatsWindow(tournament)
+        self.sw.tournament_results(tournament)
+        self.sw.show()
 
 
 class StatsWindow(QtGui.QDialog):

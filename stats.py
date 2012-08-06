@@ -456,6 +456,41 @@ def get_tournament_stats(dt, sort='wpct DESC'):
 
     return results
 
+def tournaments():
+    q = '''
+    SELECT
+        tournament,
+        program_name,
+        matches
+    FROM
+        tournament_stats
+    ORDER BY
+        tournament DESC
+    '''
+    c.execute(q)
+    results = c.fetchall()
+    rlist = []
+    rdict = {}
+    cdict = {}
+    for t, r, m in results:
+        if t not in rlist:
+            rlist.append(t)
+        if t not in rdict:
+            rdict[t] = dict(robots=[r], matches=[m])
+            cdict[t] = set((m,))
+        else:
+            rdict[t]['robots'].append(r)
+            cdict[t].add(m)
+    for t, s in cdict.items():
+        rdict[t]['robots'].sort()
+        if len(s) == 1:
+            rdict[t]['complete'] = True
+            rdict[t]['matches'] = s.pop()
+        else:
+            rdict[t]['complete'] = False
+    return rlist, rdict
+
+
 
 if __name__ == '__main__':
     dbopen()
