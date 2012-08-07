@@ -77,12 +77,12 @@ def setup_logging(level='info'):
 
 def run_supertournament(nbattles):
     robots = conf.robots
-    n = len(robots)
+    nrobots = len(robots)
     import datetime
     dt = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     from itertools import combinations
     combos = []
-    for n in range(2, n+1):
+    for n in range(2, nrobots+1):
         combos.extend(combinations(robots, n))
     cmd = 'python main.py -t "%s" -g -n %s --robots %s'
     for combo in combos:

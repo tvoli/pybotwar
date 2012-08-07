@@ -19,7 +19,6 @@ disconnect PING from turret?
 
 qt4view
     allow external editor
-    start supertournaments
     run tournaments/supertournaments in background
 
 stats

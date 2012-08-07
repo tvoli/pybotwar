@@ -148,7 +148,30 @@ class MainWindow(QtGui.QMainWindow):
     def battle_over(self):
         self.pauseBattle(True)
         self.game.finish()
-        if self._tournament:
+        if self._supertournament_combos:
+            if self._tournament_battles >= 1:
+                self._tournament_battles -= 1
+                self._supertournament_battles -= 1
+
+            if self._tournament_battles:
+                self.ui.nbattles.display(self._supertournament_battles)
+                self.restart()
+                self.paused = True
+                self.startBattle()
+            else:
+                conf.robots = self._supertournament_combos.pop(0)
+                self._tournament_battles = self._supertournament_nbattles
+                self.ui.nbattles.display(self._supertournament_battles)
+                self.restart()
+                self.paused = True
+                self.startBattle()
+
+            if not self._supertournament_combos:
+                self._supertournament_combos = None
+                self._supertournament_battles = None
+                self._supertournament_nbattles = None
+
+        elif self._tournament:
             if self._tournament_battles >= 1:
                 self._tournament_battles -= 1
 
@@ -242,12 +265,37 @@ class MainWindow(QtGui.QMainWindow):
         self.tournament = TournamentEditor(self)
         self.tournament.show()
 
-    def run_tournament(self, nbattles):
-        import datetime
-        dt = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    def run_tournament(self, nbattles, dt=None):
+        if dt is None:
+            import datetime
+            dt = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         self._tournament = dt
         self._tournament_battles = nbattles
+        self._supertournament_battles = None
+        self._supertournament_nbattles = None
+        self._supertournament_combos = None
         self.ui.nbattles.display(nbattles)
+        self.ui.nbattles_frame.show()
+        self.restart()
+        self.paused = True
+        self.startBattle()
+
+    def run_supertournament(self, nbattles):
+        import datetime
+        dt = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+
+        from itertools import combinations
+        combos = []
+        nrobots = len(conf.robots)
+        for n in range(2, nrobots+1):
+            combos.extend(combinations(conf.robots, n))
+        self._tournament = dt
+        self._tournament_battles = nbattles
+        self._supertournament_nbattles = nbattles
+        self._supertournament_battles = nbattles * len(combos)
+        conf.robots = combos.pop(0)
+        self._supertournament_combos = combos
+        self.ui.nbattles.display(self._supertournament_battles)
         self.ui.nbattles_frame.show()
         self.restart()
         self.paused = True

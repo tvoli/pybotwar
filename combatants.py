@@ -205,6 +205,9 @@ class TournamentEditor(CombatantsEditor):
         self.nbattles = QtGui.QSpinBox(self)
         self.nbattles.setMinimum(1)
         nbattles_layout.addWidget(self.nbattles)
+        nbattles_layout.addWidget(QtGui.QLabel('Supertournament'))
+        self.stcheckbox = QtGui.QCheckBox()
+        nbattles_layout.addWidget(self.stcheckbox)
         self.ui.additional.addLayout(nbattles_layout)
 
     def save(self):
@@ -221,6 +224,11 @@ class TournamentEditor(CombatantsEditor):
         robots = self.getselected()
         conf.robots = robots
         self.save_to_settings(robots)
-        self.parent.run_tournament(self.nbattles.value())
+        if not self.stcheckbox.isChecked():
+            self.parent.restart()
+            self.parent.paused = True
+            self.parent.run_tournament(self.nbattles.value())
+        else:
+            self.parent.run_supertournament(self.nbattles.value())
         self.close()
 
