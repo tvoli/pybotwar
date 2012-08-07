@@ -10,7 +10,6 @@ make sensor values available in initialize?
 
 other game types (race, find/collect objects, maze)
 document how to write robot programs
-robots continue to target dead robots when remove_dead_robots=False
 disconnect PING from turret?
     - ie, have ping() take an angle parameter, instead of using the
         current angle of the turret...

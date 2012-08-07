@@ -366,6 +366,8 @@ class World(object):
                 hitrobot = hitbody.userData['actor']
                 if hitrobot._pinged != rnd - 1:
                     hitrobot._pinged = rnd
+                if not hitrobot.alive:
+                    kind = 'R'
             elif kind == 'bullet':
                 shooter = hitbody.userData['shooter']
                 if shooter == robot:
