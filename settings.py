@@ -402,6 +402,9 @@ class Settings(QtGui.QDialog):
         getattr(self.ui, base).setText(fpath)
 
     def _changed_base_dir(self, val, oldval):
+        if not os.path.exists(val):
+            os.mkdir(val)
+
         stats.dbclose(restart=True)
         if not stats.dbcheck():
             QtGui.QMessageBox.warning(self, 'DB Version Mismatch', 'Database version mismatch.')
@@ -409,7 +412,12 @@ class Settings(QtGui.QDialog):
 
         import shutil
         #print 'ONV', oldval, conf.template, val
-        shutil.copy(os.path.join(oldval, conf.template), val)
+        scriptdir = os.path.dirname(os.path.abspath(__file__))
+        robotsdir = os.path.join(scriptdir, 'robots')
+        template = os.path.join(robotsdir, conf.template)
+        shutil.copy(template, val)
+        examples = os.path.join(robotsdir, 'examples')
+        shutil.copytree(examples, os.path.join(val, 'examples'))
 
     def _changed_dbfile(self, val, oldval):
         stats.dbclose(restart=True)
