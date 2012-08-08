@@ -23,6 +23,8 @@ import hashlib
 import conf
 import util
 
+if __name__ == '__main__':
+    util.setup_conf()
 
 dbversion = 5
 dbversion_reset = dbversion
@@ -388,6 +390,10 @@ def top10():
     else:
         fname = fullpath()
     print '(%s)' % fname
+
+    if not results:
+        print 'No stats yet'
+        return
 
     er = list(enumerate(results[:10]))
     len_name = max(len(l[0]) for n, l in er)
