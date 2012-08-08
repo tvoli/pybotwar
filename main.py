@@ -84,10 +84,13 @@ def run_supertournament(nbattles):
     combos = []
     for n in range(2, nrobots+1):
         combos.extend(combinations(robots, n))
-    cmd = 'python main.py -t "%s" -g -n %s --robots %s'
+    import sys
+    py = sys.executable
+    main = os.path.abspath(__file__)
+    cmd = '%s %s -t "%s" -g -n %s --robots %s'
     for combo in combos:
         rstr = ' '.join(combo)
-        cmdstr = cmd % (dt, nbattles, rstr)
+        cmdstr = cmd % (py, main, dt, nbattles, rstr)
         print cmdstr
         os.system(cmdstr)
 

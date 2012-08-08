@@ -6,6 +6,8 @@ additional components:
     proximity sensor
     touch sensor
 
+switch all the prints over to logging
+
 make sensor values available in initialize?
 
 other game types (race, find/collect objects, maze)
@@ -17,8 +19,8 @@ disconnect PING from turret?
         angle if no value is given.
 
 qt4view
+    allow tracking progress of background tournaments
     allow external editor
-    run tournaments/supertournaments in background
 
 stats
     record health remaining for winning robot?

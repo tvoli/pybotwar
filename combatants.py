@@ -208,6 +208,9 @@ class TournamentEditor(CombatantsEditor):
         nbattles_layout.addWidget(QtGui.QLabel('Supertournament'))
         self.stcheckbox = QtGui.QCheckBox()
         nbattles_layout.addWidget(self.stcheckbox)
+        nbattles_layout.addWidget(QtGui.QLabel('Background'))
+        self.bgcheckbox = QtGui.QCheckBox()
+        nbattles_layout.addWidget(self.bgcheckbox)
         self.ui.additional.addLayout(nbattles_layout)
 
     def save(self):
@@ -224,11 +227,27 @@ class TournamentEditor(CombatantsEditor):
         robots = self.getselected()
         conf.robots = robots
         self.save_to_settings(robots)
-        if not self.stcheckbox.isChecked():
-            self.parent.restart()
-            self.parent.paused = True
-            self.parent.run_tournament(self.nbattles.value())
+        nbattles = self.nbattles.value()
+        supert = self.stcheckbox.isChecked()
+        if not self.bgcheckbox.isChecked():
+            if not supert:
+                self.parent.restart()
+                self.parent.paused = True
+                self.parent.run_tournament(nbattles)
+            else:
+                self.parent.run_supertournament(nbattles)
         else:
-            self.parent.run_supertournament(self.nbattles.value())
+            # Run tournament or supertournament in background
+            cmd = '%s %s -g %s -n %s --robots %s &'
+            py = sys.executable
+            d = os.path.dirname(os.path.abspath(__file__))
+            main = os.path.join(d, 'main.py')
+            if supert:
+                kind = '--supertournament'
+            else:
+                kind = '--tournament'
+            cmdstr = cmd % (py, main, kind, nbattles, ' '.join(robots))
+            print cmdstr
+            os.system(cmdstr)
         self.close()
 
