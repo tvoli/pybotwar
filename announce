@@ -17,26 +17,39 @@ pybotwar is released under GPLv3.
 
 
 Changes in pybotwar-0.8:
-    - PyBox2D-2.0.2b2 is now the required version
-    - changed Robot.turret() API -- give turret speed instead of angle
-    - PyQt4 view mode is now the default
-        - (text mode and pygame/pygsear still available)
-        - all settings are available from PyQt interface
-        - remembers most recently used set of robots
-        - added debug window showing sensor values, commands, and logs
-        - can now start tournaments (and multiple battles) from pyqt
+    - pybox2d-2.0.2b2 is now the required version
+
+    API
+    - Robot.turret() now takes turret speed instead of angle
+    - PING sensor now differentiates own bullets from enemy bullets
+    - PING differentiates dead robots when remove_dead_robots=False
+    - made internal Robot state variables less likely to conflict with user code
+
+    Settings
     - added "robots dir" setting to make it easier to run pybotwar
         from an installed copy, rather than from the unpacked folder
         - logs, lineups, and db all go in robots dir
         - robot modules are now loaded by full path
+    - If using Qt settings, remembers most recently used set of robots
+
+    PyQt4 Interface
+    - PyQt4 view mode is now the default
+        - (text mode and pygame/pygsear still available)
+    - all settings are available from PyQt interface
+    - remembers most recently used set of robots
+    - added debug window showing sensor values, commands, and logs
+    - can now start tournaments (and multiple battles) from pyqt
+    - can also start tournaments to run in background
     - editor automatically adds .py to robot filename if needed
-    - falls back to :memory: database if unable to open db file
-    - logs messages in testmode when using qt4 view
+
+    Other changes
     - made template.py a valid robot programs
     - single battles are now run as 1-battle tournaments
     - renamed kill stat to outlasted
     - started tracking kills as dealing final damage to other robot
-    - made internal Robot state variables less likely to have conflicts
+    - commandline can now take a list of robots to load
+    - added "Super Tournaments"
+        - runs tournaments with all possible combinations of robots
 
     Fixes:
     - made POSition sensor scale same as PING sensor
@@ -44,3 +57,5 @@ Changes in pybotwar-0.8:
     - fixed inability to re-open file once its window was closed
     - fixed crash when cancelling file-open dialog
     - limited motor speed on turret
+    - log messages in testmode when using qt4 view
+    - fall back to :memory: database if unable to open db file
