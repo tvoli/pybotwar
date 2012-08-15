@@ -76,14 +76,17 @@ Use the -h option for additional help:
 
     python main.py -h
 
-| Usage: main.py [options]
-|
-| Options:
+| usage: main.py [-h] [-T] [-t [TOURNAMENT]] [-n NBATTLES] [--supertournament]
+|                [-g] [-Q] [-P] [-D] [-S] [-B] [--robots ROBOT [ROBOT ...]]
+| 
+| optional arguments:
 |   -h, --help            show this help message and exit
 |   -T, --testmode        run in test mode
-|   -t, --tournament      run a tournament
-|   -n NBATTLES, --battles=NBATTLES
+|   -t [TOURNAMENT], --tournament [TOURNAMENT]
+|                         run a tournament
+|   -n NBATTLES, --battles NBATTLES
 |                         number of battles in tournament
+|   --supertournament     run a supertournament
 |   -g, --no-graphics     non graphics mode
 |   -Q, --pyqt-graphics   enable PyQt interface
 |   -P, --pygsear-graphics
@@ -92,11 +95,13 @@ Use the -h option for additional help:
 |   -S, --reset-qt-settings
 |                         reset Qt settings
 |   -B, --app-debug       enable app debug log
+|   --robots ROBOT [ROBOT ...]
+|                         list of robots to load
 
 
 CONFIGURATION
 
-The first time you run pybotwar it will create a blank
+The first time you run pybotwar it will create an empty
 configuration file called conf.py
 
 Look in defaults.py to see the values which can be changed.
@@ -110,6 +115,13 @@ Add a line to conf.py like ...
     subproc_python = 'C:/Full/Path/To/Python26.exe'
 
 
+Also note that it is not necessary for the user to have write
+access to the program directory to use the game, but the conf.py
+file must be created first. If using the PyQt interface, all
+users will have their own settings file and conf.py will not
+be used, but the file must be present.
+
+
 
 CREATING NEW ROBOTS
 
@@ -118,8 +130,7 @@ folder, for example 'mynewrobot.py'
 
 
 In your new module, add initialization code to the .initialize()
-method if needed, otherwise add a pass statement or delete the
-method.
+method if needed, or you can delete the method.
 
 The .initialize() method is called once, immediately after the
 robot is created, and must return in less than a second or
@@ -151,9 +162,13 @@ Select your robot on the left and click "Add," then either
 save the robot lineup for future use or click "Start Battle."
 
 
-To use your robot in a tournament, or in pygame or text mode,
-you will need to use the older method and modify conf.py directly.
+To use your robot in pygame or text mode, you can specify the names
+of the robots for the battle from the command line:
 
+    python main.py -g --robots myrobot1 anotherrobot robot05
+
+
+You can also use the older method and modify conf.py directly.
 Add a line to conf.py with the name of your new module:
 
     mine = 'mynewrobot'
@@ -185,7 +200,6 @@ TOURNAMENTS
 Robots are placed in the arena at random locations and with
 random orientations. Also, many robots will use random numbers
 to determine which way to go and when to perform their actions.
-
 Therefore, each time the same set of robots are placed in the
 arena, the results may be different.
 
@@ -194,6 +208,32 @@ tournament. A tournament is a series of battles run with the
 same set of robots. Statistics will be kept during the series
 and reported when the series is complete.
 
+
+SUPERTOURNAMENTS
+
+A supertournament is a series of tournaments where the participating
+robots are matched up in all possible combinations. For instance,
+a 5-game supertournament with robots r1, r2, and r3 would run a
+series of 5-game tournaments like this:
+
+r1, r2
+r1, r3
+r2, r3
+r1, r2, r3
+
+This will result in a total of 20 battles. This can take a long
+time, so you may want to run supertournaments either in text mode,
+or run them in the background.
+
+All of the statistics from all of the tournaments are combined in
+to one report by the end of the supertournament.
+
+Some robots do well at surviving, but not so good at taking other
+robots out of the game. Some do well early on, but have trouble
+finishing off the last opponent.
+
+To really get a good idea of which are the strongest robots, run
+a supertournament instead of a plain tournament.
 
 
 HISTORY
