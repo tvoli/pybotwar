@@ -208,6 +208,8 @@ def reset_qt_settings():
     settings = QtCore.QSettings()
     settings.clear()
     print 'Qt settings cleared.'
+    import sys
+    sys.exit(0)
 
 
 def runmain():
