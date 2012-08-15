@@ -918,9 +918,12 @@ class StatsWindow(QtGui.QDialog):
 
     def robot_stats(self):
         results = stats.get_robot_stats(sort='wpct DESC, opct DESC')
-        self.setup_table(results)
-        self.standard_headers()
-        self.fill_table(results)
+        if results:
+            self.setup_table(results)
+            self.standard_headers()
+            self.fill_table(results)
+        else:
+            self.nothing_yet()
 
     def onHeaderClick(self, col):
         '''sort columns by clicked column value.
