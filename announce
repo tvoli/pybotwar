@@ -43,7 +43,7 @@ Changes in pybotwar-0.8:
     - editor automatically adds .py to robot filename if needed
 
     Other changes
-    - made template.py a valid robot programs
+    - made template.py a valid robot program
     - single battles are now run as 1-battle tournaments
     - renamed kill stat to outlasted
     - started tracking kills as dealing final damage to other robot
