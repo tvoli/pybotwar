@@ -22,7 +22,7 @@ import os
 from PyQt4 import QtGui, QtCore, uic
 
 import util
-version = 'pybotwar-0.8'
+version = 'pybotwar-0.9'
 
 datadir = 'data'
 uidir = os.path.join(datadir, 'ui')
