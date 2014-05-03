@@ -777,8 +777,18 @@ class Splash(QtGui.QSplashScreen):
         painter = QtGui.QPainter(img)
         rend.render(painter, 'splash')
         painter.end()
-        QtGui.QSplashScreen.__init__(self, img)
+        QtGui.QSplashScreen.__init__(self, img, QtCore.Qt.WindowStaysOnTopHint)
         self.setMask(img.mask())
+        self.away_later()
+
+    def away_later(self):
+        QtCore.QTimer.singleShot(2500, self.away)
+
+    def away(self):
+        if hasattr(self, 'win'):
+            self.finish(self.win)
+        else:
+            self.away_later()
 
 class TournamentStatsChooser(QtGui.QDialog):
     def __init__(self):
@@ -953,7 +963,8 @@ def run(testmode):
 
     win = MainWindow(app, testmode)
     win.show()
-    splash.finish(win)
+    splash.win = win
+    splash.raise_()
     app.exec_()
 
 
