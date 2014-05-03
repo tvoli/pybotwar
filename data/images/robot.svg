@@ -184,7 +184,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -1282,9 +1282,11 @@
          inkscape:export-ydpi="4.6326056" />
     </g>
     <g
-       transform="translate(0.0469257,115.36495)"
+       transform="matrix(0.99014671,0,0,0.98029771,4.7051825,119.84291)"
        id="splash"
-       inkscape:label="#g4384-6">
+       inkscape:label="#g4384-6"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <rect
          ry="16.025642"
          rx="15.317919"
