@@ -1,4 +1,4 @@
-# Copyright 2009-2012 Lee Harr
+# Copyright 2009-2014 Lee Harr
 #
 # This file is part of pybotwar.
 #     http://pybotwar.googlecode.com/
