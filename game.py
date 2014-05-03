@@ -50,7 +50,7 @@ class Game(object):
 
         self.w = world.World()
         self.cl = world.CL()
-        self.w.w.SetContactListener(self.cl)
+        self.w.w.contactListener = self.cl
         self.cl.w = self.w
 
     def run(self):
@@ -218,8 +218,8 @@ class Game(object):
                 continue
 
             #print 'KV', kind, val
-            #print 'R', robot, 'R', result, 'R'
-            #print 'R', robotname, 'T', '%s -> %.3f' % (model._turretangletarget, model.turretjoint.GetJointAngle())
+            #print 'R', model, 'R', result, 'R'
+            #print 'R', robotname, 'T', '%s -> %.3f' % (model._turretangletarget, model.turretjoint.angle)
 
             model._commands = commands or {'INACTIVE':result}
 
@@ -231,13 +231,13 @@ class Game(object):
                     force = conf.maxforce * val/100.0
                     localforce = box2d.b2Vec2(val, 0)
                     worldforce = body.GetWorldVector(localforce)
-                    body.ApplyForce(worldforce, pos)
+                    body.ApplyForce(worldforce, pos, True)
                 elif kind == 'TORQUE':
                     # Make sure torque is not more than 100% or less than -100%
                     val = min(val, 100)
                     val = max(-100, val)
                     torque = conf.maxtorque * val/100.0
-                    body.ApplyTorque(torque)
+                    body.ApplyTorque(torque, True)
                 elif kind == 'FIRE':
                     if val == '_':
                         # no fire

@@ -52,6 +52,8 @@ try:
     pkg_resources.require('Box2D==%s'%conf.pybox2d_version)
 except ImportError:
     pass
+except pkg_resources.VersionConflict:
+    pass
 
 try:
     import Box2D

@@ -1,4 +1,4 @@
-Update to box2d 2.1
+Make sure game starts with off pybox2d version stored in Qt Settings
 
 additional components:
     selectable components

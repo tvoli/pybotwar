@@ -56,7 +56,7 @@ class Robot(object):
         self._damage_caused = 0
         self._kills = 0 # number of robots this one delivered the final damage to
 
-        bodyDef = box2d.b2BodyDef()
+        bodyDef = box2d.b2BodyDef(type=box2d.b2_dynamicBody,)
         bodyDef.position = pos
         bodyDef.angle = ang
 
@@ -65,22 +65,20 @@ class Robot(object):
         bodyDef.userData = {}
 
         body = w.CreateBody(bodyDef)
-
-        shapeDef = box2d.b2PolygonDef()
-        shapeDef.SetAsBox(1, 1)
-        shapeDef.density = conf.robot_density
-        shapeDef.friction = conf.robot_friction
-        shapeDef.restitution = conf.robot_restitution
-        shapeDef.filter.groupIndex = -self.n
-        body.CreateShape(shapeDef)
-        body.SetMassFromShapes()
+        body.CreatePolygonFixture(
+                box=(1, 1),
+                density=conf.robot_density,
+                friction=conf.robot_friction,
+                restitution=conf.robot_restitution,
+                filter = box2d.b2Filter(
+                            groupIndex = -self.n,))
 
         body.userData['actor'] = self
         body.userData['kind'] = 'robot'
 
         self.body = body
 
-        turretDef = box2d.b2BodyDef()
+        turretDef = box2d.b2BodyDef(type=box2d.b2_dynamicBody,)
         turretDef.position = pos
         turretDef.angle = ang
 
@@ -88,14 +86,13 @@ class Robot(object):
         turretDef.angularDamping = 0
         turret = w.CreateBody(bodyDef)
 
-        shapeDef = box2d.b2PolygonDef()
-        shapeDef.SetAsBox(.1, .1)
-        shapeDef.density = conf.turret_density
-        shapeDef.friction = 0
-        shapeDef.restitution = 0
-        shapeDef.filter.groupIndex = -self.n
-        turret.CreateShape(shapeDef)
-        turret.SetMassFromShapes()
+        turret.CreatePolygonFixture(
+                    box=(.1, .1),
+                    density=1,
+                    friction=0,
+                    restitution=0,
+                    filter = box2d.b2Filter(
+                        groupIndex = -self.n,))
         self.turret = turret
 
         jointDef = box2d.b2RevoluteJointDef()
@@ -139,11 +136,11 @@ class Robot(object):
 
     def get_turretangle(self):
         'return turret angle in degrees.'
-        radians = self.turretjoint.GetJointAngle()
+        radians = self.turretjoint.angle
         return self._to_degrees_normalized(radians)
 
     def turretcontrol(self, target_speed):
-        self.turretjoint.SetMotorSpeed(target_speed)
+        self.turretjoint.motorSpeed = target_speed
 
 
 
@@ -164,9 +161,9 @@ class Bullet(object):
         blocalvel = box2d.b2Vec2(conf.bulletspeed, 0)
         bwvel = r.GetWorldVector(blocalvel)
         bvel = bwvel + vel
-        #print bvel, bvel.Length()
+        #print bvel, bvel.length
 
-        bodyDef = box2d.b2BodyDef()
+        bodyDef = box2d.b2BodyDef(type=box2d.b2_dynamicBody,)
         blocalpos = box2d.b2Vec2(.1, 0)
         bwpos = r.GetWorldVector(blocalpos)
         bpos = bwpos + pos
@@ -180,16 +177,13 @@ class Bullet(object):
         #print body
         #print 'IB', body.isBullet
         body.linearVelocity = bvel
-
-        shapeDef = box2d.b2PolygonDef()
-        shapeDef.SetAsBox(.1, .1)
-        shapeDef.density = conf.bullet_density
-        shapeDef.restitution = 0
-        shapeDef.friction = 0
-        shapeDef.filter.groupIndex = -robot.n
-        b = body.CreateShape(shapeDef)
-        b.userData = {}
-        body.SetMassFromShapes()
+        body.CreatePolygonFixture(
+                    box=(0.1,0.1),
+                    friction=0,
+                    density=conf.bullet_density,
+                    restitution=0,
+                    filter = box2d.b2Filter(
+                                groupIndex = -robot.n,))
 
         body.userData['actor'] = self
         body.userData['kind'] = 'bullet'
@@ -207,10 +201,7 @@ class Bullet(object):
         #print robot,'bullet explode at', self.body.position
 
         for ring, radius in enumerate(conf.explosion_radii):
-            cdef = box2d.b2CircleDef()
-            cdef.radius = radius
-
-            s = self.body.CreateShape(cdef)
+            s = self.body.CreateCircleFixture(radius=radius)
             s.userData = {}
             s.userData['ring'] = ring
             s.userData['bullet'] = self
@@ -228,10 +219,10 @@ class Wall(object):
         wallbod.userData['actor'] = None
         wallbod.userData['kind'] = 'wall'
         wallbod.iswall = True
-        wallshp = box2d.b2PolygonDef()
+        wallshp = box2d.b2PolygonShape()
         width, height = size
         wallshp.SetAsBox(width, height)
-        wallbod.CreateShape(wallshp)
+        wallbod.CreatePolygonFixture(box=(width, height), density=1, friction=0.3)
 
         v = view.Wall(pos, size)
         self.v = v
@@ -264,8 +255,7 @@ class World(object):
         aabb.lowerBound = (-halfx, -halfy)
         aabb.upperBound = (halfx, halfy)
 
-        self.w = box2d.b2World(aabb, gravity, doSleep)
-        self.w.GetGroundBody().SetUserData({'actor': None})
+        self.w = box2d.b2World(gravity, doSleep)
 
         self.makearena()
 
@@ -347,31 +337,35 @@ class World(object):
 
         blocalpos = box2d.b2Vec2(1.12, 0)
 
-        segment = box2d.b2Segment()
         laserStart = (1.12, 0)
         laserDir = (segmentLength, 0.0)
-        segment.p1 = body.GetWorldPoint(laserStart)
-        segment.p2 = body.GetWorldVector(laserDir)
-        segment.p2+=segment.p1
+        p1 = body.GetWorldPoint(laserStart)
+        p2 = body.GetWorldVector(laserDir)
+        p2+=p1
 
-        lambda_, normal, shape = self.w.RaycastOne(segment, False, None)
-        hitp = (1 - lambda_) * segment.p1 + lambda_ * segment.p2
+        class CB(box2d.b2RayCastCallback):
+            shapehit = None
+            distance = None
+            def ReportFixture(self, fixture, point, normal, fraction):
+                pt = box2d.b2Vec2(*point)
+                self.distance = (pt-p1).length
+                CB.shapehit = fixture
+                #print 'CB', fixture.body.userData, (pt-p1).length
+                return fraction
+
+        cb = CB()
+        self.w.RayCast(cb, p1, p2)
         angle = robot.get_turretangle()
-        dist = box2d.b2Distance(segment.p1, hitp)
+        dist = cb.distance
 
-        if shape is not None:
-            hitbody = shape.GetBody()
+        if cb.shapehit:
+            shape = cb.shapehit
+            hitbody = shape.body
             kind = hitbody.userData['kind']
             if kind == 'robot':
-                hitrobot = hitbody.userData['actor']
-                if hitrobot._pinged != rnd - 1:
-                    hitrobot._pinged = rnd
-                if not hitrobot.alive:
-                    kind = 'R'
-            elif kind == 'bullet':
-                shooter = hitbody.userData['shooter']
-                if shooter == robot:
-                    kind = 'B'
+                actor = hitbody.userData['actor']
+                if actor._pinged != rnd - 1:
+                    actor._pinged = rnd
             return kind, angle, dist
         else:
             # Not sure why shape returns None here. Seems to be when the
@@ -390,13 +384,13 @@ class World(object):
         for name, robot in self.robots.items():
             r = robot.body
             #robot.turretcontrol()
-            #vel = r.linearVelocity.Length()
-            #pos = r.position.Length()
+            #vel = r.linearVelocity.length
+            #pos = r.position.length
             pos2 = r.position
             ang = r.angle
 
             turret = robot.turretjoint
-            tang = turret.GetJointAngle()
+            tang = turret.angle
 
             #print '{name}: {pos:6.2f} {ang:5.1f} {vel:5.1f}'.format(
             #            name=name, vel=vel, pos=pos, ang=ang)
@@ -513,14 +507,12 @@ class World(object):
 
 
 class CL(box2d.b2ContactListener):
-    def Result(self, result):
-        s1 = result.shape1
-        b1 = s1.GetBody()
+    def PostSolve(self, contact, impulse):
+        b1 = contact.fixtureA.body
+        b2 = contact.fixtureB.body
+
         actor1 = b1.userData['actor']
         kind1 = b1.userData.get('kind', None)
-
-        s2 = result.shape2
-        b2 = s2.GetBody()
         actor2 = b2.userData['actor']
         kind2 = b2.userData.get('kind', None)
 
@@ -528,14 +520,17 @@ class CL(box2d.b2ContactListener):
         hitdmg = conf.direct_hit_damage
         cds = conf.collision_damage_start
         cdf = conf.collision_damage_factor
-        nimpulse = result.normalImpulse
-        timpulse = result.tangentImpulse
-        impulse = box2d.b2Vec2(nimpulse, timpulse).Length()
-        coldmg = int((cdf * (impulse - cds))**2) + 1
+        nimpulse = max(impulse.normalImpulses)
+        coldmg = int((cdf * (nimpulse - cds))**2) + 1
 
         if kind2=='robot':
             if kind1=='bullet':
-                ring = s1.userData.get('ring', None)
+                s1 = contact.fixtureA.shape
+                if hasattr(s1, 'userData'):
+                    ring = s1.userData.get('ring', None)
+                else:
+                    ring = None
+
                 shooter = b1.userData['shooter']
                 if ring is None and shooter == actor2:
                     #can't shoot yourself
@@ -547,16 +542,17 @@ class CL(box2d.b2ContactListener):
                     hits = s1.userData['hits']
                     if actor2 not in hits[ring]:
                         dmg = conf.explosion_damage[ring]
-                        print 'Robot', actor2.name, 'in blast area for', dmg
+                        print '    Robot', actor2.name, 'in blast area for', dmg,
                         hits[ring].append(actor2)
                     else:
                         pass
                         #print actor2.name, 'already hit by ring', ring
             else:
                 shooter = None
-                if impulse > cds:
+                if nimpulse > cds:
                     dmg = coldmg
-                    print 'Robot', actor2.name, 'coll for', dmg,
+                    print 'Robot', actor2.name, 'collision with', kind1
+                    print '    IMP', nimpulse, 'for', dmg, 'damage',
 
             if dmg:
                 before = actor2.health
@@ -578,7 +574,12 @@ class CL(box2d.b2ContactListener):
 
         if kind1=='robot':
             if kind2=='bullet':
-                ring = s2.userData.get('ring', None)
+                fB = contact.fixtureB
+                s2 = contact.fixtureA.shape
+                if hasattr(fB, 'userData') and fB.userData is not None:
+                    ring = fB.userData.get('ring', None)
+                else:
+                    ring = None
                 shooter = b2.userData['shooter']
                 if ring is None and shooter == actor1:
                     #can't shoot yourself
@@ -587,19 +588,20 @@ class CL(box2d.b2ContactListener):
                     dmg = hitdmg
                     print 'Robot', actor1.name, 'shot for', dmg,
                 else:
-                    hits = s2.userData['hits']
+                    hits = fB.userData['hits']
                     if actor1 not in hits[ring]:
                         dmg = conf.explosion_damage[ring]
-                        print 'Robot', actor1.name, 'in blast area for', dmg
+                        print '    Robot', actor1.name, 'in blast area for', dmg,
                         hits[ring].append(actor1)
                     else:
                         pass
                         #print actor1.name, 'already hit by ring', ring
             else:
                 shooter = None
-                if impulse > cds:
+                if nimpulse > cds:
                     dmg = coldmg
-                    print 'Robot', actor1.name, 'coll for', dmg,
+                    print 'Robot', actor1.name, 'collision with', kind2
+                    print '    IMP', nimpulse, 'for', dmg, 'damage',
 
             if dmg:
                 before = actor1.health

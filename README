@@ -47,15 +47,15 @@ DEPENDENCIES
 
 python:
     http://python.org/
-        (tested with python-2.7.3)
+        (tested with python-2.7.5)
 
 pybox2d:
     http://pybox2d.googlecode.com/
-        (tested with pybox2d-2.0.2b2)
+        (tested with pybox2d-2.3b0)
 
 pyqt4 (optional, but strongly recommended):
     http://www.riverbankcomputing.co.uk/software/pyqt/
-        (tested with pyqt-4.8.1)
+        (tested with pyqt-4.10.3)
 
 pygame (optional):
     http://pygame.org/

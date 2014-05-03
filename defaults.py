@@ -50,7 +50,7 @@ graphical_display = True
 
 
 # Physics
-pybox2d_version = '2.0.2b2'
+pybox2d_version = '2.3b0'
 
 ## robot
 maxforce = 5
