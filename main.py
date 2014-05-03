@@ -46,27 +46,31 @@ except ImportError:
 
 import viewselect
 
-pybox2d_error = False
-try:
-    import pkg_resources
-    pkg_resources.require('Box2D==%s'%conf.pybox2d_version)
-except ImportError:
-    pass
-except pkg_resources.VersionConflict:
-    pass
+def check_pybox2d_version():
+    pybox2d_error = False
+    try:
+        import pkg_resources
+        pkg_resources.require('Box2D==%s'%conf.pybox2d_version)
+    except ImportError:
+        pass
+    except pkg_resources.VersionConflict:
+        pass
 
-try:
-    import Box2D
-except ImportError:
-    pybox2d_error = True
-else:
-    if not Box2D.__version__ == conf.pybox2d_version:
+    try:
+        import Box2D
+    except ImportError:
         pybox2d_error = True
+    else:
+        if not Box2D.__version__ == conf.pybox2d_version:
+            pybox2d_error = True
 
-if pybox2d_error:
-    print 'Unable to import PyBox2D'
-    print 'requires version', conf.pybox2d_version
-    raise SystemExit
+    if pybox2d_error:
+        print 'Unable to import PyBox2D'
+        print 'requires version', conf.pybox2d_version
+        print
+        print 'If running with Qt interface, try clearing Qt settings with:'
+        print 'python main.py -S'
+        raise SystemExit
 
 def setup_logging(level='info'):
     import logging
@@ -217,6 +221,8 @@ def reset_qt_settings():
 def runmain():
     if qtreset:
         reset_qt_settings()
+        
+    check_pybox2d_version()
 
     if upgrade_db:
         print 'Upgrading Database'
